@@ -6,13 +6,13 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width" />
     <title>HTML 변환기</title>
-    <!-- Use FontAwesome for simple icons -->
+    
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
-    <!-- Use Marked.js for Markdown parsing (Specific version for stability) -->
+    
     <script src="https://cdn.jsdelivr.net/npm/marked@4.3.0/marked.min.js"></script>
-    <!-- html2canvas for preview-to-image copy -->
+    
     <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
-    <!-- Pre-processed Global Model Data (Auto-generated from Excel) -->
+    
     <script src="global-model-data.js"></script>
 
     <style type="text/css">
@@ -63,7 +63,6 @@
             text-align: left !important;
         }
 
-        /* 구글 번역 위젯 스타일 */
         #google_translate_element {
             display: inline-flex;
             align-items: center;
@@ -93,7 +92,6 @@
         body {
             top: 0px !important;
         }
-
 
         .ml-1 {
             margin-left: 20px !important;
@@ -402,8 +400,6 @@
             }
         }
 
-
-
         .content-service-view .tbl-scroll td p {
             margin-bottom: 0;
         }
@@ -412,7 +408,6 @@
             background-color: rgba(236, 69, 90, 0.06);
         }
 
-        /* Converter Application Styles */
         body {
             background-color: #f0f0f2;
             margin: 0;
@@ -492,7 +487,6 @@
             outline: none;
         }
 
-        /* Editor Styles */
         .editor-container {
             border: 1px solid #e0e0e0;
             border-radius: var(--radius-md);
@@ -562,7 +556,6 @@
             color: #0078d4;
         }
 
-        /* Color Tool Split Button */
         .color-tool-split {
             display: inline-flex;
             align-items: stretch;
@@ -649,7 +642,6 @@
             outline: none;
         }
 
-        /* 크롬/사파리에서 숫자 버튼 항상 보이기 */
         .ed-toolbar-h::-webkit-inner-spin-button,
         .ed-toolbar-h::-webkit-outer-spin-button,
         .ed-toolbar-w::-webkit-inner-spin-button,
@@ -694,7 +686,6 @@
             border: 0.5px solid rgba(0, 0, 0, 0.1);
         }
 
-        /* Color Picker Popup */
         .color-picker-popup {
             position: absolute;
             background: white;
@@ -868,7 +859,6 @@
             color: var(--lg-dark-gray);
         }
 
-
         .btn-convert {
             display: block;
             width: 100%;
@@ -921,7 +911,6 @@
             border-radius: var(--radius-md);
         }
 
-        /* Markdown Preview Styles */
         .section-content ul {
             margin: 0 0 20px;
             padding: 0;
@@ -972,7 +961,6 @@
             background-color: #333;
         }
 
-        /* Mobile Responsive Tabs */
         .mobile-tabs {
             display: none;
             background: white;
@@ -1001,7 +989,6 @@
             border-bottom-color: var(--lg-red);
         }
 
-        /* Mobile Media Queries */
         @media screen and (max-width: 1024px) {
             .app-container {
                 flex-direction: column;
@@ -1043,7 +1030,7 @@
                 box-shadow: none;
                 padding: 15px;
                 display: none;
-                /* Controlled by JS */
+
             }
 
             .input-panel.active,
@@ -1053,7 +1040,7 @@
 
             .editor-toolbar button {
                 padding: 10px 15px;
-                /* Larger touch targets */
+
                 font-size: 15px;
             }
 
@@ -1079,7 +1066,6 @@
             }
         }
 
-        /* Modal Styles for Visual Table Editor */
         .modal {
             display: none;
             position: fixed;
@@ -1202,7 +1188,6 @@
             background-color: #e5e5e5;
         }
 
-        /* Clear button styles */
         .input-wrap {
             position: relative;
             flex: 1;
@@ -1224,7 +1209,7 @@
             font-size: 12px;
             cursor: pointer;
             display: none;
-            /* Hidden by default */
+
             z-index: 5;
         }
 
@@ -1232,7 +1217,6 @@
             background: #999;
         }
 
-        /* 언어 선택 버튼 스타일 */
         .lang-btn-group {
             display: flex;
             background: #f0f0f2;
@@ -1268,7 +1252,6 @@
             color: #444;
         }
 
-        /* 로딩 인디케이터 */
         #loadingOverlay {
             display: none;
             position: fixed;
@@ -1318,10 +1301,9 @@
     </div>
 
     <div class="app-container">
-        <!-- Hidden Data Container for Product Selection -->
+        
         <div class="postData" style="display:none;" data-productlv2="['ALL']" data-productlv3="['ALL']"></div>
 
-        <!-- Input Panel -->
         <div class="input-panel active notranslate" id="inputPanel">
             <h2 class="panel-title">
                 <div style="display: flex; align-items: center; flex-wrap: wrap; gap: 5px;">
@@ -1384,14 +1366,13 @@
                 <label>조치 방법 (요약)</label>
                 <div class="editor-container">
                     <div class="editor-toolbar">
-                        <!-- JS에서 TOOLBAR_HTML 주입 -->
+                        
                     </div>
                     <div id="inActionSummary" class="editor-content-view paste-area" contenteditable="true"
                         placeholder="예: LQC 모드 진입 시에만 발생되며, 에러 발생 시 메인 PCB 교체 안내"></div>
                 </div>
             </div>
 
-            <!-- Pre-defined sections -->
             <div
                 style="margin-top: 30px; margin-bottom: 20px; border-bottom: 2px solid var(--lg-red); padding-bottom: 10px;">
                 <h3 style="color: var(--lg-red); margin: 0; font-size: 18px;">내용 입력 <span
@@ -1406,7 +1387,7 @@
                 </div>
                 <div class="editor-container">
                     <div class="editor-toolbar">
-                        <!-- JS에서 TOOLBAR_HTML 주입 -->
+                        
                     </div>
                     <div id="inSymptom" class="editor-content-view paste-area" contenteditable="true"
                         placeholder="예: - LE9 에러 발생"></div>
@@ -1421,7 +1402,7 @@
                 </div>
                 <div class="editor-container">
                     <div class="editor-toolbar">
-                        <!-- JS에서 TOOLBAR_HTML 주입 -->
+                        
                     </div>
                     <div id="inCause" class="editor-content-view paste-area" contenteditable="true"
                         placeholder="예: - 메인 PCB 불량"></div>
@@ -1436,16 +1417,15 @@
                 </div>
                 <div class="editor-container">
                     <div class="editor-toolbar">
-                        <!-- JS에서 TOOLBAR_HTML 주입 -->
+                        
                     </div>
                     <div id="inRepairMethod" class="editor-content-view paste-area" contenteditable="true"
                         placeholder="예: - LQC 모드 진입 시에만 발생되며, 에러 발생 시 메인 PCB 교체 안내"></div>
                 </div>
             </div>
 
-            <!-- Dynamic Sections Container -->
             <div id="dynamicSections">
-                <!-- Additional sections will be added here -->
+                
             </div>
 
             <button class="btn-add-section" onclick="addDynamicSection()">+ 섹션 추가</button>
@@ -1453,7 +1433,6 @@
             <button class="btn-convert" onclick="generateHTML()">HTML 변환 생성</button>
         </div>
 
-        <!-- Preview Panel -->
         <div class="preview-panel" id="previewPanel">
             <h2 class="panel-title notranslate">
                 <div style="display: flex; align-items: center; gap: 10px;">
@@ -1491,7 +1470,6 @@
         </div>
     </div>
 
-    <!-- HTML Viewer Input Modal -->
     <div id="htmlViewerModal" class="modal notranslate">
         <div class="modal-content" style="max-width: 900px; width: 90%;">
             <span class="close-modal" onclick="closeHTMLViewerModal()">&times;</span>
@@ -1519,7 +1497,6 @@
         </div>
     </div>
 
-    <!-- Table Editor Modal -->
     <div id="tableModal" class="modal notranslate">
         <div class="modal-content">
             <span class="close-modal" onclick="closeTableModal()">&times;</span>
@@ -1563,7 +1540,7 @@
                 <span>마우스로 테두리를 잡고 조절하거나 위 입력창에 숫자를 직접 입력하세요. (PPT 동일 방식)</span>
             </div>
             <div id="visualTableContainer" style="overflow-x:auto; max-height:400px; overflow-y:auto;">
-                <!-- Visual Table will be generated here -->
+                
             </div>
             <div style="text-align: right; margin-top: 20px;">
                 <button class="btn-secondary" onclick="closeTableModal()">취소</button>
@@ -1572,7 +1549,6 @@
         </div>
     </div>
 
-    <!-- Color Picker Popup -->
     <div id="customColorPicker" class="color-picker-popup" onmousedown="event.preventDefault()">
         <div class="cp-section-title">테마 색상</div>
         <div id="themeColorsGrid" class="cp-grid"></div>
@@ -1581,16 +1557,15 @@
         <div class="cp-section-title">기타</div>
         <div class="cp-more-btn" onclick="triggerNativeColorInput()"><i class="fas fa-palette"></i> 다른 색 선택...</div>
         <input type="color" id="nativeColorInput" style="display:none;" onchange="selectQuickColor(this.value)">
-        <!-- Global Excel File Input (Hidden) -->
+        
         <input type="file" id="excelFileInput" style="display:none;" accept=".xlsx, .xls"
             onchange="handleFileSelect(event)">
     </div>
 
     <script>
-        // Global을 위한 전역 상태
+
         let appRegion = 'ko'; // 'ko' or 'global'
-        // globalExcelData는 외부 스크립트(global-model-data.js)에서 이미 선언되어 로드됩니다.
-        // 언어 선택 상태 관리 (UI 토글용)
+
         async function changeAppLanguage(lang) {
             const koBtn = document.getElementById('btnLangKo');
             const enBtn = document.getElementById('btnLangEn');
@@ -1604,16 +1579,14 @@
                 enBtn.classList.add('active');
                 koBtn.classList.remove('active');
 
-                // Global 선택 시 엑셀 데이터 로드 시도
                 if (!globalExcelData) {
                     await loadGlobalExcelData();
                 } else {
-                    // 이미 로드된 경우 리스트 갱신
+
                     renderLv2List();
                 }
             }
 
-            // 지역 전환 시 기존 선택값 초기화 (데이터셋이 다르므로 필수)
             clearProductFamily();
             clearAppliedModel();
 
@@ -1621,7 +1594,7 @@
         }
 
         async function loadGlobalExcelData() {
-            // 이미 global-model-data.js가 <script> 태그로 로드되어 window.globalExcelData에 담겨 있습니다.
+
             if (typeof globalExcelData !== 'undefined' && globalExcelData !== null) {
                 console.log('Global model data already loaded from JS file:', globalExcelData.length, 'rows');
                 return;
@@ -1629,16 +1602,13 @@
 
             console.warn('globalExcelData not found. JS file might be missing or failed to load.');
 
-            // 만약 로드되지 않았다면 기존처럼 수동 선택 안내만 남김 (HTML 파서 제거로 인해 수동 선택도 제약될 수 있음)
             if (confirm('Global 모델 데이터(global-model-data.js)를 찾을 수 없습니다. 파일을 확인해 주세요.')) {
-                // 수동 선택 기능은 현재 비활성화됨
+
             } else {
                 changeAppLanguage('ko');
             }
         }
 
-        // Note: global-model-data.js 방식으로 전환되어 엑셀 파싱 로직이 제거
-        // Custom renderer to wrap tables in .tbl-scroll div
         const renderer = new marked.Renderer();
         renderer.table = function (header, body) {
             return `
@@ -1673,7 +1643,6 @@
             renderer: renderer
         });
 
-        // --- Shared Toolbar HTML ---
         const TOOLBAR_HTML = `
             <select onchange="changeFontFamily(this)" class="font-family-select" onmousedown="event.stopPropagation()">
                 <option value="'LG Smart UI Regular', 'LG Smart UI', '맑은 고딕'" selected>LG 스마트체</option>
@@ -1712,10 +1681,9 @@
             </div>
         `;
 
-        // --- Editor Core ---
         let lastFocusedEditor = null, selectionRange = null, activeToolbar = null, activeColorType = 'foreColor';
         let isRestoringSelection = false;
-        // Editor Table Resize Variables
+
         let edIsRowResizing = false, edIsColResizing = false, edIsImgResizing = false;
         let edStartX, edStartY, edStartW, edStartH, edStartTableW, edStartImgW;
         let edTargetCell = null, edTargetRow = null, edTargetImg = null, edImgCorner = '';
@@ -1726,7 +1694,7 @@
             const sel = window.getSelection();
             if (sel && sel.rangeCount > 0) {
                 const newRange = sel.getRangeAt(0);
-                // 커서 위치가 바뀌면 수동 변경 모드 해제
+
                 if (selectionRange && (newRange.startContainer !== selectionRange.startContainer || newRange.startOffset !== selectionRange.startOffset)) {
                     window.isManualFontSizeChange = false;
                 }
@@ -1753,7 +1721,6 @@
                     const fs = window.getComputedStyle(node).fontSize;
                     const selects = document.querySelectorAll('.font-size-select');
 
-                    // 수동 변경 직후라면 자동 동기화를 한 번 건너뜀 (사용자 선택 유지)
                     if (window.isManualFontSizeChange) {
                         return;
                     }
@@ -1851,7 +1818,6 @@
 
         function clearTextarea(btn) { clearEditor(btn); }
 
-        // --- Colors ---
         function applyLastColor(type, e) {
             e.stopPropagation(); activeColorType = type;
             const color = e.currentTarget.querySelector('.color-bar').style.backgroundColor || 'red';
@@ -1904,23 +1870,20 @@
             document.getElementById('customColorPicker').onclick = e => e.stopPropagation();
         }
 
-        // Bind paste events to existing paste-areas
         document.querySelectorAll('.paste-area').forEach(el => {
             el.addEventListener('paste', handleContentPaste);
             el.addEventListener('focus', () => { lastFocusedEditor = el; saveSelectionState(); });
             el.addEventListener('mouseup', saveSelectionState);
             el.addEventListener('keyup', () => {
-                // 글자를 입력하기 시작하면 수동 변경 모드 해제 (스타일이 입혀졌으므로)
+
                 window.isManualFontSizeChange = false;
                 saveSelectionState();
             });
         });
 
-        // Inject toolbar HTML into all editor-toolbar divs and init color picker
         document.querySelectorAll('.editor-toolbar').forEach(tb => { tb.innerHTML = TOOLBAR_HTML; });
         initColorPicker();
 
-        // --- Editor Content Table Resize (Row & Column) ---
         let edNextStartW = 0, edNextRowStartH = 0;
         window.addEventListener('mousedown', function (e) {
             const cell = e.target.closest('.editor-content-view td, .editor-content-view th');
@@ -1932,7 +1895,6 @@
                 const tbl = cell.closest('table');
                 if (!tbl) return;
 
-                // --- Editor Element Tracking (단순 클릭 시에도 툴바 업데이트) ---
                 updateActiveElementForToolbar(tbl);
 
                 if (isRightEdge || isLeftEdge || isBottomEdge) {
@@ -1940,7 +1902,7 @@
                     edStartY = e.clientY;
                     if (isRightEdge || isLeftEdge) {
                         edIsPendingColResize = true;
-                        // 왼쪽 경계선을 잡았을 경우 이전 셀을 타겟팅
+
                         edTargetCell = isRightEdge ? cell : cell.previousElementSibling;
                         if (!edTargetCell && isLeftEdge) edTargetCell = cell;
                     }
@@ -1953,7 +1915,6 @@
                 }
             }
 
-            // --- Editor Image Resize Initial ---
             const img = e.target.closest('.editor-content-view img');
             if (img) {
                 const iRect = img.getBoundingClientRect();
@@ -1962,7 +1923,7 @@
                 const isR = e.clientX > iRect.right - pad;
                 const isT = e.clientY < iRect.top + pad;
                 const isB = e.clientY > iRect.bottom + pad; // Wait, rect.bottom is absolute, so e.clientY > rect.bottom - pad is correct
-                // Correct coordinate check:
+
                 const isLeft = (e.clientX - iRect.left) < pad;
                 const isRight = (iRect.right - e.clientX) < pad;
                 const isTop = (e.clientY - iRect.top) < pad;
@@ -1974,7 +1935,7 @@
                     edIsPendingImgResize = true;
                     edTargetImg = img;
                     edStartImgW = iRect.width;
-                    // 기존에 박혀있을 수 있는 고정 width 속성 제거 (스타일 우선 적용을 위해)
+
                     img.removeAttribute('width');
                     img.style.height = 'auto';
                     if (isLeft && isTop) edImgCorner = 'tl';
@@ -1986,7 +1947,7 @@
                     e.preventDefault();
                     return;
                 } else {
-                    // 리사이즈 영역은 아니지만 이미지를 클릭했을 때 툴바 값 업데이트
+
                     updateActiveElementForToolbar(img);
                 }
             }
@@ -1998,7 +1959,6 @@
             edActiveElement = el;
             if (!el) return;
 
-            // 모든 에디터 툴바의 수치를 동기화하여 사용자 혼동 방지
             const w = Math.round(el.offsetWidth);
             const h = Math.round(el.offsetHeight);
 
@@ -2015,7 +1975,7 @@
                 if (type === 'width') {
                     edActiveElement.style.width = val + 'px';
                     edActiveElement.style.tableLayout = 'fixed';
-                    // 첫 번째 행의 셀 너비들도 균형있게 조정 (에디터 내 테이블 특성)
+
                     const firstRow = edActiveElement.rows[0];
                     if (firstRow) {
                         const cellCount = firstRow.cells.length;
@@ -2046,7 +2006,6 @@
             if (!tbl) return;
             edIsColResizing = true;
 
-            // 핵심: 리사이즈를 방해하는 모든 제약 해제 (줄바꿈 허용 포함)
             tbl.querySelectorAll('td, th').forEach(c => {
                 c.style.minWidth = '0';
                 c.style.maxWidth = 'none';
@@ -2197,14 +2156,12 @@
             edIsPendingColResize = edIsPendingRowResize = edIsPendingImgResize = false;
             document.body.style.cursor = ''; document.body.style.userSelect = '';
 
-            // 수동 크기 변경 후 클릭했을 때, 해당 위치에 선택한 크기 강제 재적용
             if (window.isManualFontSizeChange) {
                 const select = document.querySelector('.font-size-select');
                 if (select) applyStyleToSelection('fontSize', select.value);
             }
         });
 
-        // --- Table Modal Logic ---
         let lastFocusedTextarea = null;
 
         function openTableModal(e) {
@@ -2222,7 +2179,6 @@
             if (event.target === document.getElementById('tableModal')) closeTableModal();
         };
 
-        // --- Table Size Input Sync ---
         function syncSizeInputs(tbl) {
             if (!tbl) return;
             document.getElementById('tblTotalWidth').value = Math.round(tbl.offsetWidth);
@@ -2238,7 +2194,7 @@
             if (w) tbl.style.width = w + 'px';
             if (h) {
                 tbl.style.height = h + 'px';
-                // 행 높이 균등 분할
+
                 const rowH = h / tbl.rows.length;
                 for (let row of tbl.rows) {
                     row.style.height = rowH + 'px';
@@ -2288,7 +2244,6 @@
             closeTableModal();
         }
 
-        // --- Table Resize (Row & Column) ---
         let tblStartX, tblStartY, tblStartW, tblStartH, tblStartTableW;
         let tblTargetCell = null, tblTargetRow = null;
         let isTblColResizing = false, isTblRowResizing = false;
@@ -2343,7 +2298,7 @@
                                 tbl.style.width = tblStartTableW.toFixed(2) + 'px';
                                 tbl.style.tableLayout = 'fixed';
                                 document.body.style.cursor = 'ew-resize';
-                                // 입력창 값 초기화 유도
+
                                 syncSizeInputs(tbl);
                             }
                             if (isPendingTblRowResize && tblTargetRow) {
@@ -2409,20 +2364,17 @@
             });
         }
 
-        // --- Paste Handling (Image & Excel & HTML) ---
         function handleContentPaste(e) {
             const d = e.clipboardData || e.originalEvent.clipboardData;
             const t = d.getData('text/plain');
             const h = d.getData('text/html');
 
-            // 1. HTML 내용 (Excel, Word 등에서 복사)
             if (h) {
                 e.preventDefault();
                 processHTML(h);
                 return;
             }
 
-            // 2. 엑셀 형태 탭 구분 텍스트
             if (t && t.indexOf('\t') !== -1) {
                 e.preventDefault();
                 const lines = t.trim().split(/\r\n|\n|\r/), rows = lines.map(line => line.split('\t')), max = Math.max(...rows.map(r => r.length));
@@ -2441,7 +2393,6 @@
                 return;
             }
 
-            // 3. 이미지 파일
             for (let item of d.items) {
                 if (item.kind === 'file' && item.type.startsWith('image/')) {
                     const file = item.getAsFile();
@@ -2451,17 +2402,17 @@
                         reader.onload = ev => {
                             const img = new Image();
                             img.onload = () => {
-                                // 800px 제한 해제: 원본 크기를 기본으로 하며 툴바에서 자유롭게 조절 가능
+
                                 const w = img.width;
                                 const insertedHtml = `<span class="img-only"><img src="${ev.target.result}" style="width:${w}px;" class="xfe_just_info"></span>&nbsp;`;
                                 insertHTML(insertedHtml);
-                                // 삽입 직후 해당 이미지를 찾아 툴바 값 자동 입력
+
                                 setTimeout(() => {
                                     const recentlyAddedImgs = document.querySelectorAll('.editor-content-view img');
                                     const latestImg = recentlyAddedImgs[recentlyAddedImgs.length - 1];
                                     if (latestImg) {
                                         updateActiveElementForToolbar(latestImg);
-                                        // 시각적으로 선택되었음을 알리기 위해 툴바에 포커스 유도 가능 (선택 사항)
+
                                     }
                                 }, 50);
                             };
@@ -2473,7 +2424,6 @@
                 }
             }
 
-            // 4. 일반 텍스트
             if (t && t.trim().length > 0) {
                 e.preventDefault();
                 insertHTML(t.replace(/\n/g, '<br>'));
@@ -2518,7 +2468,7 @@
                             el.style.width = 'auto'; el.style.borderCollapse = 'collapse';
                         } else if (tag === 'td' || tag === 'th' || tag === 'col' || tag === 'tr') {
                             if (tag === 'td' || tag === 'th') {
-                                // 셀 내부 텍스트의 좌우 공백 제거 (사용자 요청: 여백 최소화)
+
                                 el.innerHTML = el.innerHTML.replace(/&nbsp;/g, ' ').trim().replace(/ +/g, ' ');
                                 el.style.padding = '2px 4px'; el.style.lineHeight = '1.2'; el.style.fontSize = '13px';
                                 el.style.border = '1px solid #ccc';
@@ -2526,14 +2476,10 @@
                                 el.style.verticalAlign = 'middle'; // 수직 중앙 강제
                             }
                             if (el.dataset.bg) el.style.backgroundColor = el.dataset.bg;
-                            // 사용자 요청에 따라 원본(엑셀)의 정렬 데이터(dataset.ta)를 무시하고 무조건 가운데 정렬 유지
-                            // if (el.dataset.ta) el.style.textAlign = el.dataset.ta; 
-                            // if (el.dataset.va) el.style.verticalAlign = el.dataset.va;
+
                             if (el.dataset.fw && el.dataset.fw !== '400' && el.dataset.fw !== 'normal') el.style.fontWeight = 'bold';
                             if (el.dataset.color) el.style.color = el.dataset.color;
-                            // 너비/높이는 강제 지정하지 않음으로써 최소 사이즈 유지 (content-fit)
-                            // if (el.dataset.w) el.style.width = el.dataset.w;
-                            // if (el.dataset.h) el.style.height = el.dataset.h;
+
                         }
                     }
                 });
@@ -2546,13 +2492,12 @@
                     }
                 });
 
-                // 이미지 가로 배치를 방해하는 불필요한 감싸기 태그(div, p) 제거
                 const allImgs = tempDiv.querySelectorAll('img');
                 if (allImgs.length > 0) {
                     allImgs.forEach(img => {
                         img.style.display = 'inline-block';
                         img.style.verticalAlign = 'top';
-                        // 부모가 div나 p이고 자식이 이미지만 있다면 부모 해제
+
                         let parent = img.parentElement;
                         if (parent && (parent.tagName === 'DIV' || parent.tagName === 'P')) {
                             if (parent.querySelectorAll('*').length === 1 && parent.textContent.trim() === "") {
@@ -2565,14 +2510,12 @@
             }
         }
 
-
         function insertToTextArea(textarea, content) {
             const start = textarea.selectionStart;
             const end = textarea.selectionEnd;
             const text = textarea.value;
             textarea.value = text.substring(0, start) + content + text.substring(end);
         }
-
 
         function addDynamicSection() {
             const container = document.getElementById('dynamicSections');
@@ -2594,7 +2537,6 @@
 
             container.insertAdjacentHTML('beforeend', sectionHtml);
 
-            // Inject toolbar and attach listeners to new editor
             const newSection = container.lastElementChild;
             newSection.querySelector('.editor-toolbar').innerHTML = TOOLBAR_HTML;
             const newEditor = newSection.querySelector('.paste-area');
@@ -2616,7 +2558,6 @@
             const targetSerial = document.getElementById('inTargetSerial').value;
             const actionSummary = document.getElementById('inActionSummary').innerHTML;
 
-            // Fixed sections
             const symptomTitle = document.getElementById('inSymptomTitle').value;
             const symptom = document.getElementById('inSymptom').innerHTML;
             const causeTitle = document.getElementById('inCauseTitle').value;
@@ -2628,17 +2569,13 @@
             function generateSection(title, content) {
                 if (!content) return "";
 
-                // 실제 내용이 있는지 더 정확하게 체크하기 위해 임시 엘리먼트 활용
                 const temp = document.createElement('div');
                 temp.innerHTML = content;
 
-                // 보이지 않는 특수문자(제로 너비 공백 등) 제거 후 텍스트 확인
                 const text = temp.textContent.replace(/[\u200B-\u200D\uFEFF]/g, '').trim();
 
-                // 이미지, 표, iframe(영상) 등이 포함되어 있는지 확인
                 const hasMedia = temp.querySelector('img, table, iframe') !== null;
 
-                // 내용이 전혀 없으면(텍스트도 없고 미디어도 없으면) 빈 문자열 반환 (번호 증가 안 함)
                 if (text.length === 0 && !hasMedia) {
                     return "";
                 }
@@ -2652,12 +2589,10 @@ ${content}`;
             let actionSummaryHtml = actionSummary;
             let sectionsHtml = "";
 
-            // Generate fixed sections
             sectionsHtml += generateSection(symptomTitle, symptom);
             sectionsHtml += generateSection(causeTitle, cause);
             sectionsHtml += generateSection(repairTitle, repairMethod);
 
-            // Generate dynamic sections
             const dynSections = document.querySelectorAll('.dynamic-section');
             dynSections.forEach(sec => {
                 const dTitle = sec.querySelector('.dyn-title').value || "추가 섹션";
@@ -2665,7 +2600,6 @@ ${content}`;
                 sectionsHtml += generateSection(dTitle, dContent);
             });
 
-            // Get updated product data attributes
             const postDataDiv = document.querySelector('.postData');
             const pLv2 = postDataDiv.getAttribute('data-productlv2') || "['ALL']";
             const pLv3 = postDataDiv.getAttribute('data-productlv3') || "['ALL']";
@@ -2673,7 +2607,6 @@ ${content}`;
 
             const postDataHtml = `<div class="postData" data-productlv2="${pLv2}" data-productlv3="${pLv3}" data-model="${pModel}"></div>`;
 
-            // Build table rows dynamically
             const tableRows = [];
             if (title && title.trim()) {
                 tableRows.push(`<tr><th class="xfe_just_info">제목</th><td>${title}</td></tr>`);
@@ -2688,7 +2621,6 @@ ${content}`;
                 tableRows.push(`<tr><th class="xfe_just_info">대상 제번</th><td>${targetSerial}</td></tr>`);
             }
 
-            // Check if actionSummary has meaningful content
             const actionSummaryText = actionSummary.replace(/<[^>]*>/g, '').trim();
             if (actionSummaryText && actionSummaryText !== '내용을 입력하세요...') {
                 tableRows.push(`<tr><th class="xfe_just_info">조치 방법</th><td>${actionSummaryHtml}</td></tr>`);
@@ -2704,7 +2636,6 @@ ${tableRows.join('\n')}
 </div>
 ${sectionsHtml}`;
 
-            // Visual preview (inner only)
             const templateForPreview = `
     ${postDataHtml}
     <div class="content-service-view" style="padding: 10px">
@@ -2714,10 +2645,8 @@ ${sectionsHtml}`;
 
             document.getElementById('previewContainer').innerHTML = templateForPreview;
 
-            // 미리보기 복사 버튼 표시 (PPT용)
             document.getElementById('btnCopyPreview').style.display = 'inline-block';
 
-            // Full Code Output
             const fullOutputCode = `<html lang="ko">
 <head>
 <meta charset="utf-8"/>
@@ -3050,10 +2979,8 @@ ${contentBody}
 
             document.getElementById('codeOutput').value = fullOutputCode.trim();
 
-            // 미리보기 복사 버튼 표시 (HTML 뷰어는 항상 노출됨)
             document.getElementById('btnCopyPreview').style.display = 'inline-block';
 
-            // Auto-switch to preview tab on mobile
             if (window.innerWidth <= 768) {
                 switchTab('preview');
             }
@@ -3069,7 +2996,7 @@ ${contentBody}
                 alert("코드가 클립보드에 복사되었습니다.");
             }).catch(err => {
                 console.error('복사 실패: ', err);
-                // Fallback for older browsers
+
                 const textArea = document.getElementById("codeOutput");
                 textArea.select();
                 textArea.setSelectionRange(0, 99999);
@@ -3091,8 +3018,7 @@ ${contentBody}
             btn.disabled = true;
 
             try {
-                // html2canvas를 사용하여 미리보기 영역을 캔버스로 변환
-                // useCORS: true를 통해 외부 이미지(서버 허용 시) 포함 가능
+
                 const canvas = await html2canvas(previewEl, {
                     useCORS: true,
                     logging: false,
@@ -3100,14 +3026,13 @@ ${contentBody}
                     scale: 2 // 선명도를 위해 해상도 2배 확대
                 });
 
-                // 캔버스를 PNG Blob으로 변환
                 canvas.toBlob(async (blob) => {
                     if (!blob) {
                         throw new Error('Canvas to Blob 변환 실패');
                     }
 
                     try {
-                        // 최신 ClipboardItem API 사용 (이미지 복사)
+
                         if (navigator.clipboard && window.ClipboardItem) {
                             const item = new ClipboardItem({ [blob.type]: blob });
                             await navigator.clipboard.write([item]);
@@ -3145,7 +3070,6 @@ ${contentBody}
             const inputArea = document.getElementById('manualHtmlInput');
             const currentCode = document.getElementById('codeOutput').value;
 
-            // 변환된 코드가 있다면 즉시 채워줌
             inputArea.value = currentCode;
 
             modal.style.display = 'block';
@@ -3181,7 +3105,6 @@ ${contentBody}
             window.open(url, '_blank');
         }
 
-        // --- 구글 번역 기능 ---
         function googleTranslateElementInit() {
             window.googleTranslateElementCreated = true;
             try {
@@ -3192,7 +3115,6 @@ ${contentBody}
                     autoDisplay: false
                 }, 'google_translate_element');
 
-                // 로드 완료 시 스타일 조정
                 const el = document.getElementById('google_translate_element');
                 if (el) {
                     el.style.border = 'none';
@@ -3200,14 +3122,12 @@ ${contentBody}
                     el.style.minWidth = 'auto';
                 }
 
-                // 번역에 의한 변화 감지 및 자동 소스 코드 업데이트 
                 initTranslationObserver();
             } catch (e) {
                 console.error("번역 초기화 실패:", e);
             }
         }
 
-        // 번역 내용 감지용 옵저버
         let translationObserver = null;
         function initTranslationObserver() {
             const target = document.getElementById('previewContainer');
@@ -3216,7 +3136,7 @@ ${contentBody}
             if (translationObserver) translationObserver.disconnect();
 
             translationObserver = new MutationObserver((mutations) => {
-                // 번역 위젯에 의해 DOM이 변경되면 실행 (디바운스 적용)
+
                 clearTimeout(window.syncTimer);
                 window.syncTimer = setTimeout(() => {
                     syncTranslatedCode(true); // 자동 모드에서는 alert 제외
@@ -3230,7 +3150,6 @@ ${contentBody}
             });
         }
 
-        // 모달창 배경 클릭 시 닫기 기능 추가
         window.onclick = function (event) {
             const hvModal = document.getElementById('htmlViewerModal');
             const tbModal = document.getElementById('tableModal');
@@ -3242,7 +3161,6 @@ ${contentBody}
             }
         }
 
-        // 번역된 미리보기 내용을 소스 코드에 반영
         function syncTranslatedCode(isAuto = false) {
             const previewEl = document.getElementById('previewContainer');
             if (!previewEl || previewEl.querySelector('[style*="text-align: center"]')) {
@@ -3250,11 +3168,8 @@ ${contentBody}
                 return;
             }
 
-            // 구글 번역 스크립트가 삽입한 요소 및 클래스 정제
-            // 원본 DOM을 해치지 않기 위해 클론 사용
             const clone = previewEl.cloneNode(true);
 
-            // 구글 번역 관련 클래스 및 태그 제거
             clone.querySelectorAll('.goog-text-highlight').forEach(el => {
                 el.classList.remove('goog-text-highlight');
             });
@@ -3270,8 +3185,6 @@ ${contentBody}
             const serviceView = clone.querySelector('.content-service-view');
             const contentBody = serviceView ? serviceView.innerHTML : '';
 
-            // 스타일 코드는 기존 generateHTML에서 사용하는 것과 동일하게 빌드
-            // (여기서는 핵심 구조만 유지)
             const fullOutputCode = `<!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -3308,7 +3221,6 @@ ${contentBody}
             document.getElementById('codeOutput').value = fullOutputCode.trim();
         }
 
-        // 로딩 실패 감지 (5초 후 체크)
         setTimeout(() => {
             if (!window.googleTranslateElementCreated) {
                 const el = document.getElementById('google_translate_element');
@@ -3322,7 +3234,6 @@ ${contentBody}
 
     </script>
 
-    <!-- Product Family Selector Modal -->
     <div id="productModal" class="modal notranslate">
         <div class="modal-content" style="max-width: 800px;">
             <span class="close-modal" onclick="closeProductModal()">&times;</span>
@@ -3331,7 +3242,7 @@ ${contentBody}
                 제품군 선택</h2>
 
             <div style="display: flex; gap: 20px; height: 400px;">
-                <!-- Level 2 Selection -->
+                
                 <div style="flex: 1; border: 1px solid #ddd; padding: 10px; display: flex; flex-direction: column;">
                     <h3 style="margin-top: 0; font-size: 16px; border-bottom: 1px solid #eee; padding-bottom: 5px;">대분류
                         (Product Lv2)</h3>
@@ -3352,7 +3263,6 @@ ${contentBody}
                     </div>
                 </div>
 
-                <!-- Level 3 Selection -->
                 <div style="flex: 1; border: 1px solid #ddd; padding: 10px; display: flex; flex-direction: column;">
                     <h3 style="margin-top: 0; font-size: 16px; border-bottom: 1px solid #eee; padding-bottom: 5px;">소분류
                         (Product Lv3)</h3>
@@ -3376,14 +3286,11 @@ ${contentBody}
         </div>
     </div>
 
-    <!-- 구글 번역 스크립트 -->
     <script type="text/javascript"
         src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
 
-    <!-- 외부 모델 데이터 파일 참조 (html-convert-onepoint-V1-model-data.js 와 같은 폴더에 있어야 함) -->
     <script src="html-convert-onepoint-V1-model-data.js"></script>
 
-    <!-- Model Selector Modal -->
     <div id="modelModal" class="modal notranslate">
         <div class="modal-content" style="max-width: 600px;">
             <span class="close-modal" onclick="closeModelModal()">&times;</span>
@@ -3394,7 +3301,6 @@ ${contentBody}
             <div style="margin-bottom: 15px;">
                 <p id="modelFilterInfo" style="font-size: 14px; color: #666; margin-bottom: 5px;">선택된 제품군: 없음</p>
 
-                <!-- 법인 코드 필터 (Global 모드용) -->
                 <div id="corpFilterContainer" style="margin-bottom: 10px; display: none;">
                     <label style="font-size: 12px; font-weight: bold; margin-bottom: 3px; display: block;">법인 필터 (Corp
                         Cd):</label>
@@ -3431,7 +3337,7 @@ ${contentBody}
 
             <div id="modelList"
                 style="height: 300px; overflow-y: auto; border: 1px solid #ddd; padding: 10px; background: #fff;">
-                <!-- Model List Items will be injected here -->
+                
                 <div style="text-align: center; color: #999; margin-top: 100px;">
                     제품군을 먼저 선택하거나<br>
                     <button class="btn-secondary" style="font-size: 11px; margin-top: 10px;"
@@ -3446,12 +3352,10 @@ ${contentBody}
         </div>
     </div>
 
-    <!-- Script for Product & Model Selector -->
     <script>
-        // Real Data extracted from code.xlsx
+
         const productData = [{ "lv2Name": "시스템 에어컨", "lv2": "ACE", "lv3": "CHCHL", "lv3Name": "칠러" }, { "lv2Name": "시스템 에어컨", "lv2": "ACE", "lv3": "COCRA", "lv3Name": "상업용 천정형" }, { "lv2Name": "시스템 에어컨", "lv2": "ACE", "lv3": "COPAH", "lv3Name": "상업용 스탠드" }, { "lv2Name": "시스템 에어컨", "lv2": "ACE", "lv3": "GAGHP", "lv3Name": "가스식시스템에어컨" }, { "lv2Name": "시스템 에어컨", "lv2": "ACE", "lv3": "SYSBL", "lv3Name": "시스템보일러" }, { "lv2Name": "에어컨", "lv2": "AIC", "lv3": "REWRA", "lv3Name": "이동식 에어컨" }, { "lv2Name": "에어컨", "lv2": "AIC", "lv3": "STPAC", "lv3Name": "스탠드형 에어컨" }, { "lv2Name": "에어컨", "lv2": "AIC", "lv3": "TWPAT", "lv3Name": "2in1" }, { "lv2Name": "에어컨", "lv2": "AIC", "lv3": "WASRA", "lv3Name": "벽걸이형" }, { "lv2Name": "에어컨", "lv2": "AIC", "lv3": "WIWRA", "lv3Name": "창호형 에어컨" }, { "lv2Name": "공기청정기", "lv2": "ARC", "lv3": "AIARC", "lv3Name": "공기청정기" }, { "lv2Name": "공기청정기", "lv2": "ARC", "lv3": "EMARC", "lv3Name": "전자식 마스크" }, { "lv2Name": "AV", "lv2": "AUD", "lv3": "APAUD", "lv3Name": "오디오/플레이어" }, { "lv2Name": "AV", "lv2": "AUD", "lv3": "BTEAR", "lv3Name": "블루투스 이어폰" }, { "lv2Name": "AV", "lv2": "AUD", "lv3": "SOHTH", "lv3Name": "사운드바" }, { "lv2Name": "보일러", "lv2": "BLR", "lv3": "BOBLR", "lv3Name": "보일러" }, { "lv2Name": "소물액세서리", "lv2": "BUL", "lv3": "ACBUL", "lv3Name": "소물액세서리" }, { "lv2Name": "CDMA폰", "lv2": "CDM", "lv3": "RPCDM", "lv3Name": "CDMA폰" }, { "lv2Name": "실링팬", "lv2": "CLF", "lv3": "SECLF", "lv3Name": "실링팬" }, { "lv2Name": "상업용 디스플레이", "lv2": "CSP", "lv3": "DIDSM", "lv3Name": "디지털 사이니지" }, { "lv2Name": "상업용 디스플레이", "lv2": "CSP", "lv3": "LEDSM", "lv3Name": "LED 사이니지" }, { "lv2Name": "상업용 디스플레이", "lv2": "CSP", "lv3": "ONEQU", "lv3Name": "원퀵" }, { "lv2Name": "상업용 디스플레이", "lv2": "CSP", "lv3": "OTDSM", "lv3Name": "올레드 사이니지" }, { "lv2Name": "청소기", "lv2": "CVC", "lv3": "A9CLN", "lv3Name": "무선청소기" }, { "lv2Name": "청소기", "lv2": "CVC", "lv3": "GECVC", "lv3Name": "유선청소기" }, { "lv2Name": "청소기", "lv2": "CVC", "lv3": "GERBC", "lv3Name": "로봇청소기" }, { "lv2Name": "청소기", "lv2": "CVC", "lv3": "LARBJ", "lv3Name": "잔디깍이 로봇" }, { "lv2Name": "스타일러", "lv2": "DCS", "lv3": "SADCS", "lv3Name": "슈케이스" }, { "lv2Name": "스타일러", "lv2": "DCS", "lv3": "SCDCS", "lv3Name": "슈케어" }, { "lv2Name": "스타일러", "lv2": "DCS", "lv3": "STDCS", "lv3Name": "스타일러" }, { "lv2Name": "제습/가습기", "lv2": "DEH", "lv3": "DEDEH", "lv3Name": "제습기" }, { "lv2Name": "제습/가습기", "lv2": "DEH", "lv3": "DEHMD", "lv3Name": "가습기" }, { "lv2Name": "의류건조기", "lv2": "DRR", "lv3": "CLDRR", "lv3Name": "의류건조기" }, { "lv2Name": "세탁기", "lv2": "DRW", "lv3": "DUDRW", "lv3Name": "트롬" }, { "lv2Name": "세탁기", "lv2": "DRW", "lv3": "GEDRW", "lv3Name": "통돌이" }, { "lv2Name": "세탁기", "lv2": "DRW", "lv3": "MIDRW", "lv3Name": "미니세탁기" }, { "lv2Name": "일체형/데스크톱", "lv2": "DSK", "lv3": "CLDSK", "lv3Name": "클라우드 PC" }, { "lv2Name": "일체형/데스크톱", "lv2": "DSK", "lv3": "MUDSK", "lv3Name": "일체형/데스크톱" }, { "lv2Name": "식기세척기", "lv2": "DWM", "lv3": "DIDWM", "lv3Name": "식기세척기" }, { "lv2Name": "워시타워", "lv2": "DWS", "lv3": "WADWS", "lv3Name": "워시타워" }, { "lv2Name": "전기레인지", "lv2": "ELR", "lv3": "HIELR", "lv3Name": "하이라이트" }, { "lv2Name": "전기레인지", "lv2": "ELR", "lv3": "HYELR", "lv3Name": "하이브리드" }, { "lv2Name": "전기레인지", "lv2": "ELR", "lv3": "INELR", "lv3Name": "인덕션" }, { "lv2Name": "EV충전기", "lv2": "EVC", "lv3": "LSEVC", "lv3Name": "완속충전기" }, { "lv2Name": "171", "lv2": "EVF", "lv3": "급속충전기", "lv3Name": "" }, { "lv2Name": "선풍기", "lv2": "FAN", "lv3": "COFAN", "lv3Name": "선풍기" }, { "lv2Name": "석유식_온풍기", "lv2": "FHO", "lv3": "OIFHO", "lv3Name": "석유식_온풍기" }, { "lv2Name": "전기/가스식_온풍기", "lv2": "FHT", "lv3": "ELFHT", "lv3Name": "전기/가스식_온풍기" }, { "lv2Name": "광파오븐/전자레인지", "lv2": "GOR", "lv3": "ERGOR", "lv3Name": "전자레인지" }, { "lv2Name": "광파오븐/전자레인지", "lv2": "GOR", "lv3": "OVGOR", "lv3Name": "광파오븐레인지" }, { "lv2Name": "가스오븐/가스레인지", "lv2": "GRN", "lv3": "GAGRN", "lv3Name": "가스레인지" }, { "lv2Name": "가스오븐/가스레인지", "lv2": "GRN", "lv3": "GVGRN", "lv3Name": "가스오븐레인지" }, { "lv2Name": "맥주제조기", "lv2": "HBR", "lv3": "BEHBR", "lv3Name": "맥주제조기" }, { "lv2Name": "안마의자", "lv2": "HMC", "lv3": "MAHMC", "lv3Name": "안마의자" }, { "lv2Name": "홈넷", "lv2": "HNS", "lv3": "HOHNS", "lv3Name": "홈넷솔루션" }, { "lv2Name": "홈넷", "lv2": "HNS", "lv3": "INBMS", "lv3Name": "지능형빌딩자동제어시스템" }, { "lv2Name": "SMART폰", "lv2": "HSD", "lv3": "SMHSD", "lv3Name": "SMART폰" }, { "lv2Name": "히터", "lv2": "HTR", "lv3": "HOHTR", "lv3Name": "히터" }, { "lv2Name": "정수기", "lv2": "HWI", "lv3": "HCHWI", "lv3Name": "냉온정수기" }, { "lv2Name": "정수기", "lv2": "HWI", "lv3": "PUHWI", "lv3Name": "정수전용" }, { "lv2Name": "스마트씽큐", "lv2": "IOT", "lv3": "SMIOT", "lv3Name": "스마트씽큐" }, { "lv2Name": "키오스크", "lv2": "KOS", "lv3": "KIOSK", "lv3Name": "키오스크" }, { "lv2Name": "김치냉장고", "lv2": "KRE", "lv3": "COKRE", "lv3Name": "뚜껑식형" }, { "lv2Name": "김치냉장고", "lv2": "KRE", "lv3": "STKRE", "lv3Name": "스탠드형" }, { "lv2Name": "LED조명", "lv2": "LED", "lv3": "LELED", "lv3Name": "LED조명" }, { "lv2Name": "의료기기", "lv2": "MDD", "lv3": "HAMHC", "lv3Name": "메디헤어" }, { "lv2Name": "뷰티 디바이스", "lv2": "MHC", "lv3": "CLMHC", "lv3Name": "클렌징 기기" }, { "lv2Name": "뷰티 디바이스", "lv2": "MHC", "lv3": "REMHC", "lv3Name": "탄력기기" }, { "lv2Name": "모니터", "lv2": "MNT", "lv3": "CLMNT", "lv3Name": "클라우드 모니터" }, { "lv2Name": "모니터", "lv2": "MNT", "lv3": "MEMNT", "lv3Name": "의료용 모니터" }, { "lv2Name": "모니터", "lv2": "MNT", "lv3": "PCMNT", "lv3Name": "PC 모니터" }, { "lv2Name": "모니터", "lv2": "MNT", "lv3": "TVMNT", "lv3Name": "TV 모니터" }, { "lv2Name": "모니터", "lv2": "MNT", "lv3": "UGMNT", "lv3Name": "울트라 기어 게이밍 모니터" }, { "lv2Name": "모니터", "lv2": "MNT", "lv3": "UWMNT", "lv3Name": "울트라 와이드 모니터" }, { "lv2Name": "마인드웰니스", "lv2": "MWD", "lv3": "DHMWD", "lv3Name": "마인드웰니스" }, { "lv2Name": "저장장치", "lv2": "NAS", "lv3": "CDCDR", "lv3Name": "CD-ROM/RW/콤보" }, { "lv2Name": "저장장치", "lv2": "NAS", "lv3": "NENAS", "lv3Name": "넷하드" }, { "lv2Name": "노트북", "lv2": "NTB", "lv3": "GRNTB", "lv3Name": "그램" }, { "lv2Name": "노트북", "lv2": "NTB", "lv3": "TBNTB", "lv3Name": "태블릿(Tablet)" }, { "lv2Name": "노트북", "lv2": "NTB", "lv3": "UDNTB", "lv3Name": "울트라 PC" }, { "lv2Name": "노트북", "lv2": "NTB", "lv3": "UGNTB", "lv3Name": "울트라 기어" }, { "lv2Name": "사무기기", "lv2": "OFM", "lv3": "ININK", "lv3Name": "잉크젯_프린터" }, { "lv2Name": "사무기기", "lv2": "OFM", "lv3": "LALAS", "lv3Name": "레이저젯_프린터" }, { "lv2Name": "사무기기", "lv2": "OFM", "lv3": "OFOFA", "lv3Name": "사무기기" }, { "lv2Name": "기타제품", "lv2": "OTH", "lv3": "ZZOTH", "lv3Name": "기타제품" }, { "lv2Name": "식물생활가전", "lv2": "PCD", "lv3": "VEPCD", "lv3Name": "식물재배기" }, { "lv2Name": "PLS조명", "lv2": "PLS", "lv3": "PLPLS", "lv3Name": "PLS조명" }, { "lv2Name": "로봇", "lv2": "RBT", "lv3": "GURBT", "lv3Name": "안내 로봇" }, { "lv2Name": "로봇", "lv2": "RBT", "lv3": "SERBT", "lv3Name": "서빙로봇" }, { "lv2Name": "로봇", "lv2": "RBT", "lv3": "UVRBT", "lv3Name": "UVC 로봇" }, { "lv2Name": "밥솥", "lv2": "RCK", "lv3": "CORCK", "lv3Name": "밥솥" }, { "lv2Name": "냉장고", "lv2": "REF", "lv3": "BUSBS", "lv3Name": "비즈니스" }, { "lv2Name": "냉장고", "lv2": "REF", "lv3": "NOREF", "lv3Name": "일반형" }, { "lv2Name": "냉장고", "lv2": "REF", "lv3": "PUSBS", "lv3Name": "정수기형" }, { "lv2Name": "냉장고", "lv2": "REF", "lv3": "SISBS", "lv3Name": "양문형" }, { "lv2Name": "냉장고", "lv2": "REF", "lv3": "ULSBS", "lv3Name": "상냉장/하냉동" }, { "lv2Name": "토스터", "lv2": "TOT", "lv3": "TOTOT", "lv3Name": "토스터" }, { "lv2Name": "TV", "lv2": "TVL", "lv3": "LSLED", "lv3Name": "라이프 스타일 스크린" }, { "lv2Name": "TV", "lv2": "TVL", "lv3": "NALED", "lv3Name": "나노셀 TV" }, { "lv2Name": "TV", "lv2": "TVL", "lv3": "NOTLV", "lv3Name": "일반형(TV)" }, { "lv2Name": "TV", "lv2": "TVL", "lv3": "OTLED", "lv3Name": "올레드 TV" }, { "lv2Name": "TV", "lv2": "TVL", "lv3": "QNLED", "lv3Name": "QNED TV" }, { "lv2Name": "TV", "lv2": "TVL", "lv3": "SDLED", "lv3Name": "일반 LED TV" }, { "lv2Name": "TV", "lv2": "TVL", "lv3": "UDLED", "lv3Name": "울트라 HD TV" }, { "lv2Name": "프로젝터", "lv2": "VPJ", "lv3": "BSVPJ", "lv3Name": "프로빔 (상업용)" }, { "lv2Name": "프로젝터", "lv2": "VPJ", "lv3": "MOVPJ", "lv3Name": "시네빔" }, { "lv2Name": "Wearable Band", "lv2": "WEA", "lv3": "BAWEA", "lv3Name": "Wearable Band" }, { "lv2Name": "와인셀러", "lv2": "WEF", "lv3": "WIWEF", "lv3Name": "와인셀러" }].filter(i => i.lv2 !== 'PRODUCT_LVL2_CD'); // Filter header if present
 
-        // State
         let selectedLv2Codes = new Set();
         let selectedLv3Codes = new Set();
         let selectedModels = new Set();
@@ -3473,7 +3377,6 @@ ${contentBody}
             const container = document.getElementById('lv2List');
             container.innerHTML = "";
 
-            // 데이터 소스 결정
             let sourceData = (appRegion === 'ko') ? productData : globalExcelData;
 
             if (!sourceData) {
@@ -3512,7 +3415,7 @@ ${contentBody}
 
         function handleLv2Change(checkbox) {
             const code = checkbox.value;
-            // 개별 선택 시 ALL 체크 해제
+
             const allCheck = document.getElementById('allProductCheck');
             if (allCheck && allCheck.checked) allCheck.checked = false;
             if (checkbox.checked) {
@@ -3538,7 +3441,6 @@ ${contentBody}
 
             selectAllContainer.style.display = 'block';
 
-            // 데이터 소스 결정
             const sourceData = (appRegion === 'ko') ? productData : globalExcelData;
             if (!sourceData) return;
 
@@ -3546,7 +3448,6 @@ ${contentBody}
             const allItemsSelected = availableLv3.length > 0 && availableLv3.every(item => selectedLv3Codes.has(item.lv3));
             selectAllCheckbox.checked = allItemsSelected;
 
-            // 중복 제거 및 데이터 객체화
             const uniqueLv3List = [];
             const seenLv3 = new Set();
             availableLv3.forEach(item => {
@@ -3556,7 +3457,6 @@ ${contentBody}
                 uniqueLv3List.push({ ...item, displayName });
             });
 
-            // 표시 이름 기준 오름차순 정렬
             uniqueLv3List.sort((a, b) => a.displayName.localeCompare(b.displayName, 'ko-KR'));
 
             uniqueLv3List.forEach(item => {
@@ -3577,7 +3477,7 @@ ${contentBody}
 
         function handleLv3Change(checkbox) {
             const code = checkbox.value;
-            // 개별 선택 시 ALL 체크 해제
+
             const allCheck = document.getElementById('allProductCheck');
             if (allCheck && allCheck.checked) allCheck.checked = false;
 
@@ -3587,7 +3487,6 @@ ${contentBody}
                 selectedLv3Codes.delete(code);
             }
 
-            // Update "Select All" checkbox state
             const allCheckboxes = document.querySelectorAll('#lv3List input[type="checkbox"]');
             const allChecked = Array.from(allCheckboxes).length > 0 && Array.from(allCheckboxes).every(cb => cb.checked);
             const selectAllCheck = document.getElementById('selectAllLv3');
@@ -3595,7 +3494,7 @@ ${contentBody}
         }
 
         function toggleSelectAllLv3(checkbox) {
-            // 전체 선택 클릭 시 ALL 체크 해제
+
             const allCheck = document.getElementById('allProductCheck');
             if (allCheck && allCheck.checked) allCheck.checked = false;
 
@@ -3614,7 +3513,6 @@ ${contentBody}
         function confirmProductSelection() {
             const postDataDiv = document.querySelector('.postData');
 
-            // ALL 체크 여부 확인
             const allCheck = document.getElementById('allProductCheck');
             if (allCheck && allCheck.checked) {
                 postDataDiv.setAttribute('data-productlv2', "['ALL']");
@@ -3626,11 +3524,9 @@ ${contentBody}
                 return;
             }
 
-            // Ensure array format for attributes
             const lv2Array = Array.from(selectedLv2Codes);
             const lv3Array = Array.from(selectedLv3Codes);
 
-            // Format as stringified array for data attributes: "['A', 'B']"
             const lv2Str = lv2Array.length > 0 ? "['" + lv2Array.join("', '") + "']" : "['ALL']";
             const lv3Str = lv3Array.length > 0 ? "['" + lv3Array.join("', '") + "']" : "['ALL']";
 
@@ -3672,15 +3568,12 @@ ${contentBody}
             generateHTML();
         }
 
-        // --- Model Selector Logic ---
-
         function openModelModal() {
             if (selectedLv3Codes.size === 0) {
                 alert("먼저 제품군(소분류)을 선택해 주세요.");
                 return;
             }
 
-            // Filter Info Update
             const lv3Names = [];
             const sourceData = (appRegion === 'ko') ? productData : globalExcelData;
             if (sourceData) {
@@ -3691,7 +3584,6 @@ ${contentBody}
             }
             document.getElementById('modelFilterInfo').textContent = "선택된 제품군: " + lv3Names.join(", ");
 
-            // 법인 필터 초기화
             selectedCorpCd = 'ALL';
             const corpContainer = document.getElementById('corpFilterContainer');
             if (appRegion === 'global') {
@@ -3712,7 +3604,6 @@ ${contentBody}
 
             if (appRegion !== 'global' || !globalExcelData) return;
 
-            // 현재 선택된 제품군에 해당하는 법인 코드만 추출
             const corps = new Set();
             globalExcelData.forEach(item => {
                 if (selectedLv3Codes.has(item.lv3) && item.corp) {
@@ -3720,7 +3611,6 @@ ${contentBody}
                 }
             });
 
-            // 가나다순 정렬
             const sortedCorps = Array.from(corps).sort();
             sortedCorps.forEach(code => {
                 const opt = document.createElement('option');
@@ -3740,22 +3630,21 @@ ${contentBody}
             document.getElementById('modelModal').style.display = "none";
         }
 
-        // --- ALL 체크박스 핸들러 ---
         function toggleAllProduct(checkbox) {
             if (checkbox.checked) {
-                // ALL 선택: 개별 선택 초기화
+
                 selectedLv2Codes.clear();
                 selectedLv3Codes.clear();
-                // 모든 lv2 체크박스 해제
+
                 document.querySelectorAll('#lv2List input[type="checkbox"]').forEach(cb => cb.checked = false);
-                // lv3 패널 초기화
+
                 renderLv3List();
             }
         }
 
         function toggleAllModels(checkbox) {
             if (checkbox.checked) {
-                // ALL 선택: 개별 모델 선택 초기화
+
                 selectedModels.clear();
                 document.querySelectorAll('#modelList input[type="checkbox"]').forEach(cb => cb.checked = false);
                 const selectAll = document.getElementById('selectAllModels');
@@ -3765,7 +3654,7 @@ ${contentBody}
         }
 
         function toggleSelectAllModels(checkbox) {
-            // 전체선택 클릭 시 ALL 체크 해제
+
             const allCheck = document.getElementById('allModelsCheck');
             if (allCheck && allCheck.checked) {
                 allCheck.checked = false;
@@ -3789,7 +3678,6 @@ ${contentBody}
 
             container.innerHTML = "";
 
-            // 데이터 소스 결정
             const currentData = (appRegion === 'ko') ? (typeof globalModelData !== 'undefined' ? globalModelData : null) : globalExcelData;
 
             if (!currentData) {
@@ -3797,17 +3685,14 @@ ${contentBody}
                 return;
             }
 
-            // Filter models specific to selected Lv3
             currentFilteredModels = currentData.filter(item => {
-                // Must belong to selected Lv3
+
                 if (!selectedLv3Codes.has(item.lv3)) return false;
 
-                // 법인 필터 (Global 모드 전용)
                 if (appRegion === 'global' && selectedCorpCd !== 'ALL') {
                     if (item.corp !== selectedCorpCd) return false;
                 }
 
-                // Search filter (Case-insensitive)
                 if (search && !item.model.toUpperCase().includes(search)) return false;
                 return true;
             });
@@ -3818,10 +3703,8 @@ ${contentBody}
                 return;
             }
 
-            // Use Fragment for performance
             const fragment = document.createDocumentFragment();
 
-            // Limit rendered items for performance if too many
             const modelsToRender = currentFilteredModels.slice(0, modelRenderLimit);
 
             modelsToRender.forEach(item => {
@@ -3864,7 +3747,6 @@ ${contentBody}
                 container.appendChild(moreBtnContainer);
             }
 
-            // Reset "Select All" checkbox state
             const allFilteredSelected = currentFilteredModels.length > 0 && currentFilteredModels.every(m => selectedModels.has(m.model));
             document.getElementById('selectAllModels').checked = allFilteredSelected;
         }
@@ -3876,7 +3758,7 @@ ${contentBody}
 
         function handleModelChange(checkbox) {
             const val = checkbox.value;
-            // 개별 선택 시 ALL 체크 해제
+
             const allCheck = document.getElementById('allModelsCheck');
             if (allCheck && allCheck.checked) allCheck.checked = false;
             if (checkbox.checked) {
@@ -3886,7 +3768,6 @@ ${contentBody}
             }
             updateModelCount();
 
-            // "Select All" 체크박스 상태 업데이트
             if (currentFilteredModels && currentFilteredModels.length > 0) {
                 const allFilteredSelected = currentFilteredModels.every(m => selectedModels.has(m.model));
                 document.getElementById('selectAllModels').checked = allFilteredSelected;
@@ -3898,7 +3779,7 @@ ${contentBody}
         }
 
         function confirmModelSelection() {
-            // ALL 체크 여부 확인
+
             const allCheck = document.getElementById('allModelsCheck');
             if (allCheck && allCheck.checked) {
                 const postDataDiv = document.querySelector('.postData');
@@ -3912,7 +3793,6 @@ ${contentBody}
 
             const modelArray = Array.from(selectedModels);
 
-            // Input field (Human readable) - Limit to 6
             if (modelArray.length > 6) {
                 const firstSix = modelArray.slice(0, 6).join(", ");
                 const remaining = modelArray.length - 6;
@@ -3921,7 +3801,6 @@ ${contentBody}
                 document.getElementById('inAppliedModel').value = modelArray.join(", ");
             }
 
-            // PostData attribute (Code format: "['A', 'B']")
             const postDataDiv = document.querySelector('.postData');
 
             if (modelArray.length > 0) {
@@ -3936,7 +3815,6 @@ ${contentBody}
             generateHTML();
         }
 
-
         let modelSet = null;
         let lastSetRegion = null;
         function getModelSet() {
@@ -3945,7 +3823,6 @@ ${contentBody}
 
             if (!currentData) return null;
 
-            // 지역이 바뀌었거나 아직 set이 없는 경우에만 새로 생성
             if (!modelSet || lastSetRegion !== currentRegion) {
                 modelSet = new Set(currentData.map(item => item.model.toUpperCase()));
                 lastSetRegion = currentRegion;
@@ -3955,8 +3832,6 @@ ${contentBody}
 
         function syncModelData() {
             const input = document.getElementById('inAppliedModel');
-            // Removed forced toUpperCase() to allow user to type in lowercase
-            // input.value = input.value.toUpperCase();
 
             const val = input.value;
             const postDataDiv = document.querySelector('.postData');
@@ -3966,7 +3841,6 @@ ${contentBody}
                 return;
             }
 
-            // Split by comma to handle multiple models if typed manually
             const models = val.split(',').map(m => m.trim()).filter(m => m !== "");
             if (models.length > 0) {
                 const modelStr = "['" + models.join("', '") + "']";
