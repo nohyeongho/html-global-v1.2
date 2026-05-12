@@ -1491,6 +1491,7 @@
 
             <div style="text-align: right; margin-top: 20px; display: flex; justify-content: flex-end; gap: 10px;">
                 <button class="btn-secondary" onclick="closeHTMLViewerModal()">취소</button>
+                <button class="btn-primary" onclick="editFromHTMLViewer()" style="background-color: #4CAF50;">수정</button>
                 <button class="btn-primary" onclick="viewManualHTML()" style="background-color: #2196F3;">뷰어로
                     확인하기</button>
             </div>
@@ -2519,7 +2520,7 @@
 
         function addDynamicSection() {
             const container = document.getElementById('dynamicSections');
-            const sectionId = 'dyn_sec_' + Date.now();
+            const sectionId = 'dyn_sec_' + Date.now() + Math.floor(Math.random() * 1000);
 
             const sectionHtml = `
             <div class="dynamic-section" id="${sectionId}">
@@ -3103,6 +3104,131 @@ ${contentBody}
             const blob = new Blob([htmlCode], { type: 'text/html;charset=utf-8' });
             const url = URL.createObjectURL(blob);
             window.open(url, '_blank');
+        }
+
+        /**
+         * HTML 직접 입력 뷰어의 내용을 편집창으로 복사하여 수정할 수 있게 합니다.
+         * 생성된 HTML 구조를 분석하여 각 입력 필드에 맞게 데이터를 복원합니다.
+         */
+        function editFromHTMLViewer() {
+            const htmlCode = document.getElementById('manualHtmlInput').value;
+            if (!htmlCode.trim()) {
+                alert('입력된 코드가 없습니다.');
+                return;
+            }
+
+            if (!confirm('현재 입력된 내용을 바탕으로 편집창의 내용을 수정하시겠습니까?\n(기존 입력된 내용은 초기화됩니다.)')) {
+                return;
+            }
+
+            try {
+                const parser = new DOMParser();
+                const doc = parser.parseFromString(htmlCode, 'text/html');
+
+                // 1. postData 추출 (제품군 및 모델 선택 상태 복원용)
+                const postData = doc.querySelector('.postData');
+                if (postData) {
+                    const pLv2 = postData.getAttribute('data-productlv2');
+                    const pLv3 = postData.getAttribute('data-productlv3');
+                    const pModel = postData.getAttribute('data-model');
+
+                    const mainPostData = document.querySelector('.postData');
+                    if (mainPostData) {
+                        if (pLv2) mainPostData.setAttribute('data-productlv2', pLv2);
+                        if (pLv3) mainPostData.setAttribute('data-productlv3', pLv3);
+                        if (pModel) mainPostData.setAttribute('data-model', pModel);
+                    }
+                }
+
+                // 2. 테이블 정보 추출 (제목, 제품군, 모델 등 필수 정보)
+                const table = doc.querySelector('table.xfe_just_info');
+                if (table) {
+                    const rows = table.querySelectorAll('tr');
+                    rows.forEach(row => {
+                        const th = row.querySelector('th');
+                        const td = row.querySelector('td');
+                        if (th && td) {
+                            const key = th.textContent.trim();
+                            const val = td.innerHTML.trim();
+                            const textVal = td.textContent.trim();
+
+                            if (key === '제목') document.getElementById('inTitle').value = textVal;
+                            else if (key === '제품군') document.getElementById('inProductFamily').value = textVal;
+                            else if (key === '적용 모델') {
+                                document.getElementById('inAppliedModel').value = textVal;
+                                toggleClearBtn('inAppliedModel', 'clearModel');
+                            }
+                            else if (key === '대상 제번') document.getElementById('inTargetSerial').value = textVal;
+                            else if (key === '조치 방법') {
+                                // '내용을 입력하세요...' 같은 placeholder 제외
+                                if (textVal !== '내용을 입력하세요...') {
+                                    document.getElementById('inActionSummary').innerHTML = val;
+                                }
+                            }
+                        }
+                    });
+                }
+
+                // 3. 섹션 내용 추출 (h3.sub-tit 기반)
+                const subTitles = doc.querySelectorAll('h3.sub-tit');
+                const extractedSections = [];
+                subTitles.forEach(subTit => {
+                    // 번호(숫자 또는 v)와 공백 제거
+                    const titleText = subTit.textContent.replace(/^[0-9v\.]+\s*/, '').trim();
+                    let contentHtml = "";
+                    let nextEl = subTit.nextElementSibling;
+                    
+                    // 다음 sub-tit이 나오거나 형제 요소가 없을 때까지 내용 수집
+                    while (nextEl && !nextEl.classList.contains('sub-tit')) {
+                        contentHtml += nextEl.outerHTML;
+                        nextEl = nextEl.nextElementSibling;
+                    }
+                    extractedSections.push({ title: titleText, content: contentHtml });
+                });
+
+                // 기본 섹션 (1.증상, 2.불량원인, 3.수리방법) 분배
+                if (extractedSections.length > 0) {
+                    document.getElementById('inSymptomTitle').value = extractedSections[0].title;
+                    document.getElementById('inSymptom').innerHTML = extractedSections[0].content;
+                }
+                if (extractedSections.length > 1) {
+                    document.getElementById('inCauseTitle').value = extractedSections[1].title;
+                    document.getElementById('inCause').innerHTML = extractedSections[1].content;
+                }
+                if (extractedSections.length > 2) {
+                    document.getElementById('inRepairTitle').value = extractedSections[2].title;
+                    document.getElementById('inRepairMethod').innerHTML = extractedSections[2].content;
+                }
+
+                // 4. 추가 섹션 처리
+                const dynContainer = document.getElementById('dynamicSections');
+                dynContainer.innerHTML = ""; // 기존 추가 섹션 비우기
+                
+                if (extractedSections.length > 3) {
+                    for (let i = 3; i < extractedSections.length; i++) {
+                        addDynamicSection();
+                        const lastSec = dynContainer.lastElementChild;
+                        if (lastSec) {
+                            lastSec.querySelector('.dyn-title').value = extractedSections[i].title;
+                            lastSec.querySelector('.dyn-content').innerHTML = extractedSections[i].content;
+                        }
+                    }
+                }
+
+                closeHTMLViewerModal();
+                alert('HTML 소스에서 내용을 성공적으로 불러왔습니다.\n이제 편집창에서 수정할 수 있습니다.');
+                
+                // 화면 상단으로 스크롤하여 제목부터 확인 가능하게 함
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+                
+                // 입력 필드 상태 업데이트 (삭제 버튼 노출 등)
+                toggleClearBtn('inProductFamily', 'clearProduct');
+                toggleClearBtn('inAppliedModel', 'clearModel');
+
+            } catch (error) {
+                console.error('Parsing error:', error);
+                alert('HTML 소스를 분석하는 중 오류가 발생했습니다. 올바른 형식의 HTML인지 확인해주세요.');
+            }
         }
 
         function googleTranslateElementInit() {
