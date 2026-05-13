@@ -1491,6 +1491,7 @@
 
             <div style="text-align: right; margin-top: 20px; display: flex; justify-content: flex-end; gap: 10px;">
                 <button class="btn-secondary" onclick="closeHTMLViewerModal()">취소</button>
+                <button class="btn-primary" onclick="loadFromHTML()" style="background-color: #4CAF50;">수정</button>
                 <button class="btn-primary" onclick="viewManualHTML()" style="background-color: #2196F3;">뷰어로
                     확인하기</button>
             </div>
@@ -3103,6 +3104,151 @@ ${contentBody}
             const blob = new Blob([htmlCode], { type: 'text/html;charset=utf-8' });
             const url = URL.createObjectURL(blob);
             window.open(url, '_blank');
+        }
+
+        /**
+         * HTML 소스를 파싱하여 에디터 폼에 로드합니다.
+         * 왜 이렇게 짰나: 생성된 HTML 코드를 다시 에디터로 불러와서 수정할 수 있도록 하기 위함입니다.
+         */
+        function loadFromHTML() {
+            const htmlCode = document.getElementById('manualHtmlInput').value;
+            if (!htmlCode.trim()) {
+                alert('입력된 코드가 없습니다.');
+                return;
+            }
+
+            if (!confirm('현재 입력된 내용이 소스 코드의 내용으로 대체됩니다. 진행하시겠습니까?')) {
+                return;
+            }
+
+            try {
+                const parser = new DOMParser();
+                const doc = parser.parseFromString(htmlCode, 'text/html');
+
+                // 1. postData 복원
+                const postData = doc.querySelector('.postData');
+                if (postData) {
+                    const pLv2 = postData.getAttribute('data-productlv2');
+                    const pLv3 = postData.getAttribute('data-productlv3');
+                    const pModel = postData.getAttribute('data-model');
+
+                    const mainPostData = document.querySelector('.postData');
+                    if (pLv2) mainPostData.setAttribute('data-productlv2', pLv2);
+                    if (pLv3) mainPostData.setAttribute('data-productlv3', pLv3);
+                    if (pModel) mainPostData.setAttribute('data-model', pModel);
+
+                    // 내부 Set 상태 업데이트
+                    try {
+                        if (pLv2) {
+                            const lv2Arr = JSON.parse(pLv2.replace(/'/g, '"'));
+                            selectedLv2Codes = new Set(lv2Arr.filter(c => c !== 'ALL'));
+                        }
+                        if (pLv3) {
+                            const lv3Arr = JSON.parse(pLv3.replace(/'/g, '"'));
+                            selectedLv3Codes = new Set(lv3Arr.filter(c => c !== 'ALL'));
+                        }
+                        if (pModel) {
+                            const modelArr = JSON.parse(pModel.replace(/'/g, '"'));
+                            selectedModels = new Set(modelArr.filter(c => c !== 'null' && c !== 'ALL'));
+                            if (typeof updateModelCount === 'function') updateModelCount();
+                        }
+                    } catch (e) {
+                        console.error('JSON parsing error in postData:', e);
+                    }
+                }
+
+                // 2. 요약 테이블 데이터 복원
+                const rows = doc.querySelectorAll('.xfe_just_info tr');
+                rows.forEach(row => {
+                    const th = row.querySelector('th');
+                    const td = row.querySelector('td');
+                    if (!th || !td) return;
+
+                    const label = th.textContent.trim();
+                    const val = td.innerHTML.trim();
+                    const plainVal = td.textContent.trim();
+
+                    if (label === '제목') {
+                        document.getElementById('inTitle').value = plainVal;
+                    } else if (label === '제품군') {
+                        document.getElementById('inProductFamily').value = plainVal;
+                    } else if (label === '적용 모델') {
+                        document.getElementById('inAppliedModel').value = plainVal;
+                    } else if (label === '대상 제번') {
+                        document.getElementById('inTargetSerial').value = plainVal;
+                    } else if (label === '조치 방법') {
+                        document.getElementById('inActionSummary').innerHTML = val;
+                    }
+                });
+
+                // 3. 섹션 데이터 복원 (증상, 원인, 조치 방법 및 추가 섹션)
+                const sections = doc.querySelectorAll('.sub-tit');
+                
+                // 기존 추가 섹션들 제거
+                document.getElementById('dynamicSections').innerHTML = '';
+                
+                // 기본 섹션들 초기화
+                document.getElementById('inSymptom').innerHTML = '';
+                document.getElementById('inCause').innerHTML = '';
+                document.getElementById('inRepairMethod').innerHTML = '';
+
+                let mainSymptomDone = false;
+                let mainCauseDone = false;
+                let mainRepairDone = false;
+
+                sections.forEach(sec => {
+                    const title = sec.textContent.replace(/^v/, '').trim();
+                    let content = '';
+                    let next = sec.nextSibling;
+                    const tempDiv = document.createElement('div');
+                    while (next && !(next.nodeType === 1 && next.classList.contains('sub-tit'))) {
+                        tempDiv.appendChild(next.cloneNode(true));
+                        next = next.nextSibling;
+                    }
+                    content = tempDiv.innerHTML.trim();
+
+                    // 기본 섹션과 매칭 시도 (제목 기준)
+                    const sTitle = document.getElementById('inSymptomTitle').value;
+                    const cTitle = document.getElementById('inCauseTitle').value;
+                    const rTitle = document.getElementById('inRepairTitle').value;
+
+                    if (!mainSymptomDone && title === sTitle) {
+                        document.getElementById('inSymptom').innerHTML = content;
+                        mainSymptomDone = true;
+                    } else if (!mainCauseDone && title === cTitle) {
+                        document.getElementById('inCause').innerHTML = content;
+                        mainCauseDone = true;
+                    } else if (!mainRepairDone && title === rTitle) {
+                        document.getElementById('inRepairMethod').innerHTML = content;
+                        mainRepairDone = true;
+                    } else {
+                        // 추가 섹션으로 생성
+                        addDynamicSectionWithData(title, content);
+                    }
+                });
+
+                alert('데이터가 에디터로 복원되었습니다.');
+                closeHTMLViewerModal();
+                switchTab('edit');
+                if (typeof generateHTML === 'function') generateHTML(); // 미리보기 갱신
+
+            } catch (err) {
+                console.error('HTML Parsing error:', err);
+                alert('HTML 소스를 분석하는 중 오류가 발생했습니다. 올바른 형식인지 확인해 주세요.');
+            }
+        }
+
+        // 특정 데이터로 동적 섹션 추가 (기존 addDynamicSection 활용)
+        function addDynamicSectionWithData(title, content) {
+            if (typeof addDynamicSection === 'function') {
+                addDynamicSection();
+                const container = document.getElementById('dynamicSections');
+                const lastSec = container.lastElementChild;
+                if (lastSec) {
+                    lastSec.querySelector('.dyn-title').value = title;
+                    lastSec.querySelector('.dyn-content').innerHTML = content;
+                }
+            }
         }
 
         function googleTranslateElementInit() {
