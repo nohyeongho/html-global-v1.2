@@ -6,13 +6,13 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width" />
     <title>HTML 변환기</title>
-    
+
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
-    
+
     <script src="https://cdn.jsdelivr.net/npm/marked@4.3.0/marked.min.js"></script>
-    
+
     <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
-    
+
     <script src="global-model-data.js"></script>
 
     <style type="text/css">
@@ -160,9 +160,11 @@
             padding: 0 0 0 20px;
             list-style: initial;
         }
+
         .content-service-view ul {
             list-style: disc;
         }
+
         .content-service-view ol {
             list-style: decimal;
         }
@@ -1301,7 +1303,7 @@
     </div>
 
     <div class="app-container">
-        
+
         <div class="postData" style="display:none;" data-productlv2="['ALL']" data-productlv3="['ALL']"></div>
 
         <div class="input-panel active notranslate" id="inputPanel">
@@ -1366,7 +1368,7 @@
                 <label>조치 방법 (요약)</label>
                 <div class="editor-container">
                     <div class="editor-toolbar">
-                        
+
                     </div>
                     <div id="inActionSummary" class="editor-content-view paste-area" contenteditable="true"
                         placeholder="예: LQC 모드 진입 시에만 발생되며, 에러 발생 시 메인 PCB 교체 안내"></div>
@@ -1387,7 +1389,7 @@
                 </div>
                 <div class="editor-container">
                     <div class="editor-toolbar">
-                        
+
                     </div>
                     <div id="inSymptom" class="editor-content-view paste-area" contenteditable="true"
                         placeholder="예: - LE9 에러 발생"></div>
@@ -1402,7 +1404,7 @@
                 </div>
                 <div class="editor-container">
                     <div class="editor-toolbar">
-                        
+
                     </div>
                     <div id="inCause" class="editor-content-view paste-area" contenteditable="true"
                         placeholder="예: - 메인 PCB 불량"></div>
@@ -1417,7 +1419,7 @@
                 </div>
                 <div class="editor-container">
                     <div class="editor-toolbar">
-                        
+
                     </div>
                     <div id="inRepairMethod" class="editor-content-view paste-area" contenteditable="true"
                         placeholder="예: - LQC 모드 진입 시에만 발생되며, 에러 발생 시 메인 PCB 교체 안내"></div>
@@ -1425,7 +1427,7 @@
             </div>
 
             <div id="dynamicSections">
-                
+
             </div>
 
             <button class="btn-add-section" onclick="addDynamicSection()">+ 섹션 추가</button>
@@ -1541,7 +1543,7 @@
                 <span>마우스로 테두리를 잡고 조절하거나 위 입력창에 숫자를 직접 입력하세요. (PPT 동일 방식)</span>
             </div>
             <div id="visualTableContainer" style="overflow-x:auto; max-height:400px; overflow-y:auto;">
-                
+
             </div>
             <div style="text-align: right; margin-top: 20px;">
                 <button class="btn-secondary" onclick="closeTableModal()">취소</button>
@@ -1558,7 +1560,7 @@
         <div class="cp-section-title">기타</div>
         <div class="cp-more-btn" onclick="triggerNativeColorInput()"><i class="fas fa-palette"></i> 다른 색 선택...</div>
         <input type="color" id="nativeColorInput" style="display:none;" onchange="selectQuickColor(this.value)">
-        
+
         <input type="file" id="excelFileInput" style="display:none;" accept=".xlsx, .xls"
             onchange="handleFileSelect(event)">
     </div>
@@ -3183,10 +3185,10 @@ ${contentBody}
 
                 // 3. 섹션 데이터 복원 (증상, 원인, 조치 방법 및 추가 섹션)
                 const sections = doc.querySelectorAll('.sub-tit');
-                
+
                 // 기존 추가 섹션들 제거
                 document.getElementById('dynamicSections').innerHTML = '';
-                
+
                 // 기본 섹션들 초기화
                 document.getElementById('inSymptom').innerHTML = '';
                 document.getElementById('inCause').innerHTML = '';
@@ -3388,7 +3390,7 @@ ${contentBody}
                 제품군 선택</h2>
 
             <div style="display: flex; gap: 20px; height: 400px;">
-                
+
                 <div style="flex: 1; border: 1px solid #ddd; padding: 10px; display: flex; flex-direction: column;">
                     <h3 style="margin-top: 0; font-size: 16px; border-bottom: 1px solid #eee; padding-bottom: 5px;">대분류
                         (Product Lv2)</h3>
@@ -3483,7 +3485,7 @@ ${contentBody}
 
             <div id="modelList"
                 style="height: 300px; overflow-y: auto; border: 1px solid #ddd; padding: 10px; background: #fff;">
-                
+
                 <div style="text-align: center; color: #999; margin-top: 100px;">
                     제품군을 먼저 선택하거나<br>
                     <button class="btn-secondary" style="font-size: 11px; margin-top: 10px;"
