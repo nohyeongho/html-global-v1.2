@@ -460,19 +460,19 @@
             justify-content: space-between;
             align-items: center;
             flex-wrap: wrap;
-            
+
             gap: 10px 15px;
-            
+
         }
 
-        
+
         h2.panel-title span,
         h2.panel-title div,
         h2.panel-title button {
             white-space: nowrap !important;
         }
 
-        
+
         @media screen and (max-width: 1400px) {
             h2.panel-title {
                 font-size: 16px;
@@ -1019,14 +1019,14 @@
             border-bottom-color: var(--lg-red);
         }
 
-        
+
         @media screen and (min-width: 1025px) {
             .chatbot-panel.collapsed {
                 display: none !important;
             }
         }
 
-        
+
         @media screen and (max-width: 1024px) {
             #btnToggleChatbotPanel {
                 display: none !important;
@@ -1039,7 +1039,7 @@
                 gap: 15px;
             }
 
-            
+
             .input-panel,
             .preview-panel,
             .chatbot-panel {
@@ -1075,7 +1075,7 @@
                 margin: 0;
             }
 
-            
+
             .input-panel,
             .preview-panel,
             .chatbot-panel {
@@ -1342,7 +1342,7 @@
             }
         }
 
-        
+
         .chatbot-panel {
             flex: 1;
             background: #fff;
@@ -1458,10 +1458,10 @@
             align-self: flex-start;
             border-bottom-left-radius: 2px;
             white-space: normal;
-            
+
         }
 
-        
+
         .chat-bubble.ai hr {
             border: none;
             border-top: 1px dashed #ced4da;
@@ -1469,18 +1469,20 @@
             width: 100%;
         }
 
-        
+
         .diff-section {
             background: #ffffff;
             border: 1px solid #e9ecef;
             border-radius: 8px;
             padding: 12px;
             margin-bottom: 12px;
-            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
         }
+
         .diff-section:last-child {
             margin-bottom: 0;
         }
+
         .diff-title {
             font-size: 13px;
             font-weight: 700;
@@ -1491,6 +1493,7 @@
             display: flex;
             align-items: center;
         }
+
         .diff-box {
             display: flex;
             flex-direction: column;
@@ -1499,15 +1502,18 @@
             font-size: 12px;
             line-height: 1.4;
         }
+
         .diff-box.diff-before {
             background: #f8f9fa;
             border-left: 3px solid #868e96;
             margin-bottom: 6px;
         }
+
         .diff-box.diff-after {
             background: #fff5f5;
             border-left: 3px solid #ec455a;
         }
+
         .diff-label {
             font-size: 10px;
             font-weight: bold;
@@ -1516,14 +1522,17 @@
             border-radius: 4px;
             margin-bottom: 4px;
         }
+
         .diff-label.label-before {
             background: #e9ecef;
             color: #495057;
         }
+
         .diff-label.label-after {
             background: #ffe3e3;
             color: #ec455a;
         }
+
         .diff-content {
             color: #495057;
             word-break: break-all;
@@ -1602,7 +1611,7 @@
             opacity: 0.9;
         }
 
-        
+
         .ai-action-card {
             border: 1px dashed #28a745;
             background-color: #f4faf6;
@@ -1640,7 +1649,7 @@
             background-color: #218838;
         }
 
-        
+
         .chat-config-toggle-btn {
             background: none;
             border: none;
@@ -1668,14 +1677,14 @@
             height: 100%;
             background-color: rgba(0, 0, 0, 0.4);
             z-index: 20000;
-            
+
             align-items: center;
             justify-content: center;
         }
 
         .chat-config-overlay.active {
             display: flex;
-            
+
         }
 
         .chat-config-overlay-content {
@@ -1685,7 +1694,7 @@
             padding: 24px;
             width: 90%;
             max-width: 380px;
-            
+
             position: relative;
             animation: chatConfigModalShow 0.2s ease-out;
             box-sizing: border-box;
@@ -1892,7 +1901,7 @@
                         style="font-size: 13px; font-weight: 600; padding: 6px 14px; background: #4caf50; color: white; border: none; border-radius: 6px; cursor: pointer; display: none; transition: opacity 0.2s;"
                         onmouseover="this.style.opacity='0.85'" onmouseout="this.style.opacity='1'">📋 미리보기 복사
                         (PPT용)</button>
-                    
+
                     <button id="btnToggleChatbotPanel" onclick="toggleChatbotPanelVisibility()" title="AI 편집기 접기/펼치기"
                         style="font-size: 13px; font-weight: 600; padding: 6px 9px; background: #333; color: white; border: none; border-radius: 6px; cursor: pointer; display: flex; align-items: center; justify-content: center; width: 34px; height: 32px; transition: background-color 0.2s, opacity 0.2s;"
                         onmouseover="this.style.opacity='0.85'" onmouseout="this.style.opacity='1'">
@@ -1922,13 +1931,13 @@
             </div>
         </div>
 
-        
+
         <div class="chatbot-panel notranslate" id="chatbotPanel">
             <h2 class="panel-title">
                 <div style="display: flex; align-items: center; gap: 10px;">
                     <span>Qbot AI 에디터</span>
                 </div>
-                
+
                 <button class="chat-config-toggle-btn" onclick="toggleChatConfigOverlay()" title="API 연동 설정">
                     <i class="fas fa-cog"></i>
                 </button>
@@ -1937,7 +1946,7 @@
                 에디터 내용 수정, 맞춤법 교정, 문맥 개선 및 정보 보강을 요청하세요.
             </p>
 
-            
+
             <div class="chat-config-overlay" id="chatConfigOverlay">
                 <div class="chat-config-overlay-content">
                     <div class="chat-config-overlay-header">
@@ -1960,7 +1969,7 @@
                         <div class="chat-config-row">
                             <label>모델 선택</label>
                             <select id="chatModel" onchange="saveChatSettings()">
-                                
+
                                 <option value="gemini-2.5-flash">gemini-2.5-flash (권장)</option>
                                 <option value="gemini-2.5-pro">gemini-2.5-pro (고품질)</option>
                                 <option value="gemini-1.5-flash">gemini-1.5-flash</option>
@@ -1975,7 +1984,7 @@
                 </div>
             </div>
 
-            
+
             <div class="chat-history" id="chatHistory">
                 <div class="chat-bubble system">
                     안녕하세요! Qbot 에디터 AI 챗봇입니다.<br>
@@ -1984,14 +1993,14 @@
                 </div>
             </div>
 
-            
+
             <div class="chat-quick-templates">
                 <button class="chat-quick-btn" onclick="applyQuickTemplate('proofread')">📝 문맥/맞춤법 교정</button>
                 <button class="chat-quick-btn" onclick="applyQuickTemplate('simplify')">💡 초보자도 쉽게</button>
                 <button class="chat-quick-btn" onclick="applyQuickTemplate('enrich')">🔍 내용 상세 보강</button>
             </div>
 
-            
+
             <div class="chat-input-wrapper">
                 <textarea id="chatInput" placeholder="AI에게 수정 지시사항을 입력하세요..."
                     onkeydown="handleChatInputKeyDown(event)"></textarea>
@@ -2108,7 +2117,7 @@
 
     <script>
 
-        let appRegion = 'ko'; 
+        let appRegion = 'ko';
 
         async function changeAppLanguage(lang) {
             const koBtn = document.getElementById('btnLangKo');
@@ -2315,7 +2324,7 @@
                     span.style.fontSize = val;
                     span.appendChild(document.createTextNode('\u200B'));
                     range.insertNode(span);
-                    range.setStart(span.firstChild, 1); 
+                    range.setStart(span.firstChild, 1);
                     range.collapse(true);
                     sel.removeAllRanges();
                     sel.addRange(range);
@@ -2466,7 +2475,7 @@
                 const isL = e.clientX < iRect.left + pad;
                 const isR = e.clientX > iRect.right - pad;
                 const isT = e.clientY < iRect.top + pad;
-                const isB = e.clientY > iRect.bottom + pad; 
+                const isB = e.clientY > iRect.bottom + pad;
 
                 const isLeft = (e.clientX - iRect.left) < pad;
                 const isRight = (iRect.right - e.clientX) < pad;
@@ -2497,7 +2506,7 @@
             }
         });
 
-        let edActiveElement = null; 
+        let edActiveElement = null;
 
         function updateActiveElementForToolbar(el) {
             edActiveElement = el;
@@ -3016,8 +3025,8 @@
                                 el.innerHTML = el.innerHTML.replace(/&nbsp;/g, ' ').trim().replace(/ +/g, ' ');
                                 el.style.padding = '2px 4px'; el.style.lineHeight = '1.2'; el.style.fontSize = '13px';
                                 el.style.border = '1px solid #ccc';
-                                el.style.textAlign = 'center'; 
-                                el.style.verticalAlign = 'middle'; 
+                                el.style.textAlign = 'center';
+                                el.style.verticalAlign = 'middle';
                             }
                             if (el.dataset.bg) el.style.backgroundColor = el.dataset.bg;
 
@@ -3566,8 +3575,8 @@ ${contentBody}
                 const canvas = await html2canvas(previewEl, {
                     useCORS: true,
                     logging: false,
-                    backgroundColor: '#ffffff', 
-                    scale: 2 
+                    backgroundColor: '#ffffff',
+                    scale: 2
                 });
 
                 canvas.toBlob(async (blob) => {
@@ -3605,7 +3614,7 @@ ${contentBody}
             }
         }
 
-        
+
         function openHTMLViewer() {
             const modal = document.getElementById('htmlViewerModal');
             const inputArea = document.getElementById('manualHtmlInput');
@@ -3614,7 +3623,7 @@ ${contentBody}
             inputArea.value = currentCode;
 
             modal.style.display = 'block';
-            document.body.style.overflow = 'hidden'; 
+            document.body.style.overflow = 'hidden';
         }
 
         function closeHTMLViewerModal() {
@@ -3631,7 +3640,7 @@ ${contentBody}
             }
         }
 
-        
+
         function viewManualHTML() {
             const htmlCode = document.getElementById('manualHtmlInput').value;
             if (!htmlCode.trim()) {
@@ -3644,7 +3653,7 @@ ${contentBody}
             window.open(url, '_blank');
         }
 
-        
+
         function loadFromHTML() {
             const htmlCode = document.getElementById('manualHtmlInput').value;
             if (!htmlCode.trim()) {
@@ -3660,7 +3669,7 @@ ${contentBody}
                 const parser = new DOMParser();
                 const doc = parser.parseFromString(htmlCode, 'text/html');
 
-                
+
                 const postData = doc.querySelector('.postData');
                 if (postData) {
                     const pLv2 = postData.getAttribute('data-productlv2');
@@ -3672,7 +3681,7 @@ ${contentBody}
                     if (pLv3) mainPostData.setAttribute('data-productlv3', pLv3);
                     if (pModel) mainPostData.setAttribute('data-model', pModel);
 
-                    
+
                     try {
                         if (pLv2) {
                             const lv2Arr = JSON.parse(pLv2.replace(/'/g, '"'));
@@ -3692,7 +3701,7 @@ ${contentBody}
                     }
                 }
 
-                
+
                 const rows = doc.querySelectorAll('.xfe_just_info tr');
                 rows.forEach(row => {
                     const th = row.querySelector('th');
@@ -3716,13 +3725,13 @@ ${contentBody}
                     }
                 });
 
-                
+
                 const sections = doc.querySelectorAll('.sub-tit');
 
-                
+
                 document.getElementById('dynamicSections').innerHTML = '';
 
-                
+
                 document.getElementById('inSymptom').innerHTML = '';
                 document.getElementById('inCause').innerHTML = '';
                 document.getElementById('inRepairMethod').innerHTML = '';
@@ -3742,7 +3751,7 @@ ${contentBody}
                     }
                     content = tempDiv.innerHTML.trim();
 
-                    
+
                     const sTitle = document.getElementById('inSymptomTitle').value;
                     const cTitle = document.getElementById('inCauseTitle').value;
                     const rTitle = document.getElementById('inRepairTitle').value;
@@ -3757,7 +3766,7 @@ ${contentBody}
                         document.getElementById('inRepairMethod').innerHTML = content;
                         mainRepairDone = true;
                     } else {
-                        
+
                         addDynamicSectionWithData(title, content);
                     }
                 });
@@ -3765,7 +3774,7 @@ ${contentBody}
                 alert('데이터가 에디터로 복원되었습니다.');
                 closeHTMLViewerModal();
                 switchTab('edit');
-                if (typeof generateHTML === 'function') generateHTML(); 
+                if (typeof generateHTML === 'function') generateHTML();
 
             } catch (err) {
                 console.error('HTML Parsing error:', err);
@@ -3773,7 +3782,7 @@ ${contentBody}
             }
         }
 
-        
+
         function addDynamicSectionWithData(title, content) {
             if (typeof addDynamicSection === 'function') {
                 addDynamicSection();
@@ -3820,7 +3829,7 @@ ${contentBody}
 
                 clearTimeout(window.syncTimer);
                 window.syncTimer = setTimeout(() => {
-                    syncTranslatedCode(true); 
+                    syncTranslatedCode(true);
                 }, 800);
             });
 
@@ -3974,7 +3983,6 @@ ${contentBody}
     <script type="text/javascript"
         src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
 
-    <script src="html-convert-onepoint-V1-model-data.js"></script>
 
     <div id="modelModal" class="modal notranslate">
         <div class="modal-content" style="max-width: 600px;">
@@ -4039,14 +4047,80 @@ ${contentBody}
 
     <script>
 
-        const productData = [{ "lv2Name": "시스템 에어컨", "lv2": "ACE", "lv3": "CHCHL", "lv3Name": "칠러" }, { "lv2Name": "시스템 에어컨", "lv2": "ACE", "lv3": "COCRA", "lv3Name": "상업용 천정형" }, { "lv2Name": "시스템 에어컨", "lv2": "ACE", "lv3": "COPAH", "lv3Name": "상업용 스탠드" }, { "lv2Name": "시스템 에어컨", "lv2": "ACE", "lv3": "GAGHP", "lv3Name": "가스식시스템에어컨" }, { "lv2Name": "시스템 에어컨", "lv2": "ACE", "lv3": "SYSBL", "lv3Name": "시스템보일러" }, { "lv2Name": "에어컨", "lv2": "AIC", "lv3": "REWRA", "lv3Name": "이동식 에어컨" }, { "lv2Name": "에어컨", "lv2": "AIC", "lv3": "STPAC", "lv3Name": "스탠드형 에어컨" }, { "lv2Name": "에어컨", "lv2": "AIC", "lv3": "TWPAT", "lv3Name": "2in1" }, { "lv2Name": "에어컨", "lv2": "AIC", "lv3": "WASRA", "lv3Name": "벽걸이형" }, { "lv2Name": "에어컨", "lv2": "AIC", "lv3": "WIWRA", "lv3Name": "창호형 에어컨" }, { "lv2Name": "공기청정기", "lv2": "ARC", "lv3": "AIARC", "lv3Name": "공기청정기" }, { "lv2Name": "공기청정기", "lv2": "ARC", "lv3": "EMARC", "lv3Name": "전자식 마스크" }, { "lv2Name": "AV", "lv2": "AUD", "lv3": "APAUD", "lv3Name": "오디오/플레이어" }, { "lv2Name": "AV", "lv2": "AUD", "lv3": "BTEAR", "lv3Name": "블루투스 이어폰" }, { "lv2Name": "AV", "lv2": "AUD", "lv3": "SOHTH", "lv3Name": "사운드바" }, { "lv2Name": "보일러", "lv2": "BLR", "lv3": "BOBLR", "lv3Name": "보일러" }, { "lv2Name": "소물액세서리", "lv2": "BUL", "lv3": "ACBUL", "lv3Name": "소물액세서리" }, { "lv2Name": "CDMA폰", "lv2": "CDM", "lv3": "RPCDM", "lv3Name": "CDMA폰" }, { "lv2Name": "실링팬", "lv2": "CLF", "lv3": "SECLF", "lv3Name": "실링팬" }, { "lv2Name": "상업용 디스플레이", "lv2": "CSP", "lv3": "DIDSM", "lv3Name": "디지털 사이니지" }, { "lv2Name": "상업용 디스플레이", "lv2": "CSP", "lv3": "LEDSM", "lv3Name": "LED 사이니지" }, { "lv2Name": "상업용 디스플레이", "lv2": "CSP", "lv3": "ONEQU", "lv3Name": "원퀵" }, { "lv2Name": "상업용 디스플레이", "lv2": "CSP", "lv3": "OTDSM", "lv3Name": "올레드 사이니지" }, { "lv2Name": "청소기", "lv2": "CVC", "lv3": "A9CLN", "lv3Name": "무선청소기" }, { "lv2Name": "청소기", "lv2": "CVC", "lv3": "GECVC", "lv3Name": "유선청소기" }, { "lv2Name": "청소기", "lv2": "CVC", "lv3": "GERBC", "lv3Name": "로봇청소기" }, { "lv2Name": "청소기", "lv2": "CVC", "lv3": "LARBJ", "lv3Name": "잔디깍이 로봇" }, { "lv2Name": "스타일러", "lv2": "DCS", "lv3": "SADCS", "lv3Name": "슈케이스" }, { "lv2Name": "스타일러", "lv2": "DCS", "lv3": "SCDCS", "lv3Name": "슈케어" }, { "lv2Name": "스타일러", "lv2": "DCS", "lv3": "STDCS", "lv3Name": "스타일러" }, { "lv2Name": "제습/가습기", "lv2": "DEH", "lv3": "DEDEH", "lv3Name": "제습기" }, { "lv2Name": "제습/가습기", "lv2": "DEH", "lv3": "DEHMD", "lv3Name": "가습기" }, { "lv2Name": "의류건조기", "lv2": "DRR", "lv3": "CLDRR", "lv3Name": "의류건조기" }, { "lv2Name": "세탁기", "lv2": "DRW", "lv3": "DUDRW", "lv3Name": "트롬" }, { "lv2Name": "세탁기", "lv2": "DRW", "lv3": "GEDRW", "lv3Name": "통돌이" }, { "lv2Name": "세탁기", "lv2": "DRW", "lv3": "MIDRW", "lv3Name": "미니세탁기" }, { "lv2Name": "일체형/데스크톱", "lv2": "DSK", "lv3": "CLDSK", "lv3Name": "클라우드 PC" }, { "lv2Name": "일체형/데스크톱", "lv2": "DSK", "lv3": "MUDSK", "lv3Name": "일체형/데스크톱" }, { "lv2Name": "식기세척기", "lv2": "DWM", "lv3": "DIDWM", "lv3Name": "식기세척기" }, { "lv2Name": "워시타워", "lv2": "DWS", "lv3": "WADWS", "lv3Name": "워시타워" }, { "lv2Name": "전기레인지", "lv2": "ELR", "lv3": "HIELR", "lv3Name": "하이라이트" }, { "lv2Name": "전기레인지", "lv2": "ELR", "lv3": "HYELR", "lv3Name": "하이브리드" }, { "lv2Name": "전기레인지", "lv2": "ELR", "lv3": "INELR", "lv3Name": "인덕션" }, { "lv2Name": "EV충전기", "lv2": "EVC", "lv3": "LSEVC", "lv3Name": "완속충전기" }, { "lv2Name": "171", "lv2": "EVF", "lv3": "급속충전기", "lv3Name": "" }, { "lv2Name": "선풍기", "lv2": "FAN", "lv3": "COFAN", "lv3Name": "선풍기" }, { "lv2Name": "석유식_온풍기", "lv2": "FHO", "lv3": "OIFHO", "lv3Name": "석유식_온풍기" }, { "lv2Name": "전기/가스식_온풍기", "lv2": "FHT", "lv3": "ELFHT", "lv3Name": "전기/가스식_온풍기" }, { "lv2Name": "광파오븐/전자레인지", "lv2": "GOR", "lv3": "ERGOR", "lv3Name": "전자레인지" }, { "lv2Name": "광파오븐/전자레인지", "lv2": "GOR", "lv3": "OVGOR", "lv3Name": "광파오븐레인지" }, { "lv2Name": "가스오븐/가스레인지", "lv2": "GRN", "lv3": "GAGRN", "lv3Name": "가스레인지" }, { "lv2Name": "가스오븐/가스레인지", "lv2": "GRN", "lv3": "GVGRN", "lv3Name": "가스오븐레인지" }, { "lv2Name": "맥주제조기", "lv2": "HBR", "lv3": "BEHBR", "lv3Name": "맥주제조기" }, { "lv2Name": "안마의자", "lv2": "HMC", "lv3": "MAHMC", "lv3Name": "안마의자" }, { "lv2Name": "홈넷", "lv2": "HNS", "lv3": "HOHNS", "lv3Name": "홈넷솔루션" }, { "lv2Name": "홈넷", "lv2": "HNS", "lv3": "INBMS", "lv3Name": "지능형빌딩자동제어시스템" }, { "lv2Name": "SMART폰", "lv2": "HSD", "lv3": "SMHSD", "lv3Name": "SMART폰" }, { "lv2Name": "히터", "lv2": "HTR", "lv3": "HOHTR", "lv3Name": "히터" }, { "lv2Name": "정수기", "lv2": "HWI", "lv3": "HCHWI", "lv3Name": "냉온정수기" }, { "lv2Name": "정수기", "lv2": "HWI", "lv3": "PUHWI", "lv3Name": "정수전용" }, { "lv2Name": "스마트씽큐", "lv2": "IOT", "lv3": "SMIOT", "lv3Name": "스마트씽큐" }, { "lv2Name": "키오스크", "lv2": "KOS", "lv3": "KIOSK", "lv3Name": "키오스크" }, { "lv2Name": "김치냉장고", "lv2": "KRE", "lv3": "COKRE", "lv3Name": "뚜껑식형" }, { "lv2Name": "김치냉장고", "lv2": "KRE", "lv3": "STKRE", "lv3Name": "스탠드형" }, { "lv2Name": "LED조명", "lv2": "LED", "lv3": "LELED", "lv3Name": "LED조명" }, { "lv2Name": "의료기기", "lv2": "MDD", "lv3": "HAMHC", "lv3Name": "메디헤어" }, { "lv2Name": "뷰티 디바이스", "lv2": "MHC", "lv3": "CLMHC", "lv3Name": "클렌징 기기" }, { "lv2Name": "뷰티 디바이스", "lv2": "MHC", "lv3": "REMHC", "lv3Name": "탄력기기" }, { "lv2Name": "모니터", "lv2": "MNT", "lv3": "CLMNT", "lv3Name": "클라우드 모니터" }, { "lv2Name": "모니터", "lv2": "MNT", "lv3": "MEMNT", "lv3Name": "의료용 모니터" }, { "lv2Name": "모니터", "lv2": "MNT", "lv3": "PCMNT", "lv3Name": "PC 모니터" }, { "lv2Name": "모니터", "lv2": "MNT", "lv3": "TVMNT", "lv3Name": "TV 모니터" }, { "lv2Name": "모니터", "lv2": "MNT", "lv3": "UGMNT", "lv3Name": "울트라 기어 게이밍 모니터" }, { "lv2Name": "모니터", "lv2": "MNT", "lv3": "UWMNT", "lv3Name": "울트라 와이드 모니터" }, { "lv2Name": "마인드웰니스", "lv2": "MWD", "lv3": "DHMWD", "lv3Name": "마인드웰니스" }, { "lv2Name": "저장장치", "lv2": "NAS", "lv3": "CDCDR", "lv3Name": "CD-ROM/RW/콤보" }, { "lv2Name": "저장장치", "lv2": "NAS", "lv3": "NENAS", "lv3Name": "넷하드" }, { "lv2Name": "노트북", "lv2": "NTB", "lv3": "GRNTB", "lv3Name": "그램" }, { "lv2Name": "노트북", "lv2": "NTB", "lv3": "TBNTB", "lv3Name": "태블릿(Tablet)" }, { "lv2Name": "노트북", "lv2": "NTB", "lv3": "UDNTB", "lv3Name": "울트라 PC" }, { "lv2Name": "노트북", "lv2": "NTB", "lv3": "UGNTB", "lv3Name": "울트라 기어" }, { "lv2Name": "사무기기", "lv2": "OFM", "lv3": "ININK", "lv3Name": "잉크젯_프린터" }, { "lv2Name": "사무기기", "lv2": "OFM", "lv3": "LALAS", "lv3Name": "레이저젯_프린터" }, { "lv2Name": "사무기기", "lv2": "OFM", "lv3": "OFOFA", "lv3Name": "사무기기" }, { "lv2Name": "기타제품", "lv2": "OTH", "lv3": "ZZOTH", "lv3Name": "기타제품" }, { "lv2Name": "식물생활가전", "lv2": "PCD", "lv3": "VEPCD", "lv3Name": "식물재배기" }, { "lv2Name": "PLS조명", "lv2": "PLS", "lv3": "PLPLS", "lv3Name": "PLS조명" }, { "lv2Name": "로봇", "lv2": "RBT", "lv3": "GURBT", "lv3Name": "안내 로봇" }, { "lv2Name": "로봇", "lv2": "RBT", "lv3": "SERBT", "lv3Name": "서빙로봇" }, { "lv2Name": "로봇", "lv2": "RBT", "lv3": "UVRBT", "lv3Name": "UVC 로봇" }, { "lv2Name": "밥솥", "lv2": "RCK", "lv3": "CORCK", "lv3Name": "밥솥" }, { "lv2Name": "냉장고", "lv2": "REF", "lv3": "BUSBS", "lv3Name": "비즈니스" }, { "lv2Name": "냉장고", "lv2": "REF", "lv3": "NOREF", "lv3Name": "일반형" }, { "lv2Name": "냉장고", "lv2": "REF", "lv3": "PUSBS", "lv3Name": "정수기형" }, { "lv2Name": "냉장고", "lv2": "REF", "lv3": "SISBS", "lv3Name": "양문형" }, { "lv2Name": "냉장고", "lv2": "REF", "lv3": "ULSBS", "lv3Name": "상냉장/하냉동" }, { "lv2Name": "토스터", "lv2": "TOT", "lv3": "TOTOT", "lv3Name": "토스터" }, { "lv2Name": "TV", "lv2": "TVL", "lv3": "LSLED", "lv3Name": "라이프 스타일 스크린" }, { "lv2Name": "TV", "lv2": "TVL", "lv3": "NALED", "lv3Name": "나노셀 TV" }, { "lv2Name": "TV", "lv2": "TVL", "lv3": "NOTLV", "lv3Name": "일반형(TV)" }, { "lv2Name": "TV", "lv2": "TVL", "lv3": "OTLED", "lv3Name": "올레드 TV" }, { "lv2Name": "TV", "lv2": "TVL", "lv3": "QNLED", "lv3Name": "QNED TV" }, { "lv2Name": "TV", "lv2": "TVL", "lv3": "SDLED", "lv3Name": "일반 LED TV" }, { "lv2Name": "TV", "lv2": "TVL", "lv3": "UDLED", "lv3Name": "울트라 HD TV" }, { "lv2Name": "프로젝터", "lv2": "VPJ", "lv3": "BSVPJ", "lv3Name": "프로빔 (상업용)" }, { "lv2Name": "프로젝터", "lv2": "VPJ", "lv3": "MOVPJ", "lv3Name": "시네빔" }, { "lv2Name": "Wearable Band", "lv2": "WEA", "lv3": "BAWEA", "lv3Name": "Wearable Band" }, { "lv2Name": "와인셀러", "lv2": "WEF", "lv3": "WIWEF", "lv3Name": "와인셀러" }].filter(i => i.lv2 !== 'PRODUCT_LVL2_CD'); 
+        const productData = [{ "lv2Name": "시스템 에어컨", "lv2": "ACE", "lv3": "CHCHL", "lv3Name": "칠러" }, { "lv2Name": "시스템 에어컨", "lv2": "ACE", "lv3": "COCRA", "lv3Name": "상업용 천정형" }, { "lv2Name": "시스템 에어컨", "lv2": "ACE", "lv3": "COPAH", "lv3Name": "상업용 스탠드" }, { "lv2Name": "시스템 에어컨", "lv2": "ACE", "lv3": "GAGHP", "lv3Name": "가스식시스템에어컨" }, { "lv2Name": "시스템 에어컨", "lv2": "ACE", "lv3": "SYSBL", "lv3Name": "시스템보일러" }, { "lv2Name": "에어컨", "lv2": "AIC", "lv3": "REWRA", "lv3Name": "이동식 에어컨" }, { "lv2Name": "에어컨", "lv2": "AIC", "lv3": "STPAC", "lv3Name": "스탠드형 에어컨" }, { "lv2Name": "에어컨", "lv2": "AIC", "lv3": "TWPAT", "lv3Name": "2in1" }, { "lv2Name": "에어컨", "lv2": "AIC", "lv3": "WASRA", "lv3Name": "벽걸이형" }, { "lv2Name": "에어컨", "lv2": "AIC", "lv3": "WIWRA", "lv3Name": "창호형 에어컨" }, { "lv2Name": "공기청정기", "lv2": "ARC", "lv3": "AIARC", "lv3Name": "공기청정기" }, { "lv2Name": "공기청정기", "lv2": "ARC", "lv3": "EMARC", "lv3Name": "전자식 마스크" }, { "lv2Name": "AV", "lv2": "AUD", "lv3": "APAUD", "lv3Name": "오디오/플레이어" }, { "lv2Name": "AV", "lv2": "AUD", "lv3": "BTEAR", "lv3Name": "블루투스 이어폰" }, { "lv2Name": "AV", "lv2": "AUD", "lv3": "SOHTH", "lv3Name": "사운드바" }, { "lv2Name": "보일러", "lv2": "BLR", "lv3": "BOBLR", "lv3Name": "보일러" }, { "lv2Name": "소물액세서리", "lv2": "BUL", "lv3": "ACBUL", "lv3Name": "소물액세서리" }, { "lv2Name": "CDMA폰", "lv2": "CDM", "lv3": "RPCDM", "lv3Name": "CDMA폰" }, { "lv2Name": "실링팬", "lv2": "CLF", "lv3": "SECLF", "lv3Name": "실링팬" }, { "lv2Name": "상업용 디스플레이", "lv2": "CSP", "lv3": "DIDSM", "lv3Name": "디지털 사이니지" }, { "lv2Name": "상업용 디스플레이", "lv2": "CSP", "lv3": "LEDSM", "lv3Name": "LED 사이니지" }, { "lv2Name": "상업용 디스플레이", "lv2": "CSP", "lv3": "ONEQU", "lv3Name": "원퀵" }, { "lv2Name": "상업용 디스플레이", "lv2": "CSP", "lv3": "OTDSM", "lv3Name": "올레드 사이니지" }, { "lv2Name": "청소기", "lv2": "CVC", "lv3": "A9CLN", "lv3Name": "무선청소기" }, { "lv2Name": "청소기", "lv2": "CVC", "lv3": "GECVC", "lv3Name": "유선청소기" }, { "lv2Name": "청소기", "lv2": "CVC", "lv3": "GERBC", "lv3Name": "로봇청소기" }, { "lv2Name": "청소기", "lv2": "CVC", "lv3": "LARBJ", "lv3Name": "잔디깍이 로봇" }, { "lv2Name": "스타일러", "lv2": "DCS", "lv3": "SADCS", "lv3Name": "슈케이스" }, { "lv2Name": "스타일러", "lv2": "DCS", "lv3": "SCDCS", "lv3Name": "슈케어" }, { "lv2Name": "스타일러", "lv2": "DCS", "lv3": "STDCS", "lv3Name": "스타일러" }, { "lv2Name": "제습/가습기", "lv2": "DEH", "lv3": "DEDEH", "lv3Name": "제습기" }, { "lv2Name": "제습/가습기", "lv2": "DEH", "lv3": "DEHMD", "lv3Name": "가습기" }, { "lv2Name": "의류건조기", "lv2": "DRR", "lv3": "CLDRR", "lv3Name": "의류건조기" }, { "lv2Name": "세탁기", "lv2": "DRW", "lv3": "DUDRW", "lv3Name": "트롬" }, { "lv2Name": "세탁기", "lv2": "DRW", "lv3": "GEDRW", "lv3Name": "통돌이" }, { "lv2Name": "세탁기", "lv2": "DRW", "lv3": "MIDRW", "lv3Name": "미니세탁기" }, { "lv2Name": "일체형/데스크톱", "lv2": "DSK", "lv3": "CLDSK", "lv3Name": "클라우드 PC" }, { "lv2Name": "일체형/데스크톱", "lv2": "DSK", "lv3": "MUDSK", "lv3Name": "일체형/데스크톱" }, { "lv2Name": "식기세척기", "lv2": "DWM", "lv3": "DIDWM", "lv3Name": "식기세척기" }, { "lv2Name": "워시타워", "lv2": "DWS", "lv3": "WADWS", "lv3Name": "워시타워" }, { "lv2Name": "전기레인지", "lv2": "ELR", "lv3": "HIELR", "lv3Name": "하이라이트" }, { "lv2Name": "전기레인지", "lv2": "ELR", "lv3": "HYELR", "lv3Name": "하이브리드" }, { "lv2Name": "전기레인지", "lv2": "ELR", "lv3": "INELR", "lv3Name": "인덕션" }, { "lv2Name": "EV충전기", "lv2": "EVC", "lv3": "LSEVC", "lv3Name": "완속충전기" }, { "lv2Name": "171", "lv2": "EVF", "lv3": "급속충전기", "lv3Name": "" }, { "lv2Name": "선풍기", "lv2": "FAN", "lv3": "COFAN", "lv3Name": "선풍기" }, { "lv2Name": "석유식_온풍기", "lv2": "FHO", "lv3": "OIFHO", "lv3Name": "석유식_온풍기" }, { "lv2Name": "전기/가스식_온풍기", "lv2": "FHT", "lv3": "ELFHT", "lv3Name": "전기/가스식_온풍기" }, { "lv2Name": "광파오븐/전자레인지", "lv2": "GOR", "lv3": "ERGOR", "lv3Name": "전자레인지" }, { "lv2Name": "광파오븐/전자레인지", "lv2": "GOR", "lv3": "OVGOR", "lv3Name": "광파오븐레인지" }, { "lv2Name": "가스오븐/가스레인지", "lv2": "GRN", "lv3": "GAGRN", "lv3Name": "가스레인지" }, { "lv2Name": "가스오븐/가스레인지", "lv2": "GRN", "lv3": "GVGRN", "lv3Name": "가스오븐레인지" }, { "lv2Name": "맥주제조기", "lv2": "HBR", "lv3": "BEHBR", "lv3Name": "맥주제조기" }, { "lv2Name": "안마의자", "lv2": "HMC", "lv3": "MAHMC", "lv3Name": "안마의자" }, { "lv2Name": "홈넷", "lv2": "HNS", "lv3": "HOHNS", "lv3Name": "홈넷솔루션" }, { "lv2Name": "홈넷", "lv2": "HNS", "lv3": "INBMS", "lv3Name": "지능형빌딩자동제어시스템" }, { "lv2Name": "SMART폰", "lv2": "HSD", "lv3": "SMHSD", "lv3Name": "SMART폰" }, { "lv2Name": "히터", "lv2": "HTR", "lv3": "HOHTR", "lv3Name": "히터" }, { "lv2Name": "정수기", "lv2": "HWI", "lv3": "HCHWI", "lv3Name": "냉온정수기" }, { "lv2Name": "정수기", "lv2": "HWI", "lv3": "PUHWI", "lv3Name": "정수전용" }, { "lv2Name": "스마트씽큐", "lv2": "IOT", "lv3": "SMIOT", "lv3Name": "스마트씽큐" }, { "lv2Name": "키오스크", "lv2": "KOS", "lv3": "KIOSK", "lv3Name": "키오스크" }, { "lv2Name": "김치냉장고", "lv2": "KRE", "lv3": "COKRE", "lv3Name": "뚜껑식형" }, { "lv2Name": "김치냉장고", "lv2": "KRE", "lv3": "STKRE", "lv3Name": "스탠드형" }, { "lv2Name": "LED조명", "lv2": "LED", "lv3": "LELED", "lv3Name": "LED조명" }, { "lv2Name": "의료기기", "lv2": "MDD", "lv3": "HAMHC", "lv3Name": "메디헤어" }, { "lv2Name": "뷰티 디바이스", "lv2": "MHC", "lv3": "CLMHC", "lv3Name": "클렌징 기기" }, { "lv2Name": "뷰티 디바이스", "lv2": "MHC", "lv3": "REMHC", "lv3Name": "탄력기기" }, { "lv2Name": "모니터", "lv2": "MNT", "lv3": "CLMNT", "lv3Name": "클라우드 모니터" }, { "lv2Name": "모니터", "lv2": "MNT", "lv3": "MEMNT", "lv3Name": "의료용 모니터" }, { "lv2Name": "모니터", "lv2": "MNT", "lv3": "PCMNT", "lv3Name": "PC 모니터" }, { "lv2Name": "모니터", "lv2": "MNT", "lv3": "TVMNT", "lv3Name": "TV 모니터" }, { "lv2Name": "모니터", "lv2": "MNT", "lv3": "UGMNT", "lv3Name": "울트라 기어 게이밍 모니터" }, { "lv2Name": "모니터", "lv2": "MNT", "lv3": "UWMNT", "lv3Name": "울트라 와이드 모니터" }, { "lv2Name": "마인드웰니스", "lv2": "MWD", "lv3": "DHMWD", "lv3Name": "마인드웰니스" }, { "lv2Name": "저장장치", "lv2": "NAS", "lv3": "CDCDR", "lv3Name": "CD-ROM/RW/콤보" }, { "lv2Name": "저장장치", "lv2": "NAS", "lv3": "NENAS", "lv3Name": "넷하드" }, { "lv2Name": "노트북", "lv2": "NTB", "lv3": "GRNTB", "lv3Name": "그램" }, { "lv2Name": "노트북", "lv2": "NTB", "lv3": "TBNTB", "lv3Name": "태블릿(Tablet)" }, { "lv2Name": "노트북", "lv2": "NTB", "lv3": "UDNTB", "lv3Name": "울트라 PC" }, { "lv2Name": "노트북", "lv2": "NTB", "lv3": "UGNTB", "lv3Name": "울트라 기어" }, { "lv2Name": "사무기기", "lv2": "OFM", "lv3": "ININK", "lv3Name": "잉크젯_프린터" }, { "lv2Name": "사무기기", "lv2": "OFM", "lv3": "LALAS", "lv3Name": "레이저젯_프린터" }, { "lv2Name": "사무기기", "lv2": "OFM", "lv3": "OFOFA", "lv3Name": "사무기기" }, { "lv2Name": "기타제품", "lv2": "OTH", "lv3": "ZZOTH", "lv3Name": "기타제품" }, { "lv2Name": "식물생활가전", "lv2": "PCD", "lv3": "VEPCD", "lv3Name": "식물재배기" }, { "lv2Name": "PLS조명", "lv2": "PLS", "lv3": "PLPLS", "lv3Name": "PLS조명" }, { "lv2Name": "로봇", "lv2": "RBT", "lv3": "GURBT", "lv3Name": "안내 로봇" }, { "lv2Name": "로봇", "lv2": "RBT", "lv3": "SERBT", "lv3Name": "서빙로봇" }, { "lv2Name": "로봇", "lv2": "RBT", "lv3": "UVRBT", "lv3Name": "UVC 로봇" }, { "lv2Name": "밥솥", "lv2": "RCK", "lv3": "CORCK", "lv3Name": "밥솥" }, { "lv2Name": "냉장고", "lv2": "REF", "lv3": "BUSBS", "lv3Name": "비즈니스" }, { "lv2Name": "냉장고", "lv2": "REF", "lv3": "NOREF", "lv3Name": "일반형" }, { "lv2Name": "냉장고", "lv2": "REF", "lv3": "PUSBS", "lv3Name": "정수기형" }, { "lv2Name": "냉장고", "lv2": "REF", "lv3": "SISBS", "lv3Name": "양문형" }, { "lv2Name": "냉장고", "lv2": "REF", "lv3": "ULSBS", "lv3Name": "상냉장/하냉동" }, { "lv2Name": "토스터", "lv2": "TOT", "lv3": "TOTOT", "lv3Name": "토스터" }, { "lv2Name": "TV", "lv2": "TVL", "lv3": "LSLED", "lv3Name": "라이프 스타일 스크린" }, { "lv2Name": "TV", "lv2": "TVL", "lv3": "NALED", "lv3Name": "나노셀 TV" }, { "lv2Name": "TV", "lv2": "TVL", "lv3": "NOTLV", "lv3Name": "일반형(TV)" }, { "lv2Name": "TV", "lv2": "TVL", "lv3": "OTLED", "lv3Name": "올레드 TV" }, { "lv2Name": "TV", "lv2": "TVL", "lv3": "QNLED", "lv3Name": "QNED TV" }, { "lv2Name": "TV", "lv2": "TVL", "lv3": "SDLED", "lv3Name": "일반 LED TV" }, { "lv2Name": "TV", "lv2": "TVL", "lv3": "UDLED", "lv3Name": "울트라 HD TV" }, { "lv2Name": "프로젝터", "lv2": "VPJ", "lv3": "BSVPJ", "lv3Name": "프로빔 (상업용)" }, { "lv2Name": "프로젝터", "lv2": "VPJ", "lv3": "MOVPJ", "lv3Name": "시네빔" }, { "lv2Name": "Wearable Band", "lv2": "WEA", "lv3": "BAWEA", "lv3Name": "Wearable Band" }, { "lv2Name": "와인셀러", "lv2": "WEF", "lv3": "WIWEF", "lv3Name": "와인셀러" }].filter(i => i.lv2 !== 'PRODUCT_LVL2_CD');
 
         let selectedLv2Codes = new Set();
         let selectedLv3Codes = new Set();
         let selectedModels = new Set();
-        let selectedCorpCd = 'ALL'; 
-        let currentFilteredModels = []; 
+        let selectedCorpCd = 'ALL';
+        let currentFilteredModels = [];
         let modelRenderLimit = 500;
+
+        let globalModelData = null;
+        let isKoreaModelLoading = false;
+        let isKoreaModelError = false;
+
+        const KOREA_MODEL_API_URL = 'https://script.google.com/macros/s/AKfycbwmMzocgSxfpcu0Gcr2a4nu79JNt1rGHQ791NumW5oPbfV-Nk2stQ1vmF9yQgVt8LmxJQ/exec';
+
+        async function loadKoreaModelData() {
+            if (globalModelData !== null || isKoreaModelLoading) return;
+
+            if (!KOREA_MODEL_API_URL || KOREA_MODEL_API_URL.includes('YOUR_APPS_SCRIPT_WEB_APP_URL_HERE')) {
+                isKoreaModelError = true;
+                console.warn('[구글시트 API] Apps Script 웹 앱 URL이 설정되지 않았습니다.');
+                showModelLoadingError('설정 누락: index.html 소스코드에서 KOREA_MODEL_API_URL 값을 입력해 주세요.');
+                return;
+            }
+
+            isKoreaModelLoading = true;
+            isKoreaModelError = false;
+            console.log('[구글시트 API] Apps Script 웹 앱 호출 시작...');
+
+            try {
+                const response = await fetch(KOREA_MODEL_API_URL);
+                if (!response.ok) {
+                    throw new Error(`구글 서버 응답 오류 (HTTP 상태코드: ${response.status})`);
+                }
+                const data = await response.json();
+
+                if (data.error) {
+                    throw new Error(data.error);
+                }
+
+                if (!Array.isArray(data) || data.length === 0) {
+                    throw new Error('올바른 데이터 배열 형식의 응답이 아닙니다.');
+                }
+
+                globalModelData = data;
+                isKoreaModelLoading = false;
+                isKoreaModelError = false;
+                console.log(`[구글시트 API] ${globalModelData.length}건의 데이터를 성공적으로 실시간 로드했습니다.`);
+
+                const modelModal = document.getElementById('modelModal');
+                if (modelModal && modelModal.style.display === 'block') {
+                    renderModelList();
+                }
+            } catch (error) {
+                console.error('[구글시트 API] 연동 오류:', error);
+                isKoreaModelLoading = false;
+                isKoreaModelError = true;
+                showModelLoadingError(`데이터 로딩 실패: ${error.message}`);
+            }
+        }
+
+        function showModelLoadingError(message) {
+            const container = document.getElementById('modelList');
+            if (container) {
+                container.innerHTML = `
+                    <div style="text-align:center; padding: 40px 20px; color: var(--lg-red); font-size: 13px;">
+                        <i class="fas fa-exclamation-triangle" style="font-size: 24px; margin-bottom: 10px;"></i>
+                        <div style="font-weight: bold; margin-bottom: 5px;">구글 스프레드시트 API 연동 실패</div>
+                        <div style="color: #666; font-size: 11px; margin-bottom: 10px; word-break: break-all;">${message}</div>
+                        <button class="btn-secondary" style="font-size: 11px;" onclick="loadKoreaModelData()">다시 시도</button>
+                    </div>
+                `;
+            }
+        }
 
         function openProductModal() {
             document.getElementById('productModal').style.display = "block";
@@ -4072,7 +4146,7 @@ ${contentBody}
             const lv2Map = new Map();
             sourceData.forEach(item => {
                 const code = item.lv2;
-                const name = (appRegion === 'ko') ? item.lv2Name : item.lv2; 
+                const name = (appRegion === 'ko') ? item.lv2Name : item.lv2;
                 if (!lv2Map.has(code)) {
                     lv2Map.set(code, name);
                 }
@@ -4259,6 +4333,11 @@ ${contentBody}
                 return;
             }
 
+            // [구글 시트 연동] 한국 지역일 때 아직 데이터 로드가 시작되지 않았다면 비동기 호출을 처리합니다.
+            if (appRegion === 'ko' && globalModelData === null) {
+                loadKoreaModelData();
+            }
+
             const lv3Names = [];
             const sourceData = (appRegion === 'ko') ? productData : globalExcelData;
             if (sourceData) {
@@ -4362,6 +4441,28 @@ ${contentBody}
             const search = document.getElementById('modelSearchInput').value.toUpperCase();
 
             container.innerHTML = "";
+
+            // [구글 시트 연동] 한국 지역의 데이터 로딩 상태 대응 UI 핸들러
+            if (appRegion === 'ko') {
+                if (isKoreaModelLoading) {
+                    container.innerHTML = `
+                        <div style="text-align:center; padding: 60px 20px; color: #666;">
+                            <i class="fas fa-spinner fa-spin" style="font-size: 24px; color: var(--lg-red); margin-bottom: 10px;"></i>
+                            <div style="font-size: 13px; font-weight: bold;">구글 스프레드시트에서 실시간 모델 데이터를 가져오는 중입니다...</div>
+                        </div>
+                    `;
+                    return;
+                }
+                if (isKoreaModelError && (!globalModelData || globalModelData.length === 0)) {
+                    container.innerHTML = `
+                        <div style="text-align:center; padding: 40px 20px; color: var(--lg-red); font-weight: bold;">
+                            <div>실시간 데이터를 가져오지 못했습니다.</div>
+                            <button class="btn-secondary" style="font-size: 11px; margin-top: 10px;" onclick="loadKoreaModelData()">다시 시도</button>
+                        </div>
+                    `;
+                    return;
+                }
+            }
 
             const currentData = (appRegion === 'ko') ? (typeof globalModelData !== 'undefined' ? globalModelData : null) : globalExcelData;
 
@@ -4592,18 +4693,23 @@ ${contentBody}
             if (typeof generateHTML === 'function') generateHTML();
         }
 
-        
 
-        let chatMessages = []; 
 
-        
+        let chatMessages = [];
+
+
         window.addEventListener('DOMContentLoaded', () => {
             loadChatSettings();
             const configOverlay = document.getElementById('chatConfigOverlay');
             if (configOverlay) configOverlay.classList.remove('active');
 
-            
-            
+            // [구글 시트 연동] 한국 지역일 경우 모델 데이터를 초기 호출합니다.
+            if (appRegion === 'ko') {
+                loadKoreaModelData();
+            }
+
+
+
             const isChatbotCollapsed = localStorage.getItem('qbot_chatbot_collapsed') === 'true';
             if (isChatbotCollapsed) {
                 const chatbotPanel = document.getElementById('chatbotPanel');
@@ -4617,8 +4723,8 @@ ${contentBody}
             }
         });
 
-        
-        
+
+
         function toggleChatbotPanelVisibility() {
             const chatbotPanel = document.getElementById('chatbotPanel');
             const toggleBtn = document.getElementById('btnToggleChatbotPanel');
@@ -4627,13 +4733,13 @@ ${contentBody}
             const isCollapsed = chatbotPanel.classList.toggle('collapsed');
 
             if (isCollapsed) {
-                
+
                 if (toggleBtn) {
                     toggleBtn.style.backgroundColor = '#888';
                 }
                 localStorage.setItem('qbot_chatbot_collapsed', 'true');
             } else {
-                
+
                 if (toggleBtn) {
                     toggleBtn.style.backgroundColor = '#333';
                 }
@@ -4641,7 +4747,7 @@ ${contentBody}
             }
         }
 
-        
+
         function toggleChatConfigOverlay() {
             const overlay = document.getElementById('chatConfigOverlay');
             if (overlay) {
@@ -4653,7 +4759,7 @@ ${contentBody}
             }
         }
 
-        
+
         function handleChatProviderChange() {
             const provider = document.getElementById('chatProvider').value;
             const modelSelect = document.getElementById('chatModel');
@@ -4675,7 +4781,7 @@ ${contentBody}
             saveChatSettings();
         }
 
-        
+
         function saveChatSettings() {
             const provider = document.getElementById('chatProvider').value;
             const apiKey = document.getElementById('chatApiKey').value;
@@ -4686,19 +4792,19 @@ ${contentBody}
             localStorage.setItem('qbot_chat_model', model);
         }
 
-        
-        
+
+
         function deleteChatApiKey() {
             if (confirm('로컬 저장소에 보관된 API Key를 완전히 삭제하시겠습니까?')) {
                 document.getElementById('chatApiKey').value = '';
                 localStorage.removeItem('qbot_chat_apikey');
-                
+
                 saveChatSettings();
                 alert('API Key가 안전하게 삭제되었습니다.');
             }
         }
 
-        
+
         function loadChatSettings() {
             const provider = localStorage.getItem('qbot_chat_provider') || 'gemini';
             const apiKey = localStorage.getItem('qbot_chat_apikey') || '';
@@ -4711,28 +4817,28 @@ ${contentBody}
             document.getElementById('chatModel').value = model;
         }
 
-        
-        
+
+
         function cleanEmptyHtml(html) {
             if (!html) return "";
             const cleanText = html.replace(/<[^>]*>/g, '').replace(/&nbsp;/g, ' ').trim();
             return cleanText === "" ? "" : html;
         }
 
-        
-        
+
+
         function stripHtmlTags(html) {
             if (!html) return "";
             let text = html.replace(/<!--[\s\S]*?-->/g, ""); 
-            text = text.replace(/<[^>]*>/g, ""); 
+                text = text.replace(/<[^>]*>/g, "");
             text = text.replace(/&nbsp;/g, " ")
                 .replace(/&lt;/g, "<")
                 .replace(/&gt;/g, ">")
-                .replace(/&amp;/g, "&"); 
+                .replace(/&amp;/g, "&");
             return text.trim();
         }
 
-        
+
         function getEditorData() {
             const title = document.getElementById('inTitle').value;
             const productFamily = document.getElementById('inProductFamily').value;
@@ -4771,7 +4877,7 @@ ${contentBody}
             };
         }
 
-        
+
         function loadCurrentEditorToInput() {
             const data = getEditorData();
             const cleanText = html => html.replace(/<[^>]*>/g, '').replace(/&nbsp;/g, ' ').trim();
@@ -4781,14 +4887,14 @@ ${contentBody}
             document.getElementById('chatInput').focus();
         }
 
-        
+
         function applyEditorData(jsonData) {
             try {
                 if (typeof jsonData === 'string') {
                     jsonData = JSON.parse(jsonData);
                 }
 
-                
+
                 if (jsonData.title !== undefined) document.getElementById('inTitle').value = jsonData.title;
                 if (jsonData.actionSummary !== undefined) document.getElementById('inActionSummary').innerHTML = jsonData.actionSummary;
                 if (jsonData.symptomTitle !== undefined) document.getElementById('inSymptomTitle').value = jsonData.symptomTitle;
@@ -4798,7 +4904,7 @@ ${contentBody}
                 if (jsonData.repairTitle !== undefined) document.getElementById('inRepairTitle').value = jsonData.repairTitle;
                 if (jsonData.repairContent !== undefined) document.getElementById('inRepairMethod').innerHTML = jsonData.repairContent;
 
-                
+
                 if (jsonData.additionalSections && Array.isArray(jsonData.additionalSections)) {
                     document.getElementById('dynamicSections').innerHTML = '';
                     jsonData.additionalSections.forEach(sec => {
@@ -4808,7 +4914,7 @@ ${contentBody}
 
                 alert('AI 추천 수정안이 에디터에 안전하게 반영되었습니다!');
 
-                
+
                 if (typeof generateHTML === 'function') generateHTML();
             } catch (e) {
                 console.error('AI 데이터 적용 오류:', e);
@@ -4816,13 +4922,13 @@ ${contentBody}
             }
         }
 
-        
-        
+
+
         function applyQuickTemplate(type) {
             const data = getEditorData();
 
-            
-            
+
+
             const hasContent = (data.title || '').trim() ||
                 (data.actionSummary || '').replace(/<[^>]*>/g, '').trim() ||
                 (data.symptomContent || '').replace(/<[^>]*>/g, '').trim() ||
@@ -4836,8 +4942,8 @@ ${contentBody}
 
             let promptText = "";
 
-            
-            
+
+
             if (type === 'proofread') {
                 promptText = "현재 에디터에 입력된 제목과 본문에서 맞춤법 오류, 기술적 비표준어(예: 매치량, 경시성 등)를 정확히 교정하고 문맥을 자연스럽게 다듬어줘. 불필요한 서론은 배제하고, 어떤 항목이 어떻게 교정되었는지 결과 위주로 간결하게 알려줘. 단, 비어 있는 항목은 절대 내용을 임의로 유추하거나 창작해 추가하지 말고 빈 값 그대로 유지해야 해. 특히 편집기에 실제 입력된 값이 없는 필드(증상이나 원인 내용 등이 비어있는 경우)는 ai 추천이나 최종 JSON, 챗봇 대화방의 대조 출력(기존/수정) 모두에서 일체 관련 내용을 노출하지 말고 제외해야 하며, 오직 사용자가 입력한 내용에만 기반해서 수정해야 해.";
             } else if (type === 'simplify') {
@@ -4848,8 +4954,8 @@ ${contentBody}
 
             document.getElementById('chatInput').value = promptText;
 
-            
-            
+
+
             let bubbleLabel = "";
             if (type === 'proofread') bubbleLabel = "📝 문맥/맞춤법 교정 요청";
             else if (type === 'simplify') bubbleLabel = "💡 초보자도 쉽게 수정 요청";
@@ -4858,7 +4964,7 @@ ${contentBody}
             sendChatMessage(bubbleLabel);
         }
 
-        
+
         function handleChatInputKeyDown(e) {
             if (e.key === 'Enter' && !e.shiftKey) {
                 e.preventDefault();
@@ -4866,7 +4972,7 @@ ${contentBody}
             }
         }
 
-        
+
         function renderChatBubble(sender, text, dataToApply = null) {
             const history = document.getElementById('chatHistory');
             const bubble = document.createElement('div');
@@ -4875,8 +4981,8 @@ ${contentBody}
             if (sender === 'system') {
                 bubble.innerHTML = text;
             } else if (sender === 'ai') {
-                
-                
+
+
                 try {
                     bubble.innerHTML = marked.parse(text);
                 } catch (me) {
@@ -4884,14 +4990,14 @@ ${contentBody}
                     bubble.textContent = text;
                 }
             } else {
-                
+
                 bubble.style.whiteSpace = 'pre-wrap';
                 bubble.textContent = text;
             }
 
             history.appendChild(bubble);
 
-            
+
             if (dataToApply && sender === 'ai') {
                 const card = document.createElement('div');
                 card.className = 'ai-action-card';
@@ -4915,7 +5021,7 @@ ${contentBody}
             history.scrollTop = history.scrollHeight;
         }
 
-        
+
         async function testChatApiConnection() {
             const provider = document.getElementById('chatProvider').value;
             const apiKey = document.getElementById('chatApiKey').value.trim();
@@ -4962,8 +5068,8 @@ ${contentBody}
             }
         }
 
-        
-        
+
+
         async function sendChatMessage(customUserBubbleText = null) {
             const input = document.getElementById('chatInput');
             const messageText = input.value.trim();
@@ -4979,7 +5085,7 @@ ${contentBody}
                 return;
             }
 
-            
+
             renderChatBubble('user', customUserBubbleText || messageText);
             input.value = '';
 
@@ -4992,10 +5098,10 @@ ${contentBody}
 
             const editorData = getEditorData();
 
-            
-            
+
+
             let editorInfoText = "";
-            let emptyFields = []; 
+            let emptyFields = [];
 
             if (editorData.title.trim()) {
                 editorInfoText += `- 제목: ${editorData.title}\n`;
@@ -5068,7 +5174,7 @@ ${contentBody}
                 editorInfoText += `- 추가 섹션들: ${JSON.stringify(validDynSections)}\n`;
             }
 
-            
+
             const systemPrompt = `당신은 HTML 정보 변환기에 최적화된 AI 교정 파트너입니다.
 역할: 사용자가 제시한 교정 지시사항에 맞춰 [현재 에디터 정보] 중 채워져 있는 항목들의 내용을 전문적으로 수정하거나 다듬습니다.
 - **문맥/맞춤법 교정**이 요구된 경우: 문장의 맞춤법 오류, 오탈자, 띄어쓰기 및 비표준 기술 용어(예: 매치량 -> 배치량, 경시성 -> 경시 변화 등 기술 비표준어)를 한국어 표준 어문 규정에 맞게 완벽히 교정하고, 자연스러운 기술 문서체로 수정하십시오. (비어 있는 항목은 절대 추가 금지)
@@ -5196,13 +5302,13 @@ ${emptyFields.length > 0 ? emptyFields.map(f => `- ${f}`).join('\n') : "(없음)
 
                 loadingBubble.remove();
 
-                
-                
+
+
                 let dataToApply = null;
                 let displayText = aiResponseText;
 
-                
-                
+
+
                 let jsonMatch = aiResponseText.match(/```json\s*(\{[\s\S]*?\})\s*```/);
                 let matchedRawText = "";
                 let jsonString = "";
@@ -5216,7 +5322,7 @@ ${emptyFields.length > 0 ? emptyFields.map(f => `- ${f}`).join('\n') : "(없음)
                         matchedRawText = jsonMatch[0];
                         jsonString = jsonMatch[1];
                     } else {
-                        
+
                         const braceMatch = aiResponseText.match(/(\{[\s\S]*\})/);
                         if (braceMatch) {
                             matchedRawText = braceMatch[1];
@@ -5225,7 +5331,7 @@ ${emptyFields.length > 0 ? emptyFields.map(f => `- ${f}`).join('\n') : "(없음)
                     }
                 }
 
-                
+
                 if (jsonString) {
                     try {
                         dataToApply = JSON.parse(jsonString.trim());
@@ -5234,31 +5340,31 @@ ${emptyFields.length > 0 ? emptyFields.map(f => `- ${f}`).join('\n') : "(없음)
                     }
                 }
 
-                
+
                 if (matchedRawText) {
                     const idx = displayText.lastIndexOf(matchedRawText);
                     if (idx !== -1) {
                         displayText = displayText.substring(0, idx).trim();
-                        
+
                         displayText = displayText.replace(/\n\s*---\s*$/, '').trim();
                         displayText = displayText.replace(/\n\s*\*\*\*\s*$/, '').trim();
                         displayText = displayText.replace(/---\s*$/, '').trim();
                         displayText = displayText.replace(/\*\*\*\s*$/, '').trim();
                     }
                 } else {
-                    
+
                     displayText = displayText.replace(/```json[\s\S]*?```/g, '');
                     displayText = displayText.replace(/```[\s\S]*?```/g, '');
                 }
 
-                
+
                 renderChatBubble('ai', displayText, dataToApply);
 
             } catch (e) {
                 loadingBubble.remove();
                 let displayErrMsg = `⚠️ API 호출 오류: ${e.message}<br>연동 설정의 인증 키 만료 또는 차단 여부를 체크해 주세요.`;
 
-                
+
                 const lowerMsg = (e.message || '').toLowerCase();
                 if (lowerMsg.includes('quota') || lowerMsg.includes('limit') || lowerMsg.includes('rate')) {
                     displayErrMsg = `⚠️ **API 호출 한도 초과 (Quota Exceeded / Rate Limit)**<br><br>현재 사용 중인 구글 Gemini 무료 API 키의 분당 호출 한도(분당 최대 15~20회)를 일시적으로 초과했습니다.<br><br>**💡 해결 방법**:<br>1. **약 30초 ~ 1분 정도 기다리신 후** 다시 시도하시면 정상 작동합니다.<br>2. 만약 빈번하게 발생하여 불편하시다면 Google AI Studio에서 결제(Billing) 설정을 등록하고 유료 티어(Pay-as-you-go)로 전환하시면 한도가 거의 무제한으로 확장됩니다.`;
@@ -5268,7 +5374,7 @@ ${emptyFields.length > 0 ? emptyFields.map(f => `- ${f}`).join('\n') : "(없음)
             }
         }
 
-        
+
         function switchTab(tab) {
             const editPanel = document.getElementById('inputPanel');
             const previewPanel = document.getElementById('previewPanel');

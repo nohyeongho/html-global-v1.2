@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>구글 시트 업로드용 CSV 추출 도구</title>
+    <!-- 왜 이 라이브러리를 썼는가: 버튼 아이콘 표시를 위해 FontAwesome을 로드합니다. -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    
+    <style>
+        body {
+            font-family: 'Malgun Gothic', '맑은 고딕', sans-serif;
+            margin: 40px;
+            background-color: #f7f9fa;
+            color: #333;
+            line-height: 1.6;
+        }
+        .container {
+            max-width: 800px;
+            background: #fff;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+            margin: 0 auto;
+        }
+        h1 {
+            color: #a50034;
+            font-size: 24px;
+            border-bottom: 2px solid #a50034;
+            padding-bottom: 10px;
+            margin-top: 0;
+        }
+        p {
+            font-size: 14px;
+            color: #666;
+        }
+        .btn-group {
+            margin: 20px 0;
+            display: flex;
+            gap: 10px;
+        }
+        button {
+            padding: 10px 20px;
+            font-size: 14px;
+            font-weight: bold;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: background 0.2s;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .btn-primary {
+            background-color: #a50034;
+            color: white;
+        }
+        .btn-primary:hover {
+            background-color: #800026;
+        }
+        .btn-secondary {
+            background-color: #f0f0f0;
+            color: #333;
+            border: 1px solid #ccc;
+        }
+        .btn-secondary:hover {
+            background-color: #e0e0e0;
+        }
+        textarea {
+            width: 100%;
+            height: 350px;
+            margin-top: 15px;
+            padding: 12px;
+            box-sizing: border-box;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            font-family: 'Consolas', 'Monaco', monospace;
+            font-size: 13px;
+            white-space: pre;
+            background-color: #fafafa;
+        }
+        .status-badge {
+            display: inline-block;
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: bold;
+            margin-top: 10px;
+        }
+        .success {
+            background-color: #e6f4ea;
+            color: #137333;
+        }
+        .error {
+            background-color: #fce8e6;
+            color: #c5221f;
+        }
+    </style>
+
+    <!-- 의도: 기존의 한국 모델 데이터가 포함된 JS 파일을 동적으로 불러오기 위해 스크립트를 참조합니다. -->
+    <script src="html-convert-onepoint-V1-model-data.js"></script>
+</head>
+<body>
+
+<div class="container">
+    <h1><i class="fas fa-file-export"></i> 구글 시트 업로드용 데이터 변환기</h1>
+    <p>
+        이 도구는 기존 로컬 파일(<code>html-convert-onepoint-V1-model-data.js</code>)의 모델 목록을 분석하여, <br>
+        구글 스프레드시트에 바로 붙여넣거나 업로드할 수 있는 <strong>CSV 텍스트(A열: LV3, B열: LV3_NAME, C열: MODEL)</strong> 구조로 변환합니다.
+    </p>
+
+    <div class="btn-group">
+        <button class="btn-primary" onclick="convertAndDownload()"><i class="fas fa-download"></i> CSV 파일 다운로드</button>
+        <button class="btn-secondary" onclick="copyToClipboard()"><i class="fas fa-copy"></i> 전체 클립보드 복사</button>
+    </div>
+
+    <div id="status"></div>
+
+    <textarea id="outputTextArea" readonly placeholder="변환된 결과가 여기에 표시됩니다."></textarea>
+</div>
+
+<script>
+    // 의도: index.html에 작성되어 있던 소분류 코드와 소분류 한국어명의 매핑 정보를 가져와
+    // 구글 시트의 B열(LV3_NAME)을 올바르게 채워주기 위해 사전을 구축합니다.
+    const productData = [
+        { "lv2Name": "시스템 에어컨", "lv2": "ACE", "lv3": "CHCHL", "lv3Name": "칠러" }, 
+        { "lv2Name": "시스템 에어컨", "lv2": "ACE", "lv3": "COCRA", "lv3Name": "상업용 천정형" }, 
+        { "lv2Name": "시스템 에어컨", "lv2": "ACE", "lv3": "COPAH", "lv3Name": "상업용 스탠드" }, 
+        { "lv2Name": "시스템 에어컨", "lv2": "ACE", "lv3": "GAGHP", "lv3Name": "가스식시스템에어컨" }, 
+        { "lv2Name": "시스템 에어컨", "lv2": "ACE", "lv3": "SYSBL", "lv3Name": "시스템보일러" }, 
+        { "lv2Name": "에어컨", "lv2": "AIC", "lv3": "REWRA", "lv3Name": "이동식 에어컨" }, 
+        { "lv2Name": "에어컨", "lv2": "AIC", "lv3": "STPAC", "lv3Name": "스탠드형 에어컨" }, 
+        { "lv2Name": "에어컨", "lv2": "AIC", "lv3": "TWPAT", "lv3Name": "2in1" }, 
+        { "lv2Name": "에어컨", "lv2": "AIC", "lv3": "WASRA", "lv3Name": "벽걸이형" }, 
+        { "lv2Name": "에어컨", "lv2": "AIC", "lv3": "WIWRA", "lv3Name": "창호형 에어컨" }, 
+        { "lv2Name": "공기청정기", "lv2": "ARC", "lv3": "AIARC", "lv3Name": "공기청정기" }, 
+        { "lv2Name": "공기청정기", "lv2": "ARC", "lv3": "EMARC", "lv3Name": "전자식 마스크" }, 
+        { "lv2Name": "AV", "lv2": "AUD", "lv3": "APAUD", "lv3Name": "오디오/플레이어" }, 
+        { "lv2Name": "AV", "lv2": "AUD", "lv3": "BTEAR", "lv3Name": "블루투스 이어폰" }, 
+        { "lv2Name": "AV", "lv2": "AUD", "lv3": "SOHTH", "lv3Name": "사운드바" }, 
+        { "lv2Name": "보일러", "lv2": "BLR", "lv3": "BOBLR", "lv3Name": "보일러" }, 
+        { "lv2Name": "소물액세서리", "lv2": "BUL", "lv3": "ACBUL", "lv3Name": "소물액세서리" }, 
+        { "lv2Name": "CDMA폰", "lv2": "CDM", "lv3": "RPCDM", "lv3Name": "CDMA폰" }, 
+        { "lv2Name": "실링팬", "lv2": "CLF", "lv3": "SECLF", "lv3Name": "실링팬" }, 
+        { "lv2Name": "상업용 디스플레이", "lv2": "CSP", "lv3": "DIDSM", "lv3Name": "디지털 사이니지" }, 
+        { "lv2Name": "상업용 디스플레이", "lv2": "CSP", "lv3": "LEDSM", "lv3Name": "LED 사이니지" }, 
+        { "lv2Name": "상업용 디스플레이", "lv2": "CSP", "lv3": "ONEQU", "lv3Name": "원퀵" }, 
+        { "lv2Name": "상업용 디스플레이", "lv2": "CSP", "lv3": "OTDSM", "lv3Name": "올레드 사이니지" }, 
+        { "lv2Name": "청소기", "lv2": "CVC", "lv3": "A9CLN", "lv3Name": "무선청소기" }, 
+        { "lv2Name": "청소기", "lv2": "CVC", "lv3": "GECVC", "lv3Name": "유선청소기" }, 
+        { "lv2Name": "청소기", "lv2": "CVC", "lv3": "GERBC", "lv3Name": "로봇청소기" }, 
+        { "lv2Name": "청소기", "lv2": "CVC", "lv3": "LARBJ", "lv3Name": "잔디깍이 로봇" }, 
+        { "lv2Name": "스타일러", "lv2": "DCS", "lv3": "SADCS", "lv3Name": "슈케이스" }, 
+        { "lv2Name": "스타일러", "lv2": "DCS", "lv3": "SCDCS", "lv3Name": "슈케어" }, 
+        { "lv2Name": "스타일러", "lv2": "DCS", "lv3": "STDCS", "lv3Name": "스타일러" }, 
+        { "lv2Name": "제습/가습기", "lv2": "DEH", "lv3": "DEDEH", "lv3Name": "제습기" }, 
+        { "lv2Name": "제습/가습기", "lv2": "DEH", "lv3": "DEHMD", "lv3Name": "가습기" }, 
+        { "lv2Name": "의류건조기", "lv2": "DRR", "lv3": "CLDRR", "lv3Name": "의류건조기" }, 
+        { "lv2Name": "세탁기", "lv2": "DRW", "lv3": "DUDRW", "lv3Name": "트롬" }, 
+        { "lv2Name": "세탁기", "lv2": "DRW", "lv3": "GEDRW", "lv3Name": "통돌이" }, 
+        { "lv2Name": "세탁기", "lv2": "DRW", "lv3": "MIDRW", "lv3Name": "미니세탁기" }, 
+        { "lv2Name": "일체형/데스크톱", "lv2": "DSK", "lv3": "CLDSK", "lv3Name": "클라우드 PC" }, 
+        { "lv2Name": "일체형/데스크톱", "lv2": "DSK", "lv3": "MUDSK", "lv3Name": "일체형/데스크톱" }, 
+        { "lv2Name": "식기세척기", "lv2": "DWM", "lv3": "DIDWM", "lv3Name": "식기세척기" }, 
+        { "lv2Name": "워시타워", "lv2": "DWS", "lv3": "WADWS", "lv3Name": "워시타워" }, 
+        { "lv2Name": "전기레인지", "lv2": "ELR", "lv3": "HIELR", "lv3Name": "하이라이트" }, 
+        { "lv2Name": "전기레인지", "lv2": "ELR", "lv3": "HYELR", "lv3Name": "하이브리드" }, 
+        { "lv2Name": "전기레인지", "lv2": "ELR", "lv3": "INELR", "lv3Name": "인덕션" }, 
+        { "lv2Name": "EV충전기", "lv2": "EVC", "lv3": "LSEVC", "lv3Name": "완속충전기" }, 
+        { "lv2Name": "선풍기", "lv2": "FAN", "lv3": "COFAN", "lv3Name": "선풍기" }, 
+        { "lv2Name": "석유식_온풍기", "lv2": "FHO", "lv3": "OIFHO", "lv3Name": "석유식_온풍기" }, 
+        { "lv2Name": "전기/가스식_온풍기", "lv2": "FHT", "lv3": "ELFHT", "lv3Name": "전기/가스식_온풍기" }, 
+        { "lv2Name": "광파오븐/전자레인지", "lv2": "GOR", "lv3": "ERGOR", "lv3Name": "전자레인지" }, 
+        { "lv2Name": "광파오븐/전자레인지", "lv2": "GOR", "lv3": "OVGOR", "lv3Name": "광파오븐레인지" }, 
+        { "lv2Name": "가스오븐/가스레인지", "lv2": "GRN", "lv3": "GAGRN", "lv3Name": "가스레인지" }, 
+        { "lv2Name": "가스오븐/가스레인지", "lv2": "GRN", "lv3": "GVGRN", "lv3Name": "가스오븐레인지" }, 
+        { "lv2Name": "맥주제조기", "lv2": "HBR", "lv3": "BEHBR", "lv3Name": "맥주제조기" }, 
+        { "lv2Name": "안마의자", "lv2": "HMC", "lv3": "MAHMC", "lv3Name": "안마의자" }, 
+        { "lv2Name": "홈넷", "lv2": "HNS", "lv3": "HOHNS", "lv3Name": "홈넷솔루션" }, 
+        { "lv2Name": "홈넷", "lv2": "HNS", "lv3": "INBMS", "lv3Name": "지능형빌딩자동제어시스템" }, 
+        { "lv2Name": "SMART폰", "lv2": "HSD", "lv3": "SMHSD", "lv3Name": "SMART폰" }, 
+        { "lv2Name": "히터", "lv2": "HTR", "lv3": "HOHTR", "lv3Name": "히터" }, 
+        { "lv2Name": "정수기", "lv2": "HWI", "lv3": "HCHWI", "lv3Name": "냉온정수기" }, 
+        { "lv2Name": "정수기", "lv2": "HWI", "lv3": "PUHWI", "lv3Name": "정수전용" }, 
+        { "lv2Name": "스마트씽큐", "lv2": "IOT", "lv3": "SMIOT", "lv3Name": "스마트씽큐" }, 
+        { "lv2Name": "키오스크", "lv2": "KOS", "lv3": "KIOSK", "lv3Name": "키오스크" }, 
+        { "lv2Name": "김치냉장고", "lv2": "KRE", "lv3": "COKRE", "lv3Name": "뚜껑식형" }, 
+        { "lv2Name": "김치냉장고", "lv2": "KRE", "lv3": "STKRE", "lv3Name": "스탠드형" }, 
+        { "lv2Name": "LED조명", "lv2": "LED", "lv3": "LELED", "lv3Name": "LED조명" }, 
+        { "lv2Name": "의료기기", "lv2": "MDD", "lv3": "HAMHC", "lv3Name": "메디헤어" }, 
+        { "lv2Name": "뷰티 디바이스", "lv2": "MHC", "lv3": "CLMHC", "lv3Name": "클렌징 기기" }, 
+        { "lv2Name": "뷰티 디바이스", "lv2": "MHC", "lv3": "REMHC", "lv3Name": "탄력기기" }, 
+        { "lv2Name": "모니터", "lv2": "MNT", "lv3": "CLMNT", "lv3Name": "클라우드 모니터" }, 
+        { "lv2Name": "모니터", "lv2": "MNT", "lv3": "MEMNT", "lv3Name": "의료용 모니터" }, 
+        { "lv2Name": "모니터", "lv2": "MNT", "lv3": "PCMNT", "lv3Name": "PC 모니터" }, 
+        { "lv2Name": "모니터", "lv2": "MNT", "lv3": "TVMNT", "lv3Name": "TV 모니터" }, 
+        { "lv2Name": "모니터", "lv2": "MNT", "lv3": "UGMNT", "lv3Name": "울트라 기어 게이밍 모니터" }, 
+        { "lv2Name": "모니터", "lv2": "MNT", "lv3": "UWMNT", "lv3Name": "울트라 와이드 모니터" }, 
+        { "lv2Name": "마인드웰니스", "lv2": "MWD", "lv3": "DHMWD", "lv3Name": "마인드웰니스" }, 
+        { "lv2Name": "저장장치", "lv2": "NAS", "lv3": "CDCDR", "lv3Name": "CD-ROM/RW/콤보" }, 
+        { "lv2Name": "저장장치", "lv2": "NAS", "lv3": "NENAS", "lv3Name": "넷하드" }, 
+        { "lv2Name": "노트북", "lv2": "NTB", "lv3": "GRNTB", "lv3Name": "그램" }, 
+        { "lv2Name": "노트북", "lv2": "NTB", "lv3": "TBNTB", "lv3Name": "태블릿(Tablet)" }, 
+        { "lv2Name": "노트북", "lv2": "NTB", "lv3": "UDNTB", "lv3Name": "울트라 PC" }, 
+        { "lv2Name": "노트북", "lv2": "NTB", "lv3": "UGNTB", "lv3Name": "울트라 기어" }, 
+        { "lv2Name": "사무기기", "lv2": "OFM", "lv3": "ININK", "lv3Name": "잉크젯_프린터" }, 
+        { "lv2Name": "사무기기", "lv2": "OFM", "lv3": "LALAS", "lv3Name": "레이저젯_프린터" }, 
+        { "lv2Name": "사무기기", "lv2": "OFM", "lv3": "OFOFA", "lv3Name": "사무기기" }, 
+        { "lv2Name": "기타제품", "lv2": "OTH", "lv3": "ZZOTH", "lv3Name": "기타제품" }, 
+        { "lv2Name": "식물생활가전", "lv2": "PCD", "lv3": "VEPCD", "lv3Name": "식물재배기" }, 
+        { "lv2Name": "PLS조명", "lv2": "PLS", "lv3": "PLPLS", "lv3Name": "PLS조명" }, 
+        { "lv2Name": "로봇", "lv2": "RBT", "lv3": "GURBT", "lv3Name": "안내 로봇" }, 
+        { "lv2Name": "로봇", "lv2": "RBT", "lv3": "SERBT", "lv3Name": "서빙로봇" }, 
+        { "lv2Name": "로봇", "lv2": "RBT", "lv3": "UVRBT", "lv3Name": "UVC 로봇" }, 
+        { "lv2Name": "밥솥", "lv2": "RCK", "lv3": "CORCK", "lv3Name": "밥솥" }, 
+        { "lv2Name": "냉장고", "lv2": "REF", "lv3": "BUSBS", "lv3Name": "비즈니스" }, 
+        { "lv2Name": "냉장고", "lv2": "REF", "lv3": "NOREF", "lv3Name": "일반형" }, 
+        { "lv2Name": "냉장고", "lv2": "REF", "lv3": "PUSBS", "lv3Name": "정수기형" }, 
+        { "lv2Name": "냉장고", "lv2": "REF", "lv3": "SISBS", "lv3Name": "양문형" }, 
+        { "lv2Name": "냉장고", "lv2": "REF", "lv3": "ULSBS", "lv3Name": "상냉장/하냉동" }, 
+        { "lv2Name": "토스터", "lv2": "TOT", "lv3": "TOTOT", "lv3Name": "토스터" }, 
+        { "lv2Name": "TV", "lv2": "TVL", "lv3": "LSLED", "lv3Name": "라이프 스타일 스크린" }, 
+        { "lv2Name": "TV", "lv2": "TVL", "lv3": "NALED", "lv3Name": "나노셀 TV" }, 
+        { "lv2Name": "TV", "lv2": "TVL", "lv3": "NOTLV", "lv3Name": "일반형(TV)" }, 
+        { "lv2Name": "TV", "lv2": "TVL", "lv3": "OTLED", "lv3Name": "올레드 TV" }, 
+        { "lv2Name": "TV", "lv2": "TVL", "lv3": "QNLED", "lv3Name": "QNED TV" }, 
+        { "lv2Name": "TV", "lv2": "TVL", "lv3": "SDLED", "lv3Name": "일반 LED TV" }, 
+        { "lv2Name": "TV", "lv2": "TVL", "lv3": "UDLED", "lv3Name": "울트라 HD TV" }, 
+        { "lv2Name": "프로젝터", "lv2": "VPJ", "lv3": "BSVPJ", "lv3Name": "프로빔 (상업용)" }, 
+        { "lv2Name": "프로젝터", "lv2": "VPJ", "lv3": "MOVPJ", "lv3Name": "시네빔" }, 
+        { "lv2Name": "Wearable Band", "lv2": "WEA", "lv3": "BAWEA", "lv3Name": "Wearable Band" }, 
+        { "lv2Name": "와인셀러", "lv2": "WEF", "lv3": "WIWEF", "lv3Name": "와인셀러" }
+    ];
+
+    // 의도: 페이지 로딩 후 자동으로 로컬 JS 파일 내의 데이터를 
+    // 구글 시트 전용 CSV 구조로 마이그레이션 파싱을 진행합니다.
+    window.addEventListener('DOMContentLoaded', () => {
+        const statusDiv = document.getElementById('status');
+        const textarea = document.getElementById('outputTextArea');
+
+        // 의외의 예외 처리: 데이터 정의 파일을 불러오지 못했을 때 예외 복구
+        if (typeof globalModelData === 'undefined') {
+            statusDiv.innerHTML = '<span class="status-badge error"><i class="fas fa-exclamation-triangle"></i> 로컬 모델 데이터(globalModelData)를 불러오지 못했습니다. 파일 위치를 확인하세요.</span>';
+            return;
+        }
+
+        try {
+            // 헤더 행 생성 (A열: LV3, B열: LV3_NAME, C열: MODEL)
+            let csvLines = ['LV3,LV3_NAME,MODEL'];
+
+            globalModelData.forEach(item => {
+                const lv3 = item.lv3 || '';
+                const model = item.model || '';
+                
+                // 의도: 소분류 코드에 해당하는 한국어 설명명을 productData에서 찾아 매핑합니다.
+                const product = productData.find(p => p.lv3 === lv3);
+                const lv3Name = product ? product.lv3Name : '';
+
+                // 데이터 내에 쉼표가 있을 수 있으므로 따옴표로 감싸 안전하게 처리합니다.
+                const safeLv3 = `"${lv3.replace(/"/g, '""')}"`;
+                const safeLv3Name = `"${lv3Name.replace(/"/g, '""')}"`;
+                const safeModel = `"${model.replace(/"/g, '""')}"`;
+
+                csvLines.push(`${safeLv3},${safeLv3Name},${safeModel}`);
+            });
+
+            const resultCsv = csvLines.join('\n');
+            textarea.value = resultCsv;
+
+            statusDiv.innerHTML = `<span class="status-badge success"><i class="fas fa-check-circle"></i> 성공: 총 ${globalModelData.length}개의 모델 데이터가 구글 시트 포맷으로 성공적으로 변환되었습니다!</span>`;
+        } catch (e) {
+            console.error(e);
+            statusDiv.innerHTML = '<span class="status-badge error"><i class="fas fa-times-circle"></i> 변환 처리 중 에러가 발생했습니다.</span>';
+        }
+    });
+
+    /**
+     * 화면에 표시된 CSV 결과를 클립보드에 바로 복사하는 편리한 기능입니다.
+     */
+    function copyToClipboard() {
+        const textarea = document.getElementById('outputTextArea');
+        textarea.select();
+        document.execCommand('copy');
+        alert('전체 데이터가 클립보드에 복사되었습니다! 구글 스프레드시트의 A1 셀을 클릭하고 [Ctrl + V]를 눌러 붙여넣으세요.');
+    }
+
+    /**
+     * CSV 파일을 로컬 PC로 즉시 다운로드해 주는 기능입니다.
+     */
+    function convertAndDownload() {
+        const textarea = document.getElementById('outputTextArea');
+        const csvContent = "\uFEFF" + textarea.value; // MS Excel 한글 깨짐을 방지하기 위한 BOM 추가
+        const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+        const url = URL.createObjectURL(blob);
+        const link = document.createElement("a");
+        
+        link.setAttribute("href", url);
+        link.setAttribute("download", "google_sheets_model_data.csv");
+        link.style.visibility = 'hidden';
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+    }
+</script>
+
+</body>
+</html>
