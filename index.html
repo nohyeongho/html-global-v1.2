@@ -459,6 +459,34 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
+            flex-wrap: wrap;
+            
+            gap: 10px 15px;
+            
+        }
+
+        
+        h2.panel-title span,
+        h2.panel-title div,
+        h2.panel-title button {
+            white-space: nowrap !important;
+        }
+
+        
+        @media screen and (max-width: 1400px) {
+            h2.panel-title {
+                font-size: 16px;
+            }
+
+            h2.panel-title button {
+                font-size: 11px !important;
+                padding: 5px 8px !important;
+            }
+
+            #google_translate_element {
+                min-width: 120px !important;
+                font-size: 10px !important;
+            }
         }
 
         .form-group {
@@ -991,16 +1019,33 @@
             border-bottom-color: var(--lg-red);
         }
 
+        
+        @media screen and (min-width: 1025px) {
+            .chatbot-panel.collapsed {
+                display: none !important;
+            }
+        }
+
+        
+        @media screen and (max-width: 1024px) {
+            #btnToggleChatbotPanel {
+                display: none !important;
+            }
+        }
+
         @media screen and (max-width: 1024px) {
             .app-container {
                 flex-direction: column;
                 gap: 15px;
             }
 
+            
             .input-panel,
-            .preview-panel {
+            .preview-panel,
+            .chatbot-panel {
                 max-height: none;
                 padding: 20px;
+                max-width: none;
             }
 
             .input-panel {
@@ -1009,6 +1054,10 @@
 
             .preview-panel {
                 order: 2;
+            }
+
+            .chatbot-panel {
+                order: 3;
             }
         }
 
@@ -1026,8 +1075,10 @@
                 margin: 0;
             }
 
+            
             .input-panel,
-            .preview-panel {
+            .preview-panel,
+            .chatbot-panel {
                 border-radius: 0;
                 box-shadow: none;
                 padding: 15px;
@@ -1036,8 +1087,10 @@
             }
 
             .input-panel.active,
-            .preview-panel.active {
-                display: block;
+            .preview-panel.active,
+            .chatbot-panel.active {
+                display: flex;
+                flex-direction: column;
             }
 
             .editor-toolbar button {
@@ -1288,6 +1341,394 @@
                 transform: rotate(360deg);
             }
         }
+
+        
+        .chatbot-panel {
+            flex: 1;
+            background: #fff;
+            padding: 30px;
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow);
+            overflow-y: auto;
+            max-height: 90vh;
+            display: flex;
+            flex-direction: column;
+            min-width: 320px;
+            max-width: 450px;
+        }
+
+        .chat-config-box {
+            background: #f8f9fa;
+            border: 1px solid #e9ecef;
+            border-radius: var(--radius-md);
+            padding: 12px;
+            margin-bottom: 15px;
+            font-size: 13px;
+        }
+
+        .chat-config-title {
+            font-weight: bold;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            cursor: pointer;
+            color: #495057;
+            margin-bottom: 8px;
+        }
+
+        .chat-config-content {
+            display: none;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .chat-config-content.active {
+            display: flex;
+        }
+
+        .chat-config-row {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .chat-config-row label {
+            width: 80px;
+            font-weight: bold;
+            color: #495057;
+        }
+
+        .chat-config-row input,
+        .chat-config-row select {
+            flex: 1;
+            padding: 6px 10px;
+            border: 1px solid #ced4da;
+            border-radius: 4px;
+            font-size: 12px;
+            box-sizing: border-box;
+        }
+
+        .chat-history {
+            flex: 1;
+            border: 1px solid #e9ecef;
+            border-radius: var(--radius-md);
+            padding: 15px;
+            overflow-y: auto;
+            background: #fdfdfd;
+            margin-bottom: 15px;
+            min-height: 250px;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .chat-bubble {
+            max-width: 85%;
+            padding: 10px 14px;
+            border-radius: var(--radius-md);
+            font-size: 13px;
+            line-height: 1.5;
+            word-break: break-all;
+        }
+
+        .chat-bubble p {
+            margin: 0 0 8px 0;
+        }
+
+        .chat-bubble p:last-child {
+            margin-bottom: 0;
+        }
+
+        .chat-bubble ul,
+        .chat-bubble ol {
+            margin: 5px 0;
+            padding-left: 20px;
+        }
+
+        .chat-bubble.user {
+            background-color: var(--lg-red);
+            color: white;
+            align-self: flex-end;
+            border-bottom-right-radius: 2px;
+        }
+
+        .chat-bubble.ai {
+            background-color: #f1f3f5;
+            color: #212529;
+            align-self: flex-start;
+            border-bottom-left-radius: 2px;
+            white-space: normal;
+            
+        }
+
+        
+        .chat-bubble.ai hr {
+            border: none;
+            border-top: 1px dashed #ced4da;
+            margin: 6px 0;
+            width: 100%;
+        }
+
+        
+        .diff-section {
+            background: #ffffff;
+            border: 1px solid #e9ecef;
+            border-radius: 8px;
+            padding: 12px;
+            margin-bottom: 12px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+        }
+        .diff-section:last-child {
+            margin-bottom: 0;
+        }
+        .diff-title {
+            font-size: 13px;
+            font-weight: 700;
+            color: #333333;
+            margin: 0 0 8px 0 !important;
+            border-bottom: 1px solid #f1f3f5;
+            padding-bottom: 6px;
+            display: flex;
+            align-items: center;
+        }
+        .diff-box {
+            display: flex;
+            flex-direction: column;
+            padding: 8px 10px;
+            border-radius: 6px;
+            font-size: 12px;
+            line-height: 1.4;
+        }
+        .diff-box.diff-before {
+            background: #f8f9fa;
+            border-left: 3px solid #868e96;
+            margin-bottom: 6px;
+        }
+        .diff-box.diff-after {
+            background: #fff5f5;
+            border-left: 3px solid #ec455a;
+        }
+        .diff-label {
+            font-size: 10px;
+            font-weight: bold;
+            width: fit-content;
+            padding: 1px 5px;
+            border-radius: 4px;
+            margin-bottom: 4px;
+        }
+        .diff-label.label-before {
+            background: #e9ecef;
+            color: #495057;
+        }
+        .diff-label.label-after {
+            background: #ffe3e3;
+            color: #ec455a;
+        }
+        .diff-content {
+            color: #495057;
+            word-break: break-all;
+            white-space: pre-wrap;
+        }
+
+        .chat-bubble.system {
+            background-color: #fff3cd;
+            color: #856404;
+            align-self: center;
+            font-size: 11px;
+            text-align: center;
+            max-width: 100%;
+            border: 1px solid #ffeeba;
+        }
+
+        .chat-quick-templates {
+            display: flex;
+            gap: 6px;
+            flex-wrap: wrap;
+            margin-bottom: 10px;
+        }
+
+        .chat-quick-btn {
+            background: #fff;
+            border: 1px solid #dee2e6;
+            padding: 5px 10px;
+            border-radius: 15px;
+            font-size: 11px;
+            color: #495057;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .chat-quick-btn:hover {
+            border-color: var(--lg-red);
+            color: var(--lg-red);
+            background: #fff0f3;
+        }
+
+        .chat-input-wrapper {
+            display: flex;
+            gap: 8px;
+            border: 1px solid #ced4da;
+            border-radius: var(--radius-md);
+            padding: 8px;
+            background: #fff;
+            align-items: center;
+        }
+
+        .chat-input-wrapper textarea {
+            flex: 1;
+            border: none;
+            resize: none;
+            height: 45px;
+            outline: none;
+            font-family: inherit;
+            font-size: 13px;
+        }
+
+        .chat-send-btn {
+            background: var(--lg-red);
+            color: white;
+            border: none;
+            border-radius: var(--radius-md);
+            width: 45px;
+            height: 45px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: opacity 0.2s;
+        }
+
+        .chat-send-btn:hover {
+            opacity: 0.9;
+        }
+
+        
+        .ai-action-card {
+            border: 1px dashed #28a745;
+            background-color: #f4faf6;
+            border-radius: var(--radius-md);
+            padding: 12px;
+            margin-top: 10px;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .ai-action-card-title {
+            font-weight: bold;
+            font-size: 12px;
+            color: #28a745;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .ai-action-btn-apply {
+            background-color: #28a745;
+            color: white;
+            border: none;
+            padding: 6px 12px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 12px;
+            font-weight: bold;
+            text-align: center;
+            transition: background-color 0.2s;
+        }
+
+        .ai-action-btn-apply:hover {
+            background-color: #218838;
+        }
+
+        
+        .chat-config-toggle-btn {
+            background: none;
+            border: none;
+            color: #717171;
+            font-size: 16px;
+            cursor: pointer;
+            transition: color 0.2s, transform 0.2s;
+            padding: 5px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .chat-config-toggle-btn:hover {
+            color: var(--lg-red);
+            transform: rotate(45deg);
+        }
+
+        .chat-config-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.4);
+            z-index: 20000;
+            
+            align-items: center;
+            justify-content: center;
+        }
+
+        .chat-config-overlay.active {
+            display: flex;
+            
+        }
+
+        .chat-config-overlay-content {
+            background: #ffffff;
+            border-radius: var(--radius-lg);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
+            padding: 24px;
+            width: 90%;
+            max-width: 380px;
+            
+            position: relative;
+            animation: chatConfigModalShow 0.2s ease-out;
+            box-sizing: border-box;
+        }
+
+        .chat-config-overlay-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-weight: bold;
+            font-size: 13.5px;
+            color: #333;
+            border-bottom: 1px solid #f1f3f5;
+            padding-bottom: 8px;
+            margin-bottom: 15px;
+        }
+
+        .chat-config-close-btn {
+            background: none;
+            border: none;
+            font-size: 18px;
+            color: #999;
+            cursor: pointer;
+            line-height: 1;
+            padding: 0;
+            margin: 0;
+        }
+
+        .chat-config-close-btn:hover {
+            color: #333;
+        }
+
+        @keyframes chatConfigModalShow {
+            from {
+                opacity: 0;
+                transform: scale(0.95);
+            }
+
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
     </style>
 </head>
 
@@ -1300,6 +1741,7 @@
     <div class="mobile-tabs" id="mobileTabs">
         <button id="btnTabEdit" class="active" onclick="switchTab('edit')">입력</button>
         <button id="btnTabPreview" onclick="switchTab('preview')">미리보기</button>
+        <button id="btnTabChatbot" onclick="switchTab('chatbot')">AI 챗봇</button>
     </div>
 
     <div class="app-container">
@@ -1438,7 +1880,7 @@
         <div class="preview-panel" id="previewPanel">
             <h2 class="panel-title notranslate">
                 <div style="display: flex; align-items: center; gap: 10px;">
-                    <i class="fas fa-language" style="color: #666; font-size: 18px;"></i>
+                    <i class="fas fa-language" style="color: #666; font-size: 14px;"></i>
                     <span>기기 미리보기</span>
                     <div id="google_translate_element">번역기 불러오는 중...</div>
                 </div>
@@ -1450,6 +1892,15 @@
                         style="font-size: 13px; font-weight: 600; padding: 6px 14px; background: #4caf50; color: white; border: none; border-radius: 6px; cursor: pointer; display: none; transition: opacity 0.2s;"
                         onmouseover="this.style.opacity='0.85'" onmouseout="this.style.opacity='1'">📋 미리보기 복사
                         (PPT용)</button>
+                    
+                    <button id="btnToggleChatbotPanel" onclick="toggleChatbotPanelVisibility()" title="AI 편집기 접기/펼치기"
+                        style="font-size: 13px; font-weight: 600; padding: 6px 9px; background: #333; color: white; border: none; border-radius: 6px; cursor: pointer; display: flex; align-items: center; justify-content: center; width: 34px; height: 32px; transition: background-color 0.2s, opacity 0.2s;"
+                        onmouseover="this.style.opacity='0.85'" onmouseout="this.style.opacity='1'">
+                        <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <rect x="1.5" y="1.5" width="13" height="13" rx="1.5" stroke="white" stroke-width="1.5" />
+                            <path d="M10.5 2V14" stroke="white" stroke-width="1.5" />
+                        </svg>
+                    </button>
                 </div>
             </h2>
             <div class="preview-frame" id="previewContainer">
@@ -1468,6 +1919,96 @@
                     </div>
                 </div>
                 <textarea id="codeOutput" class="notranslate" placeholder="변환된 코드가 이곳에 표시됩니다..." readonly></textarea>
+            </div>
+        </div>
+
+        
+        <div class="chatbot-panel notranslate" id="chatbotPanel">
+            <h2 class="panel-title">
+                <div style="display: flex; align-items: center; gap: 10px;">
+                    <span>Qbot AI 에디터</span>
+                </div>
+                
+                <button class="chat-config-toggle-btn" onclick="toggleChatConfigOverlay()" title="API 연동 설정">
+                    <i class="fas fa-cog"></i>
+                </button>
+            </h2>
+            <p style="font-size: 12px; color: #666; margin-bottom: 15px;">
+                에디터 내용 수정, 맞춤법 교정, 문맥 개선 및 정보 보강을 요청하세요.
+            </p>
+
+            
+            <div class="chat-config-overlay" id="chatConfigOverlay">
+                <div class="chat-config-overlay-content">
+                    <div class="chat-config-overlay-header">
+                        <span>🛠️ API 연동 설정</span>
+                        <button class="chat-config-close-btn" onclick="toggleChatConfigOverlay()">&times;</button>
+                    </div>
+                    <div style="display: flex; flex-direction: column; gap: 10px;">
+                        <div class="chat-config-row">
+                            <label>서비스 선택</label>
+                            <select id="chatProvider" onchange="handleChatProviderChange()">
+                                <option value="gemini">Google Gemini (추천)</option>
+                                <option value="openai">OpenAI API</option>
+                            </select>
+                        </div>
+                        <div class="chat-config-row">
+                            <label>API Key</label>
+                            <input type="password" id="chatApiKey" placeholder="API Key 입력"
+                                onchange="saveChatSettings()">
+                        </div>
+                        <div class="chat-config-row">
+                            <label>모델 선택</label>
+                            <select id="chatModel" onchange="saveChatSettings()">
+                                
+                                <option value="gemini-2.5-flash">gemini-2.5-flash (권장)</option>
+                                <option value="gemini-2.5-pro">gemini-2.5-pro (고품질)</option>
+                                <option value="gemini-1.5-flash">gemini-1.5-flash</option>
+                            </select>
+                        </div>
+                        <button class="btn-primary" onclick="testChatApiConnection()"
+                            style="padding: 6px 12px; font-size: 12px; width: 100%; margin-top: 5px;">연동 테스트</button>
+                        <button class="btn-secondary" onclick="deleteChatApiKey()"
+                            style="padding: 6px 12px; font-size: 12px; width: 100%; background: #fff0f0; color: var(--lg-red); border-color: #ffcccc; margin-top: 5px;">API
+                            Key 삭제</button>
+                    </div>
+                </div>
+            </div>
+
+            
+            <div class="chat-history" id="chatHistory">
+                <div class="chat-bubble system">
+                    안녕하세요! Qbot 에디터 AI 챗봇입니다.<br>
+                    사용 전 <b>API 연동 설정</b>에서 API Key를 등록해 주세요.<br>
+                    입력된 정보는 로컬 스토리지에 안전하게 보관됩니다.
+                </div>
+            </div>
+
+            
+            <div class="chat-quick-templates">
+                <button class="chat-quick-btn" onclick="applyQuickTemplate('proofread')">📝 문맥/맞춤법 교정</button>
+                <button class="chat-quick-btn" onclick="applyQuickTemplate('simplify')">💡 초보자도 쉽게</button>
+                <button class="chat-quick-btn" onclick="applyQuickTemplate('enrich')">🔍 내용 상세 보강</button>
+            </div>
+
+            
+            <div class="chat-input-wrapper">
+                <textarea id="chatInput" placeholder="AI에게 수정 지시사항을 입력하세요..."
+                    onkeydown="handleChatInputKeyDown(event)"></textarea>
+                <button class="chat-send-btn" onclick="sendChatMessage()" title="전송">
+                    <i class="fas fa-paper-plane"></i>
+                </button>
+            </div>
+
+            <div style="display: flex; gap: 8px; margin-top: 8px;">
+                <button class="btn-secondary" onclick="loadCurrentEditorToInput()"
+                    style="flex: 1; padding: 8px; font-size: 12px; height: auto;">
+                    📥 에디터 글 가져오기
+                </button>
+                <button class="btn-secondary" onclick="clearChatHistory()"
+                    style="flex: 0.4; padding: 8px; font-size: 12px; height: auto; background: #fff0f0; color: var(--lg-red); border-color: #ffcccc;">
+                    비우기
+                </button>
             </div>
         </div>
     </div>
@@ -1567,7 +2108,7 @@
 
     <script>
 
-        let appRegion = 'ko'; // 'ko' or 'global'
+        let appRegion = 'ko'; 
 
         async function changeAppLanguage(lang) {
             const koBtn = document.getElementById('btnLangKo');
@@ -1774,7 +2315,7 @@
                     span.style.fontSize = val;
                     span.appendChild(document.createTextNode('\u200B'));
                     range.insertNode(span);
-                    range.setStart(span.firstChild, 1); // ZWSP 뒤로
+                    range.setStart(span.firstChild, 1); 
                     range.collapse(true);
                     sel.removeAllRanges();
                     sel.addRange(range);
@@ -1925,7 +2466,7 @@
                 const isL = e.clientX < iRect.left + pad;
                 const isR = e.clientX > iRect.right - pad;
                 const isT = e.clientY < iRect.top + pad;
-                const isB = e.clientY > iRect.bottom + pad; // Wait, rect.bottom is absolute, so e.clientY > rect.bottom - pad is correct
+                const isB = e.clientY > iRect.bottom + pad; 
 
                 const isLeft = (e.clientX - iRect.left) < pad;
                 const isRight = (iRect.right - e.clientX) < pad;
@@ -1956,7 +2497,7 @@
             }
         });
 
-        let edActiveElement = null; // 현재 선택된 리사이즈 대상 (표/이미지)
+        let edActiveElement = null; 
 
         function updateActiveElementForToolbar(el) {
             edActiveElement = el;
@@ -2475,8 +3016,8 @@
                                 el.innerHTML = el.innerHTML.replace(/&nbsp;/g, ' ').trim().replace(/ +/g, ' ');
                                 el.style.padding = '2px 4px'; el.style.lineHeight = '1.2'; el.style.fontSize = '13px';
                                 el.style.border = '1px solid #ccc';
-                                el.style.textAlign = 'center'; // 가운데 정렬 강제
-                                el.style.verticalAlign = 'middle'; // 수직 중앙 강제
+                                el.style.textAlign = 'center'; 
+                                el.style.verticalAlign = 'middle'; 
                             }
                             if (el.dataset.bg) el.style.backgroundColor = el.dataset.bg;
 
@@ -3025,8 +3566,8 @@ ${contentBody}
                 const canvas = await html2canvas(previewEl, {
                     useCORS: true,
                     logging: false,
-                    backgroundColor: '#ffffff', // PPT 붙여넣기 시 배경이 투명하게 변하는 것 방지
-                    scale: 2 // 선명도를 위해 해상도 2배 확대
+                    backgroundColor: '#ffffff', 
+                    scale: 2 
                 });
 
                 canvas.toBlob(async (blob) => {
@@ -3064,10 +3605,7 @@ ${contentBody}
             }
         }
 
-        /**
-         * HTML 뷰어 모달 열기
-         * 왜 이렇게 짰나: 사용자가 변환된 결과뿐만 아니라 직접 코드를 편집하거나 붙여넣어 볼 수 있게 하기 위함입니다.
-         */
+        
         function openHTMLViewer() {
             const modal = document.getElementById('htmlViewerModal');
             const inputArea = document.getElementById('manualHtmlInput');
@@ -3076,7 +3614,7 @@ ${contentBody}
             inputArea.value = currentCode;
 
             modal.style.display = 'block';
-            document.body.style.overflow = 'hidden'; // 모달 오픈 시 배경 스크롤 방지
+            document.body.style.overflow = 'hidden'; 
         }
 
         function closeHTMLViewerModal() {
@@ -3093,9 +3631,7 @@ ${contentBody}
             }
         }
 
-        /**
-         * 모달에 입력된 HTML을 새 창에서 뷰어로 띄웁니다.
-         */
+        
         function viewManualHTML() {
             const htmlCode = document.getElementById('manualHtmlInput').value;
             if (!htmlCode.trim()) {
@@ -3108,10 +3644,7 @@ ${contentBody}
             window.open(url, '_blank');
         }
 
-        /**
-         * HTML 소스를 파싱하여 에디터 폼에 로드합니다.
-         * 왜 이렇게 짰나: 생성된 HTML 코드를 다시 에디터로 불러와서 수정할 수 있도록 하기 위함입니다.
-         */
+        
         function loadFromHTML() {
             const htmlCode = document.getElementById('manualHtmlInput').value;
             if (!htmlCode.trim()) {
@@ -3127,7 +3660,7 @@ ${contentBody}
                 const parser = new DOMParser();
                 const doc = parser.parseFromString(htmlCode, 'text/html');
 
-                // 1. postData 복원
+                
                 const postData = doc.querySelector('.postData');
                 if (postData) {
                     const pLv2 = postData.getAttribute('data-productlv2');
@@ -3139,7 +3672,7 @@ ${contentBody}
                     if (pLv3) mainPostData.setAttribute('data-productlv3', pLv3);
                     if (pModel) mainPostData.setAttribute('data-model', pModel);
 
-                    // 내부 Set 상태 업데이트
+                    
                     try {
                         if (pLv2) {
                             const lv2Arr = JSON.parse(pLv2.replace(/'/g, '"'));
@@ -3159,7 +3692,7 @@ ${contentBody}
                     }
                 }
 
-                // 2. 요약 테이블 데이터 복원
+                
                 const rows = doc.querySelectorAll('.xfe_just_info tr');
                 rows.forEach(row => {
                     const th = row.querySelector('th');
@@ -3183,13 +3716,13 @@ ${contentBody}
                     }
                 });
 
-                // 3. 섹션 데이터 복원 (증상, 원인, 조치 방법 및 추가 섹션)
+                
                 const sections = doc.querySelectorAll('.sub-tit');
 
-                // 기존 추가 섹션들 제거
+                
                 document.getElementById('dynamicSections').innerHTML = '';
 
-                // 기본 섹션들 초기화
+                
                 document.getElementById('inSymptom').innerHTML = '';
                 document.getElementById('inCause').innerHTML = '';
                 document.getElementById('inRepairMethod').innerHTML = '';
@@ -3209,7 +3742,7 @@ ${contentBody}
                     }
                     content = tempDiv.innerHTML.trim();
 
-                    // 기본 섹션과 매칭 시도 (제목 기준)
+                    
                     const sTitle = document.getElementById('inSymptomTitle').value;
                     const cTitle = document.getElementById('inCauseTitle').value;
                     const rTitle = document.getElementById('inRepairTitle').value;
@@ -3224,7 +3757,7 @@ ${contentBody}
                         document.getElementById('inRepairMethod').innerHTML = content;
                         mainRepairDone = true;
                     } else {
-                        // 추가 섹션으로 생성
+                        
                         addDynamicSectionWithData(title, content);
                     }
                 });
@@ -3232,7 +3765,7 @@ ${contentBody}
                 alert('데이터가 에디터로 복원되었습니다.');
                 closeHTMLViewerModal();
                 switchTab('edit');
-                if (typeof generateHTML === 'function') generateHTML(); // 미리보기 갱신
+                if (typeof generateHTML === 'function') generateHTML(); 
 
             } catch (err) {
                 console.error('HTML Parsing error:', err);
@@ -3240,7 +3773,7 @@ ${contentBody}
             }
         }
 
-        // 특정 데이터로 동적 섹션 추가 (기존 addDynamicSection 활용)
+        
         function addDynamicSectionWithData(title, content) {
             if (typeof addDynamicSection === 'function') {
                 addDynamicSection();
@@ -3287,7 +3820,7 @@ ${contentBody}
 
                 clearTimeout(window.syncTimer);
                 window.syncTimer = setTimeout(() => {
-                    syncTranslatedCode(true); // 자동 모드에서는 alert 제외
+                    syncTranslatedCode(true); 
                 }, 800);
             });
 
@@ -3301,11 +3834,15 @@ ${contentBody}
         window.onclick = function (event) {
             const hvModal = document.getElementById('htmlViewerModal');
             const tbModal = document.getElementById('tableModal');
+            const chatOverlay = document.getElementById('chatConfigOverlay');
             if (event.target == hvModal) {
                 closeHTMLViewerModal();
             }
             if (event.target == tbModal) {
                 closeTableModal();
+            }
+            if (event.target == chatOverlay) {
+                toggleChatConfigOverlay();
             }
         }
 
@@ -3502,13 +4039,13 @@ ${contentBody}
 
     <script>
 
-        const productData = [{ "lv2Name": "시스템 에어컨", "lv2": "ACE", "lv3": "CHCHL", "lv3Name": "칠러" }, { "lv2Name": "시스템 에어컨", "lv2": "ACE", "lv3": "COCRA", "lv3Name": "상업용 천정형" }, { "lv2Name": "시스템 에어컨", "lv2": "ACE", "lv3": "COPAH", "lv3Name": "상업용 스탠드" }, { "lv2Name": "시스템 에어컨", "lv2": "ACE", "lv3": "GAGHP", "lv3Name": "가스식시스템에어컨" }, { "lv2Name": "시스템 에어컨", "lv2": "ACE", "lv3": "SYSBL", "lv3Name": "시스템보일러" }, { "lv2Name": "에어컨", "lv2": "AIC", "lv3": "REWRA", "lv3Name": "이동식 에어컨" }, { "lv2Name": "에어컨", "lv2": "AIC", "lv3": "STPAC", "lv3Name": "스탠드형 에어컨" }, { "lv2Name": "에어컨", "lv2": "AIC", "lv3": "TWPAT", "lv3Name": "2in1" }, { "lv2Name": "에어컨", "lv2": "AIC", "lv3": "WASRA", "lv3Name": "벽걸이형" }, { "lv2Name": "에어컨", "lv2": "AIC", "lv3": "WIWRA", "lv3Name": "창호형 에어컨" }, { "lv2Name": "공기청정기", "lv2": "ARC", "lv3": "AIARC", "lv3Name": "공기청정기" }, { "lv2Name": "공기청정기", "lv2": "ARC", "lv3": "EMARC", "lv3Name": "전자식 마스크" }, { "lv2Name": "AV", "lv2": "AUD", "lv3": "APAUD", "lv3Name": "오디오/플레이어" }, { "lv2Name": "AV", "lv2": "AUD", "lv3": "BTEAR", "lv3Name": "블루투스 이어폰" }, { "lv2Name": "AV", "lv2": "AUD", "lv3": "SOHTH", "lv3Name": "사운드바" }, { "lv2Name": "보일러", "lv2": "BLR", "lv3": "BOBLR", "lv3Name": "보일러" }, { "lv2Name": "소물액세서리", "lv2": "BUL", "lv3": "ACBUL", "lv3Name": "소물액세서리" }, { "lv2Name": "CDMA폰", "lv2": "CDM", "lv3": "RPCDM", "lv3Name": "CDMA폰" }, { "lv2Name": "실링팬", "lv2": "CLF", "lv3": "SECLF", "lv3Name": "실링팬" }, { "lv2Name": "상업용 디스플레이", "lv2": "CSP", "lv3": "DIDSM", "lv3Name": "디지털 사이니지" }, { "lv2Name": "상업용 디스플레이", "lv2": "CSP", "lv3": "LEDSM", "lv3Name": "LED 사이니지" }, { "lv2Name": "상업용 디스플레이", "lv2": "CSP", "lv3": "ONEQU", "lv3Name": "원퀵" }, { "lv2Name": "상업용 디스플레이", "lv2": "CSP", "lv3": "OTDSM", "lv3Name": "올레드 사이니지" }, { "lv2Name": "청소기", "lv2": "CVC", "lv3": "A9CLN", "lv3Name": "무선청소기" }, { "lv2Name": "청소기", "lv2": "CVC", "lv3": "GECVC", "lv3Name": "유선청소기" }, { "lv2Name": "청소기", "lv2": "CVC", "lv3": "GERBC", "lv3Name": "로봇청소기" }, { "lv2Name": "청소기", "lv2": "CVC", "lv3": "LARBJ", "lv3Name": "잔디깍이 로봇" }, { "lv2Name": "스타일러", "lv2": "DCS", "lv3": "SADCS", "lv3Name": "슈케이스" }, { "lv2Name": "스타일러", "lv2": "DCS", "lv3": "SCDCS", "lv3Name": "슈케어" }, { "lv2Name": "스타일러", "lv2": "DCS", "lv3": "STDCS", "lv3Name": "스타일러" }, { "lv2Name": "제습/가습기", "lv2": "DEH", "lv3": "DEDEH", "lv3Name": "제습기" }, { "lv2Name": "제습/가습기", "lv2": "DEH", "lv3": "DEHMD", "lv3Name": "가습기" }, { "lv2Name": "의류건조기", "lv2": "DRR", "lv3": "CLDRR", "lv3Name": "의류건조기" }, { "lv2Name": "세탁기", "lv2": "DRW", "lv3": "DUDRW", "lv3Name": "트롬" }, { "lv2Name": "세탁기", "lv2": "DRW", "lv3": "GEDRW", "lv3Name": "통돌이" }, { "lv2Name": "세탁기", "lv2": "DRW", "lv3": "MIDRW", "lv3Name": "미니세탁기" }, { "lv2Name": "일체형/데스크톱", "lv2": "DSK", "lv3": "CLDSK", "lv3Name": "클라우드 PC" }, { "lv2Name": "일체형/데스크톱", "lv2": "DSK", "lv3": "MUDSK", "lv3Name": "일체형/데스크톱" }, { "lv2Name": "식기세척기", "lv2": "DWM", "lv3": "DIDWM", "lv3Name": "식기세척기" }, { "lv2Name": "워시타워", "lv2": "DWS", "lv3": "WADWS", "lv3Name": "워시타워" }, { "lv2Name": "전기레인지", "lv2": "ELR", "lv3": "HIELR", "lv3Name": "하이라이트" }, { "lv2Name": "전기레인지", "lv2": "ELR", "lv3": "HYELR", "lv3Name": "하이브리드" }, { "lv2Name": "전기레인지", "lv2": "ELR", "lv3": "INELR", "lv3Name": "인덕션" }, { "lv2Name": "EV충전기", "lv2": "EVC", "lv3": "LSEVC", "lv3Name": "완속충전기" }, { "lv2Name": "171", "lv2": "EVF", "lv3": "급속충전기", "lv3Name": "" }, { "lv2Name": "선풍기", "lv2": "FAN", "lv3": "COFAN", "lv3Name": "선풍기" }, { "lv2Name": "석유식_온풍기", "lv2": "FHO", "lv3": "OIFHO", "lv3Name": "석유식_온풍기" }, { "lv2Name": "전기/가스식_온풍기", "lv2": "FHT", "lv3": "ELFHT", "lv3Name": "전기/가스식_온풍기" }, { "lv2Name": "광파오븐/전자레인지", "lv2": "GOR", "lv3": "ERGOR", "lv3Name": "전자레인지" }, { "lv2Name": "광파오븐/전자레인지", "lv2": "GOR", "lv3": "OVGOR", "lv3Name": "광파오븐레인지" }, { "lv2Name": "가스오븐/가스레인지", "lv2": "GRN", "lv3": "GAGRN", "lv3Name": "가스레인지" }, { "lv2Name": "가스오븐/가스레인지", "lv2": "GRN", "lv3": "GVGRN", "lv3Name": "가스오븐레인지" }, { "lv2Name": "맥주제조기", "lv2": "HBR", "lv3": "BEHBR", "lv3Name": "맥주제조기" }, { "lv2Name": "안마의자", "lv2": "HMC", "lv3": "MAHMC", "lv3Name": "안마의자" }, { "lv2Name": "홈넷", "lv2": "HNS", "lv3": "HOHNS", "lv3Name": "홈넷솔루션" }, { "lv2Name": "홈넷", "lv2": "HNS", "lv3": "INBMS", "lv3Name": "지능형빌딩자동제어시스템" }, { "lv2Name": "SMART폰", "lv2": "HSD", "lv3": "SMHSD", "lv3Name": "SMART폰" }, { "lv2Name": "히터", "lv2": "HTR", "lv3": "HOHTR", "lv3Name": "히터" }, { "lv2Name": "정수기", "lv2": "HWI", "lv3": "HCHWI", "lv3Name": "냉온정수기" }, { "lv2Name": "정수기", "lv2": "HWI", "lv3": "PUHWI", "lv3Name": "정수전용" }, { "lv2Name": "스마트씽큐", "lv2": "IOT", "lv3": "SMIOT", "lv3Name": "스마트씽큐" }, { "lv2Name": "키오스크", "lv2": "KOS", "lv3": "KIOSK", "lv3Name": "키오스크" }, { "lv2Name": "김치냉장고", "lv2": "KRE", "lv3": "COKRE", "lv3Name": "뚜껑식형" }, { "lv2Name": "김치냉장고", "lv2": "KRE", "lv3": "STKRE", "lv3Name": "스탠드형" }, { "lv2Name": "LED조명", "lv2": "LED", "lv3": "LELED", "lv3Name": "LED조명" }, { "lv2Name": "의료기기", "lv2": "MDD", "lv3": "HAMHC", "lv3Name": "메디헤어" }, { "lv2Name": "뷰티 디바이스", "lv2": "MHC", "lv3": "CLMHC", "lv3Name": "클렌징 기기" }, { "lv2Name": "뷰티 디바이스", "lv2": "MHC", "lv3": "REMHC", "lv3Name": "탄력기기" }, { "lv2Name": "모니터", "lv2": "MNT", "lv3": "CLMNT", "lv3Name": "클라우드 모니터" }, { "lv2Name": "모니터", "lv2": "MNT", "lv3": "MEMNT", "lv3Name": "의료용 모니터" }, { "lv2Name": "모니터", "lv2": "MNT", "lv3": "PCMNT", "lv3Name": "PC 모니터" }, { "lv2Name": "모니터", "lv2": "MNT", "lv3": "TVMNT", "lv3Name": "TV 모니터" }, { "lv2Name": "모니터", "lv2": "MNT", "lv3": "UGMNT", "lv3Name": "울트라 기어 게이밍 모니터" }, { "lv2Name": "모니터", "lv2": "MNT", "lv3": "UWMNT", "lv3Name": "울트라 와이드 모니터" }, { "lv2Name": "마인드웰니스", "lv2": "MWD", "lv3": "DHMWD", "lv3Name": "마인드웰니스" }, { "lv2Name": "저장장치", "lv2": "NAS", "lv3": "CDCDR", "lv3Name": "CD-ROM/RW/콤보" }, { "lv2Name": "저장장치", "lv2": "NAS", "lv3": "NENAS", "lv3Name": "넷하드" }, { "lv2Name": "노트북", "lv2": "NTB", "lv3": "GRNTB", "lv3Name": "그램" }, { "lv2Name": "노트북", "lv2": "NTB", "lv3": "TBNTB", "lv3Name": "태블릿(Tablet)" }, { "lv2Name": "노트북", "lv2": "NTB", "lv3": "UDNTB", "lv3Name": "울트라 PC" }, { "lv2Name": "노트북", "lv2": "NTB", "lv3": "UGNTB", "lv3Name": "울트라 기어" }, { "lv2Name": "사무기기", "lv2": "OFM", "lv3": "ININK", "lv3Name": "잉크젯_프린터" }, { "lv2Name": "사무기기", "lv2": "OFM", "lv3": "LALAS", "lv3Name": "레이저젯_프린터" }, { "lv2Name": "사무기기", "lv2": "OFM", "lv3": "OFOFA", "lv3Name": "사무기기" }, { "lv2Name": "기타제품", "lv2": "OTH", "lv3": "ZZOTH", "lv3Name": "기타제품" }, { "lv2Name": "식물생활가전", "lv2": "PCD", "lv3": "VEPCD", "lv3Name": "식물재배기" }, { "lv2Name": "PLS조명", "lv2": "PLS", "lv3": "PLPLS", "lv3Name": "PLS조명" }, { "lv2Name": "로봇", "lv2": "RBT", "lv3": "GURBT", "lv3Name": "안내 로봇" }, { "lv2Name": "로봇", "lv2": "RBT", "lv3": "SERBT", "lv3Name": "서빙로봇" }, { "lv2Name": "로봇", "lv2": "RBT", "lv3": "UVRBT", "lv3Name": "UVC 로봇" }, { "lv2Name": "밥솥", "lv2": "RCK", "lv3": "CORCK", "lv3Name": "밥솥" }, { "lv2Name": "냉장고", "lv2": "REF", "lv3": "BUSBS", "lv3Name": "비즈니스" }, { "lv2Name": "냉장고", "lv2": "REF", "lv3": "NOREF", "lv3Name": "일반형" }, { "lv2Name": "냉장고", "lv2": "REF", "lv3": "PUSBS", "lv3Name": "정수기형" }, { "lv2Name": "냉장고", "lv2": "REF", "lv3": "SISBS", "lv3Name": "양문형" }, { "lv2Name": "냉장고", "lv2": "REF", "lv3": "ULSBS", "lv3Name": "상냉장/하냉동" }, { "lv2Name": "토스터", "lv2": "TOT", "lv3": "TOTOT", "lv3Name": "토스터" }, { "lv2Name": "TV", "lv2": "TVL", "lv3": "LSLED", "lv3Name": "라이프 스타일 스크린" }, { "lv2Name": "TV", "lv2": "TVL", "lv3": "NALED", "lv3Name": "나노셀 TV" }, { "lv2Name": "TV", "lv2": "TVL", "lv3": "NOTLV", "lv3Name": "일반형(TV)" }, { "lv2Name": "TV", "lv2": "TVL", "lv3": "OTLED", "lv3Name": "올레드 TV" }, { "lv2Name": "TV", "lv2": "TVL", "lv3": "QNLED", "lv3Name": "QNED TV" }, { "lv2Name": "TV", "lv2": "TVL", "lv3": "SDLED", "lv3Name": "일반 LED TV" }, { "lv2Name": "TV", "lv2": "TVL", "lv3": "UDLED", "lv3Name": "울트라 HD TV" }, { "lv2Name": "프로젝터", "lv2": "VPJ", "lv3": "BSVPJ", "lv3Name": "프로빔 (상업용)" }, { "lv2Name": "프로젝터", "lv2": "VPJ", "lv3": "MOVPJ", "lv3Name": "시네빔" }, { "lv2Name": "Wearable Band", "lv2": "WEA", "lv3": "BAWEA", "lv3Name": "Wearable Band" }, { "lv2Name": "와인셀러", "lv2": "WEF", "lv3": "WIWEF", "lv3Name": "와인셀러" }].filter(i => i.lv2 !== 'PRODUCT_LVL2_CD'); // Filter header if present
+        const productData = [{ "lv2Name": "시스템 에어컨", "lv2": "ACE", "lv3": "CHCHL", "lv3Name": "칠러" }, { "lv2Name": "시스템 에어컨", "lv2": "ACE", "lv3": "COCRA", "lv3Name": "상업용 천정형" }, { "lv2Name": "시스템 에어컨", "lv2": "ACE", "lv3": "COPAH", "lv3Name": "상업용 스탠드" }, { "lv2Name": "시스템 에어컨", "lv2": "ACE", "lv3": "GAGHP", "lv3Name": "가스식시스템에어컨" }, { "lv2Name": "시스템 에어컨", "lv2": "ACE", "lv3": "SYSBL", "lv3Name": "시스템보일러" }, { "lv2Name": "에어컨", "lv2": "AIC", "lv3": "REWRA", "lv3Name": "이동식 에어컨" }, { "lv2Name": "에어컨", "lv2": "AIC", "lv3": "STPAC", "lv3Name": "스탠드형 에어컨" }, { "lv2Name": "에어컨", "lv2": "AIC", "lv3": "TWPAT", "lv3Name": "2in1" }, { "lv2Name": "에어컨", "lv2": "AIC", "lv3": "WASRA", "lv3Name": "벽걸이형" }, { "lv2Name": "에어컨", "lv2": "AIC", "lv3": "WIWRA", "lv3Name": "창호형 에어컨" }, { "lv2Name": "공기청정기", "lv2": "ARC", "lv3": "AIARC", "lv3Name": "공기청정기" }, { "lv2Name": "공기청정기", "lv2": "ARC", "lv3": "EMARC", "lv3Name": "전자식 마스크" }, { "lv2Name": "AV", "lv2": "AUD", "lv3": "APAUD", "lv3Name": "오디오/플레이어" }, { "lv2Name": "AV", "lv2": "AUD", "lv3": "BTEAR", "lv3Name": "블루투스 이어폰" }, { "lv2Name": "AV", "lv2": "AUD", "lv3": "SOHTH", "lv3Name": "사운드바" }, { "lv2Name": "보일러", "lv2": "BLR", "lv3": "BOBLR", "lv3Name": "보일러" }, { "lv2Name": "소물액세서리", "lv2": "BUL", "lv3": "ACBUL", "lv3Name": "소물액세서리" }, { "lv2Name": "CDMA폰", "lv2": "CDM", "lv3": "RPCDM", "lv3Name": "CDMA폰" }, { "lv2Name": "실링팬", "lv2": "CLF", "lv3": "SECLF", "lv3Name": "실링팬" }, { "lv2Name": "상업용 디스플레이", "lv2": "CSP", "lv3": "DIDSM", "lv3Name": "디지털 사이니지" }, { "lv2Name": "상업용 디스플레이", "lv2": "CSP", "lv3": "LEDSM", "lv3Name": "LED 사이니지" }, { "lv2Name": "상업용 디스플레이", "lv2": "CSP", "lv3": "ONEQU", "lv3Name": "원퀵" }, { "lv2Name": "상업용 디스플레이", "lv2": "CSP", "lv3": "OTDSM", "lv3Name": "올레드 사이니지" }, { "lv2Name": "청소기", "lv2": "CVC", "lv3": "A9CLN", "lv3Name": "무선청소기" }, { "lv2Name": "청소기", "lv2": "CVC", "lv3": "GECVC", "lv3Name": "유선청소기" }, { "lv2Name": "청소기", "lv2": "CVC", "lv3": "GERBC", "lv3Name": "로봇청소기" }, { "lv2Name": "청소기", "lv2": "CVC", "lv3": "LARBJ", "lv3Name": "잔디깍이 로봇" }, { "lv2Name": "스타일러", "lv2": "DCS", "lv3": "SADCS", "lv3Name": "슈케이스" }, { "lv2Name": "스타일러", "lv2": "DCS", "lv3": "SCDCS", "lv3Name": "슈케어" }, { "lv2Name": "스타일러", "lv2": "DCS", "lv3": "STDCS", "lv3Name": "스타일러" }, { "lv2Name": "제습/가습기", "lv2": "DEH", "lv3": "DEDEH", "lv3Name": "제습기" }, { "lv2Name": "제습/가습기", "lv2": "DEH", "lv3": "DEHMD", "lv3Name": "가습기" }, { "lv2Name": "의류건조기", "lv2": "DRR", "lv3": "CLDRR", "lv3Name": "의류건조기" }, { "lv2Name": "세탁기", "lv2": "DRW", "lv3": "DUDRW", "lv3Name": "트롬" }, { "lv2Name": "세탁기", "lv2": "DRW", "lv3": "GEDRW", "lv3Name": "통돌이" }, { "lv2Name": "세탁기", "lv2": "DRW", "lv3": "MIDRW", "lv3Name": "미니세탁기" }, { "lv2Name": "일체형/데스크톱", "lv2": "DSK", "lv3": "CLDSK", "lv3Name": "클라우드 PC" }, { "lv2Name": "일체형/데스크톱", "lv2": "DSK", "lv3": "MUDSK", "lv3Name": "일체형/데스크톱" }, { "lv2Name": "식기세척기", "lv2": "DWM", "lv3": "DIDWM", "lv3Name": "식기세척기" }, { "lv2Name": "워시타워", "lv2": "DWS", "lv3": "WADWS", "lv3Name": "워시타워" }, { "lv2Name": "전기레인지", "lv2": "ELR", "lv3": "HIELR", "lv3Name": "하이라이트" }, { "lv2Name": "전기레인지", "lv2": "ELR", "lv3": "HYELR", "lv3Name": "하이브리드" }, { "lv2Name": "전기레인지", "lv2": "ELR", "lv3": "INELR", "lv3Name": "인덕션" }, { "lv2Name": "EV충전기", "lv2": "EVC", "lv3": "LSEVC", "lv3Name": "완속충전기" }, { "lv2Name": "171", "lv2": "EVF", "lv3": "급속충전기", "lv3Name": "" }, { "lv2Name": "선풍기", "lv2": "FAN", "lv3": "COFAN", "lv3Name": "선풍기" }, { "lv2Name": "석유식_온풍기", "lv2": "FHO", "lv3": "OIFHO", "lv3Name": "석유식_온풍기" }, { "lv2Name": "전기/가스식_온풍기", "lv2": "FHT", "lv3": "ELFHT", "lv3Name": "전기/가스식_온풍기" }, { "lv2Name": "광파오븐/전자레인지", "lv2": "GOR", "lv3": "ERGOR", "lv3Name": "전자레인지" }, { "lv2Name": "광파오븐/전자레인지", "lv2": "GOR", "lv3": "OVGOR", "lv3Name": "광파오븐레인지" }, { "lv2Name": "가스오븐/가스레인지", "lv2": "GRN", "lv3": "GAGRN", "lv3Name": "가스레인지" }, { "lv2Name": "가스오븐/가스레인지", "lv2": "GRN", "lv3": "GVGRN", "lv3Name": "가스오븐레인지" }, { "lv2Name": "맥주제조기", "lv2": "HBR", "lv3": "BEHBR", "lv3Name": "맥주제조기" }, { "lv2Name": "안마의자", "lv2": "HMC", "lv3": "MAHMC", "lv3Name": "안마의자" }, { "lv2Name": "홈넷", "lv2": "HNS", "lv3": "HOHNS", "lv3Name": "홈넷솔루션" }, { "lv2Name": "홈넷", "lv2": "HNS", "lv3": "INBMS", "lv3Name": "지능형빌딩자동제어시스템" }, { "lv2Name": "SMART폰", "lv2": "HSD", "lv3": "SMHSD", "lv3Name": "SMART폰" }, { "lv2Name": "히터", "lv2": "HTR", "lv3": "HOHTR", "lv3Name": "히터" }, { "lv2Name": "정수기", "lv2": "HWI", "lv3": "HCHWI", "lv3Name": "냉온정수기" }, { "lv2Name": "정수기", "lv2": "HWI", "lv3": "PUHWI", "lv3Name": "정수전용" }, { "lv2Name": "스마트씽큐", "lv2": "IOT", "lv3": "SMIOT", "lv3Name": "스마트씽큐" }, { "lv2Name": "키오스크", "lv2": "KOS", "lv3": "KIOSK", "lv3Name": "키오스크" }, { "lv2Name": "김치냉장고", "lv2": "KRE", "lv3": "COKRE", "lv3Name": "뚜껑식형" }, { "lv2Name": "김치냉장고", "lv2": "KRE", "lv3": "STKRE", "lv3Name": "스탠드형" }, { "lv2Name": "LED조명", "lv2": "LED", "lv3": "LELED", "lv3Name": "LED조명" }, { "lv2Name": "의료기기", "lv2": "MDD", "lv3": "HAMHC", "lv3Name": "메디헤어" }, { "lv2Name": "뷰티 디바이스", "lv2": "MHC", "lv3": "CLMHC", "lv3Name": "클렌징 기기" }, { "lv2Name": "뷰티 디바이스", "lv2": "MHC", "lv3": "REMHC", "lv3Name": "탄력기기" }, { "lv2Name": "모니터", "lv2": "MNT", "lv3": "CLMNT", "lv3Name": "클라우드 모니터" }, { "lv2Name": "모니터", "lv2": "MNT", "lv3": "MEMNT", "lv3Name": "의료용 모니터" }, { "lv2Name": "모니터", "lv2": "MNT", "lv3": "PCMNT", "lv3Name": "PC 모니터" }, { "lv2Name": "모니터", "lv2": "MNT", "lv3": "TVMNT", "lv3Name": "TV 모니터" }, { "lv2Name": "모니터", "lv2": "MNT", "lv3": "UGMNT", "lv3Name": "울트라 기어 게이밍 모니터" }, { "lv2Name": "모니터", "lv2": "MNT", "lv3": "UWMNT", "lv3Name": "울트라 와이드 모니터" }, { "lv2Name": "마인드웰니스", "lv2": "MWD", "lv3": "DHMWD", "lv3Name": "마인드웰니스" }, { "lv2Name": "저장장치", "lv2": "NAS", "lv3": "CDCDR", "lv3Name": "CD-ROM/RW/콤보" }, { "lv2Name": "저장장치", "lv2": "NAS", "lv3": "NENAS", "lv3Name": "넷하드" }, { "lv2Name": "노트북", "lv2": "NTB", "lv3": "GRNTB", "lv3Name": "그램" }, { "lv2Name": "노트북", "lv2": "NTB", "lv3": "TBNTB", "lv3Name": "태블릿(Tablet)" }, { "lv2Name": "노트북", "lv2": "NTB", "lv3": "UDNTB", "lv3Name": "울트라 PC" }, { "lv2Name": "노트북", "lv2": "NTB", "lv3": "UGNTB", "lv3Name": "울트라 기어" }, { "lv2Name": "사무기기", "lv2": "OFM", "lv3": "ININK", "lv3Name": "잉크젯_프린터" }, { "lv2Name": "사무기기", "lv2": "OFM", "lv3": "LALAS", "lv3Name": "레이저젯_프린터" }, { "lv2Name": "사무기기", "lv2": "OFM", "lv3": "OFOFA", "lv3Name": "사무기기" }, { "lv2Name": "기타제품", "lv2": "OTH", "lv3": "ZZOTH", "lv3Name": "기타제품" }, { "lv2Name": "식물생활가전", "lv2": "PCD", "lv3": "VEPCD", "lv3Name": "식물재배기" }, { "lv2Name": "PLS조명", "lv2": "PLS", "lv3": "PLPLS", "lv3Name": "PLS조명" }, { "lv2Name": "로봇", "lv2": "RBT", "lv3": "GURBT", "lv3Name": "안내 로봇" }, { "lv2Name": "로봇", "lv2": "RBT", "lv3": "SERBT", "lv3Name": "서빙로봇" }, { "lv2Name": "로봇", "lv2": "RBT", "lv3": "UVRBT", "lv3Name": "UVC 로봇" }, { "lv2Name": "밥솥", "lv2": "RCK", "lv3": "CORCK", "lv3Name": "밥솥" }, { "lv2Name": "냉장고", "lv2": "REF", "lv3": "BUSBS", "lv3Name": "비즈니스" }, { "lv2Name": "냉장고", "lv2": "REF", "lv3": "NOREF", "lv3Name": "일반형" }, { "lv2Name": "냉장고", "lv2": "REF", "lv3": "PUSBS", "lv3Name": "정수기형" }, { "lv2Name": "냉장고", "lv2": "REF", "lv3": "SISBS", "lv3Name": "양문형" }, { "lv2Name": "냉장고", "lv2": "REF", "lv3": "ULSBS", "lv3Name": "상냉장/하냉동" }, { "lv2Name": "토스터", "lv2": "TOT", "lv3": "TOTOT", "lv3Name": "토스터" }, { "lv2Name": "TV", "lv2": "TVL", "lv3": "LSLED", "lv3Name": "라이프 스타일 스크린" }, { "lv2Name": "TV", "lv2": "TVL", "lv3": "NALED", "lv3Name": "나노셀 TV" }, { "lv2Name": "TV", "lv2": "TVL", "lv3": "NOTLV", "lv3Name": "일반형(TV)" }, { "lv2Name": "TV", "lv2": "TVL", "lv3": "OTLED", "lv3Name": "올레드 TV" }, { "lv2Name": "TV", "lv2": "TVL", "lv3": "QNLED", "lv3Name": "QNED TV" }, { "lv2Name": "TV", "lv2": "TVL", "lv3": "SDLED", "lv3Name": "일반 LED TV" }, { "lv2Name": "TV", "lv2": "TVL", "lv3": "UDLED", "lv3Name": "울트라 HD TV" }, { "lv2Name": "프로젝터", "lv2": "VPJ", "lv3": "BSVPJ", "lv3Name": "프로빔 (상업용)" }, { "lv2Name": "프로젝터", "lv2": "VPJ", "lv3": "MOVPJ", "lv3Name": "시네빔" }, { "lv2Name": "Wearable Band", "lv2": "WEA", "lv3": "BAWEA", "lv3Name": "Wearable Band" }, { "lv2Name": "와인셀러", "lv2": "WEF", "lv3": "WIWEF", "lv3Name": "와인셀러" }].filter(i => i.lv2 !== 'PRODUCT_LVL2_CD'); 
 
         let selectedLv2Codes = new Set();
         let selectedLv3Codes = new Set();
         let selectedModels = new Set();
-        let selectedCorpCd = 'ALL'; // 법인 필터 상태
-        let currentFilteredModels = []; // 검색/필터된 전체 모델 유지
+        let selectedCorpCd = 'ALL'; 
+        let currentFilteredModels = []; 
         let modelRenderLimit = 500;
 
         function openProductModal() {
@@ -3535,7 +4072,7 @@ ${contentBody}
             const lv2Map = new Map();
             sourceData.forEach(item => {
                 const code = item.lv2;
-                const name = (appRegion === 'ko') ? item.lv2Name : item.lv2; // Global은 C열(prod_cd)을 이름으로 사용
+                const name = (appRegion === 'ko') ? item.lv2Name : item.lv2; 
                 if (!lv2Map.has(code)) {
                     lv2Map.set(code, name);
                 }
@@ -4053,6 +4590,712 @@ ${contentBody}
 
             toggleClearBtn('inAppliedModel', 'clearModel');
             if (typeof generateHTML === 'function') generateHTML();
+        }
+
+        
+
+        let chatMessages = []; 
+
+        
+        window.addEventListener('DOMContentLoaded', () => {
+            loadChatSettings();
+            const configOverlay = document.getElementById('chatConfigOverlay');
+            if (configOverlay) configOverlay.classList.remove('active');
+
+            
+            
+            const isChatbotCollapsed = localStorage.getItem('qbot_chatbot_collapsed') === 'true';
+            if (isChatbotCollapsed) {
+                const chatbotPanel = document.getElementById('chatbotPanel');
+                const toggleBtn = document.getElementById('btnToggleChatbotPanel');
+                if (chatbotPanel) {
+                    chatbotPanel.classList.add('collapsed');
+                }
+                if (toggleBtn) {
+                    toggleBtn.style.backgroundColor = '#888';
+                }
+            }
+        });
+
+        
+        
+        function toggleChatbotPanelVisibility() {
+            const chatbotPanel = document.getElementById('chatbotPanel');
+            const toggleBtn = document.getElementById('btnToggleChatbotPanel');
+            if (!chatbotPanel) return;
+
+            const isCollapsed = chatbotPanel.classList.toggle('collapsed');
+
+            if (isCollapsed) {
+                
+                if (toggleBtn) {
+                    toggleBtn.style.backgroundColor = '#888';
+                }
+                localStorage.setItem('qbot_chatbot_collapsed', 'true');
+            } else {
+                
+                if (toggleBtn) {
+                    toggleBtn.style.backgroundColor = '#333';
+                }
+                localStorage.setItem('qbot_chatbot_collapsed', 'false');
+            }
+        }
+
+        
+        function toggleChatConfigOverlay() {
+            const overlay = document.getElementById('chatConfigOverlay');
+            if (overlay) {
+                if (overlay.classList.contains('active')) {
+                    overlay.classList.remove('active');
+                } else {
+                    overlay.classList.add('active');
+                }
+            }
+        }
+
+        
+        function handleChatProviderChange() {
+            const provider = document.getElementById('chatProvider').value;
+            const modelSelect = document.getElementById('chatModel');
+            modelSelect.innerHTML = '';
+
+            if (provider === 'gemini') {
+                modelSelect.innerHTML = `
+                    <option value="gemini-2.5-flash">gemini-2.5-flash (권장/빠름)</option>
+                    <option value="gemini-2.5-pro">gemini-2.5-pro (정교함)</option>
+                    <option value="gemini-1.5-flash">gemini-1.5-flash</option>
+                `;
+            } else if (provider === 'openai') {
+                modelSelect.innerHTML = `
+                    <option value="gpt-4o-mini">gpt-4o-mini (권장/가성비)</option>
+                    <option value="gpt-4o">gpt-4o (강력함)</option>
+                    <option value="gpt-3.5-turbo">gpt-3.5-turbo</option>
+                `;
+            }
+            saveChatSettings();
+        }
+
+        
+        function saveChatSettings() {
+            const provider = document.getElementById('chatProvider').value;
+            const apiKey = document.getElementById('chatApiKey').value;
+            const model = document.getElementById('chatModel').value;
+
+            localStorage.setItem('qbot_chat_provider', provider);
+            localStorage.setItem('qbot_chat_apikey', apiKey);
+            localStorage.setItem('qbot_chat_model', model);
+        }
+
+        
+        
+        function deleteChatApiKey() {
+            if (confirm('로컬 저장소에 보관된 API Key를 완전히 삭제하시겠습니까?')) {
+                document.getElementById('chatApiKey').value = '';
+                localStorage.removeItem('qbot_chat_apikey');
+                
+                saveChatSettings();
+                alert('API Key가 안전하게 삭제되었습니다.');
+            }
+        }
+
+        
+        function loadChatSettings() {
+            const provider = localStorage.getItem('qbot_chat_provider') || 'gemini';
+            const apiKey = localStorage.getItem('qbot_chat_apikey') || '';
+            const model = localStorage.getItem('qbot_chat_model') || 'gemini-2.5-flash';
+
+            document.getElementById('chatProvider').value = provider;
+            document.getElementById('chatApiKey').value = apiKey;
+
+            handleChatProviderChange();
+            document.getElementById('chatModel').value = model;
+        }
+
+        
+        
+        function cleanEmptyHtml(html) {
+            if (!html) return "";
+            const cleanText = html.replace(/<[^>]*>/g, '').replace(/&nbsp;/g, ' ').trim();
+            return cleanText === "" ? "" : html;
+        }
+
+        
+        
+        function stripHtmlTags(html) {
+            if (!html) return "";
+            let text = html.replace(/<!--[\s\S]*?-->/g, ""); 
+            text = text.replace(/<[^>]*>/g, ""); 
+            text = text.replace(/&nbsp;/g, " ")
+                .replace(/&lt;/g, "<")
+                .replace(/&gt;/g, ">")
+                .replace(/&amp;/g, "&"); 
+            return text.trim();
+        }
+
+        
+        function getEditorData() {
+            const title = document.getElementById('inTitle').value;
+            const productFamily = document.getElementById('inProductFamily').value;
+            const appliedModel = document.getElementById('inAppliedModel').value;
+            const targetSerial = document.getElementById('inTargetSerial').value;
+            const actionSummary = cleanEmptyHtml(document.getElementById('inActionSummary').innerHTML);
+
+            const symptomTitle = document.getElementById('inSymptomTitle').value;
+            const symptom = cleanEmptyHtml(document.getElementById('inSymptom').innerHTML);
+            const causeTitle = document.getElementById('inCauseTitle').value;
+            const cause = cleanEmptyHtml(document.getElementById('inCause').innerHTML);
+            const repairTitle = document.getElementById('inRepairTitle').value;
+            const repairMethod = cleanEmptyHtml(document.getElementById('inRepairMethod').innerHTML);
+
+            const dynSections = [];
+            const dynElems = document.querySelectorAll('.dynamic-section');
+            dynElems.forEach(sec => {
+                const dTitle = sec.querySelector('.dyn-title').value;
+                const dContent = cleanEmptyHtml(sec.querySelector('.dyn-content').innerHTML);
+                dynSections.push({ title: dTitle, content: dContent });
+            });
+
+            return {
+                title,
+                productFamily,
+                appliedModel,
+                targetSerial,
+                actionSummary,
+                symptomTitle,
+                symptomContent: symptom,
+                causeTitle,
+                causeContent: cause,
+                repairTitle,
+                repairContent: repairMethod,
+                additionalSections: dynSections
+            };
+        }
+
+        
+        function loadCurrentEditorToInput() {
+            const data = getEditorData();
+            const cleanText = html => html.replace(/<[^>]*>/g, '').replace(/&nbsp;/g, ' ').trim();
+
+            const text = `[현재 에디터 원문 정보]\n- 제목: ${data.title}\n- 조치 요약: ${cleanText(data.actionSummary)}\n- 증상: ${cleanText(data.symptomContent)}\n- 불량원인: ${cleanText(data.causeContent)}\n- 서비스 방법: ${cleanText(data.repairContent)}`;
+            document.getElementById('chatInput').value = text + "\n\n이 내용에 대해 다음과 같이 수정해줘: ";
+            document.getElementById('chatInput').focus();
+        }
+
+        
+        function applyEditorData(jsonData) {
+            try {
+                if (typeof jsonData === 'string') {
+                    jsonData = JSON.parse(jsonData);
+                }
+
+                
+                if (jsonData.title !== undefined) document.getElementById('inTitle').value = jsonData.title;
+                if (jsonData.actionSummary !== undefined) document.getElementById('inActionSummary').innerHTML = jsonData.actionSummary;
+                if (jsonData.symptomTitle !== undefined) document.getElementById('inSymptomTitle').value = jsonData.symptomTitle;
+                if (jsonData.symptomContent !== undefined) document.getElementById('inSymptom').innerHTML = jsonData.symptomContent;
+                if (jsonData.causeTitle !== undefined) document.getElementById('inCauseTitle').value = jsonData.causeTitle;
+                if (jsonData.causeContent !== undefined) document.getElementById('inCause').innerHTML = jsonData.causeContent;
+                if (jsonData.repairTitle !== undefined) document.getElementById('inRepairTitle').value = jsonData.repairTitle;
+                if (jsonData.repairContent !== undefined) document.getElementById('inRepairMethod').innerHTML = jsonData.repairContent;
+
+                
+                if (jsonData.additionalSections && Array.isArray(jsonData.additionalSections)) {
+                    document.getElementById('dynamicSections').innerHTML = '';
+                    jsonData.additionalSections.forEach(sec => {
+                        addDynamicSectionWithData(sec.title, sec.content);
+                    });
+                }
+
+                alert('AI 추천 수정안이 에디터에 안전하게 반영되었습니다!');
+
+                
+                if (typeof generateHTML === 'function') generateHTML();
+            } catch (e) {
+                console.error('AI 데이터 적용 오류:', e);
+                alert('수정안 자동 반영 중 오류가 발생했습니다. 형식 오류 가능성이 있으니 하단의 AI 제안 원문을 참고해 수동 복사바랍니다.');
+            }
+        }
+
+        
+        
+        function applyQuickTemplate(type) {
+            const data = getEditorData();
+
+            
+            
+            const hasContent = (data.title || '').trim() ||
+                (data.actionSummary || '').replace(/<[^>]*>/g, '').trim() ||
+                (data.symptomContent || '').replace(/<[^>]*>/g, '').trim() ||
+                (data.causeContent || '').replace(/<[^>]*>/g, '').trim() ||
+                (data.repairContent || '').replace(/<[^>]*>/g, '').trim();
+
+            if (!hasContent) {
+                alert('수정할 내용이 에디터에 입력되어 있지 않습니다. 먼저 왼쪽 에디터에 글을 입력해 주세요.');
+                return;
+            }
+
+            let promptText = "";
+
+            
+            
+            if (type === 'proofread') {
+                promptText = "현재 에디터에 입력된 제목과 본문에서 맞춤법 오류, 기술적 비표준어(예: 매치량, 경시성 등)를 정확히 교정하고 문맥을 자연스럽게 다듬어줘. 불필요한 서론은 배제하고, 어떤 항목이 어떻게 교정되었는지 결과 위주로 간결하게 알려줘. 단, 비어 있는 항목은 절대 내용을 임의로 유추하거나 창작해 추가하지 말고 빈 값 그대로 유지해야 해. 특히 편집기에 실제 입력된 값이 없는 필드(증상이나 원인 내용 등이 비어있는 경우)는 ai 추천이나 최종 JSON, 챗봇 대화방의 대조 출력(기존/수정) 모두에서 일체 관련 내용을 노출하지 말고 제외해야 하며, 오직 사용자가 입력한 내용에만 기반해서 수정해야 해.";
+            } else if (type === 'simplify') {
+                promptText = "현재 에디터에 입력된 기술적인 내용을 갓 입사한 저연차 엔지니어도 바로 이해할 수 있는 수준으로, 어려운 기술 용어는 이해하기 쉽게 사용하고 기술용어는 한글명과 같이 표기해. 예를들어 베이퍼 챔버(Vapor Chamber) 다만 지나치게 유치한 표현 대신 엔지니어 문서의 기본 전문성은 유지해야 해. 불필요한 장황한 설명은 배제하고, 어떤 항목이 어떻게 다듬어졌는지 결과 위주로 간결하게 대조해줘. 단, 비어 있는 항목은 절대 내용을 임의로 유추하거나 창작해 추가하지 말고 빈 값 그대로 유지해야 해. 특히 편집기에 실제 입력된 값이 없는 필드(증상이나 원인 내용 등이 비어있는 경우)는 ai 추천이나 최종 JSON, 챗봇 대화방의 대조 출력(기존/수정) 모두에서 일체 관련 내용을 노출하지 말고 제외해야 하며, 오직 사용자가 입력한 내용에만 기반해서 수정해야 해.";
+            } else if (type === 'enrich') {
+                promptText = "현재 에디터에 입력된 증상과 원인, 서비스 조치 단계별 가이드를 세부적이고 풍부하게 보강해줘. 새로 추가하거나 보완한 핵심 하드웨어 점검이나 정밀 테스트 팁 위주로 일목요연하게 알려줘. 단, 비어 있는 항목은 절대 내용을 임의로 유추하거나 창작해 추가하지 말고 빈 값 그대로 유지해야 해. 특히 편집기에 실제 입력된 값이 없는 필드(증상이나 원인 내용 등이 비어있는 경우)는 ai 추천이나 최종 JSON, 챗봇 대화방의 대조 출력(기존/수정) 모두에서 일체 관련 내용을 노출하지 말고 제외해야 하며, 오직 사용자가 입력한 내용에만 기반해서 수정해야 해.";
+            }
+
+            document.getElementById('chatInput').value = promptText;
+
+            
+            
+            let bubbleLabel = "";
+            if (type === 'proofread') bubbleLabel = "📝 문맥/맞춤법 교정 요청";
+            else if (type === 'simplify') bubbleLabel = "💡 초보자도 쉽게 수정 요청";
+            else if (type === 'enrich') bubbleLabel = "🔍 내용 상세 보강 요청";
+
+            sendChatMessage(bubbleLabel);
+        }
+
+        
+        function handleChatInputKeyDown(e) {
+            if (e.key === 'Enter' && !e.shiftKey) {
+                e.preventDefault();
+                sendChatMessage();
+            }
+        }
+
+        
+        function renderChatBubble(sender, text, dataToApply = null) {
+            const history = document.getElementById('chatHistory');
+            const bubble = document.createElement('div');
+            bubble.className = `chat-bubble ${sender}`;
+
+            if (sender === 'system') {
+                bubble.innerHTML = text;
+            } else if (sender === 'ai') {
+                
+                
+                try {
+                    bubble.innerHTML = marked.parse(text);
+                } catch (me) {
+                    console.error('Markdown parsing error:', me);
+                    bubble.textContent = text;
+                }
+            } else {
+                
+                bubble.style.whiteSpace = 'pre-wrap';
+                bubble.textContent = text;
+            }
+
+            history.appendChild(bubble);
+
+            
+            if (dataToApply && sender === 'ai') {
+                const card = document.createElement('div');
+                card.className = 'ai-action-card';
+                card.innerHTML = `
+                    <div class="ai-action-card-title">
+                        <i class="fas fa-check-circle"></i>
+                        <span>AI 추천 수정안 일괄 대입</span>
+                    </div>
+                    <p style="margin: 0; font-size: 11px; color: #555;">
+                        AI가 제안한 데이터로 에디터의 제목과 본문 내용을 즉시 업데이트합니다.
+                    </p>
+                    <button class="ai-action-btn-apply" id="btnApply_${Date.now()}">에디터에 즉시 적용</button>
+                `;
+                history.appendChild(card);
+
+                card.querySelector('.ai-action-btn-apply').onclick = () => {
+                    applyEditorData(dataToApply);
+                };
+            }
+
+            history.scrollTop = history.scrollHeight;
+        }
+
+        
+        async function testChatApiConnection() {
+            const provider = document.getElementById('chatProvider').value;
+            const apiKey = document.getElementById('chatApiKey').value.trim();
+            const model = document.getElementById('chatModel').value;
+
+            if (!apiKey) {
+                alert('연동 테스트를 진행하려면 API Key를 먼저 입력해야 합니다.');
+                return;
+            }
+
+            try {
+                if (provider === 'gemini') {
+                    const url = `https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent?key=${apiKey}`;
+                    const res = await fetch(url, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({ contents: [{ parts: [{ text: "Hello" }] }] })
+                    });
+                    if (res.ok) {
+                        alert('Google Gemini API와 정상적으로 통신 연동되었습니다!');
+                    } else {
+                        const errData = await res.json();
+                        alert(`연동 실패: ${res.status}\n${JSON.stringify(errData)}`);
+                    }
+                } else {
+                    const url = `https://api.openai.com/v1/chat/completions`;
+                    const res = await fetch(url, {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'Authorization': `Bearer ${apiKey}`
+                        },
+                        body: JSON.stringify({ model: model, messages: [{ role: "user", content: "Hello" }], max_tokens: 5 })
+                    });
+                    if (res.ok) {
+                        alert('OpenAI API와 정상적으로 통신 연동되었습니다!');
+                    } else {
+                        const errData = await res.json();
+                        alert(`연동 실패: ${res.status}\n${JSON.stringify(errData)}`);
+                    }
+                }
+            } catch (e) {
+                alert(`네트워크 장애 혹은 도메인 차단으로 연동이 불가능합니다.\n오류 정보: ${e.message}`);
+            }
+        }
+
+        
+        
+        async function sendChatMessage(customUserBubbleText = null) {
+            const input = document.getElementById('chatInput');
+            const messageText = input.value.trim();
+            if (!messageText) return;
+
+            const provider = document.getElementById('chatProvider').value;
+            const apiKey = document.getElementById('chatApiKey').value.trim();
+            const model = document.getElementById('chatModel').value;
+
+            if (!apiKey) {
+                alert('AI 챗봇을 이용하려면 먼저 우측 상단 설정(톱니바퀴)을 눌러 API Key를 등록해야 합니다.');
+                toggleChatConfigOverlay();
+                return;
+            }
+
+            
+            renderChatBubble('user', customUserBubbleText || messageText);
+            input.value = '';
+
+            const history = document.getElementById('chatHistory');
+            const loadingBubble = document.createElement('div');
+            loadingBubble.className = 'chat-bubble ai';
+            loadingBubble.innerHTML = '<i class="fas fa-spinner fa-spin"></i> AI가 최적의 수정안을 구성하고 있습니다...';
+            history.appendChild(loadingBubble);
+            history.scrollTop = history.scrollHeight;
+
+            const editorData = getEditorData();
+
+            
+            
+            let editorInfoText = "";
+            let emptyFields = []; 
+
+            if (editorData.title.trim()) {
+                editorInfoText += `- 제목: ${editorData.title}\n`;
+            } else {
+                emptyFields.push("title");
+            }
+
+            if (editorData.productFamily.trim()) {
+                editorInfoText += `- 제품군: ${editorData.productFamily}\n`;
+            } else {
+                emptyFields.push("productFamily");
+            }
+
+            if (editorData.appliedModel.trim()) {
+                editorInfoText += `- 적용 모델: ${editorData.appliedModel}\n`;
+            } else {
+                emptyFields.push("appliedModel");
+            }
+
+            if (editorData.targetSerial.trim()) {
+                editorInfoText += `- 대상 제번: ${editorData.targetSerial}\n`;
+            } else {
+                emptyFields.push("targetSerial");
+            }
+
+            if (stripHtmlTags(editorData.actionSummary)) {
+                editorInfoText += `- 조치 방법 (요약): ${stripHtmlTags(editorData.actionSummary)}\n`;
+            } else {
+                emptyFields.push("actionSummary");
+            }
+
+            if (stripHtmlTags(editorData.symptomContent)) {
+                if (editorData.symptomTitle.trim()) {
+                    editorInfoText += `- 증상 제목: ${editorData.symptomTitle}\n`;
+                } else {
+                    emptyFields.push("symptomTitle");
+                }
+                editorInfoText += `- 증상 내용: ${stripHtmlTags(editorData.symptomContent)}\n`;
+            } else {
+                emptyFields.push("symptomTitle");
+                emptyFields.push("symptomContent");
+            }
+
+            if (stripHtmlTags(editorData.causeContent)) {
+                if (editorData.causeTitle.trim()) {
+                    editorInfoText += `- 불량 원인 제목: ${editorData.causeTitle}\n`;
+                } else {
+                    emptyFields.push("causeTitle");
+                }
+                editorInfoText += `- 불량 원인 내용: ${stripHtmlTags(editorData.causeContent)}\n`;
+            } else {
+                emptyFields.push("causeTitle");
+                emptyFields.push("causeContent");
+            }
+
+            if (stripHtmlTags(editorData.repairContent)) {
+                if (editorData.repairTitle.trim()) {
+                    editorInfoText += `- 수리 방법 제목: ${editorData.repairTitle}\n`;
+                } else {
+                    emptyFields.push("repairTitle");
+                }
+                editorInfoText += `- 수리 방법 내용: ${stripHtmlTags(editorData.repairContent)}\n`;
+            } else {
+                emptyFields.push("repairTitle");
+                emptyFields.push("repairContent");
+            }
+
+            const validDynSections = editorData.additionalSections.filter(sec => stripHtmlTags(sec.content));
+            if (validDynSections.length > 0) {
+                editorInfoText += `- 추가 섹션들: ${JSON.stringify(validDynSections)}\n`;
+            }
+
+            
+            const systemPrompt = `당신은 HTML 정보 변환기에 최적화된 AI 교정 파트너입니다.
+역할: 사용자가 제시한 교정 지시사항에 맞춰 [현재 에디터 정보] 중 채워져 있는 항목들의 내용을 전문적으로 수정하거나 다듬습니다.
+- **문맥/맞춤법 교정**이 요구된 경우: 문장의 맞춤법 오류, 오탈자, 띄어쓰기 및 비표준 기술 용어(예: 매치량 -> 배치량, 경시성 -> 경시 변화 등 기술 비표준어)를 한국어 표준 어문 규정에 맞게 완벽히 교정하고, 자연스러운 기술 문서체로 수정하십시오. (비어 있는 항목은 절대 추가 금지)
+- **초보자도 쉽게**가 요구된 경우: 초등학교 6학년 수준(혹은 갓 입사한 저연차 주니어 엔지니어 수준)에 맞춰 난해한 기술 용어는 그 뜻을 조금 이해하기 쉬운 단어로 풀어 설명하되, 기기의 작동 원리나 전문 기술 맥락의 기본 용어는 흐려지지 않도록 조절하십시오. 지나치게 유치한 표현은 배제하고, 전문성은 잃지 않으면서도 가독성이 높은 친근하고 평이한 설명체로 다듬으십시오. (비어 있는 항목 절대 추가 금지)
+
+
+[현재 에디터 정보]
+${editorInfoText}
+
+[원래 비어 있는 에디터 필드 목록]
+${emptyFields.length > 0 ? emptyFields.map(f => `- ${f}`).join('\n') : "(없음)"}
+
+지침:
+1. 답변 내용에 반드시 수정 제안을 포함해야 합니다.
+2. 답변 끝이나 본문 속에 다음 JSON 포맷을 정확히 \`\`\`json ... \`\`\` 마크다운 블록으로 감싸서 한 번만 출력해주세요. 
+이 JSON은 파싱되어 에디터에 일괄 대입되므로 절대 손상되면 안 됩니다. 바꿀 필드가 없다면 현재 에디터 정보를 그대로 채우세요.
+3. 에디터 본문(symptomContent, causeContent, repairContent 등) 내부에는 HTML 태그(<p>, <ul>, <li>, <strong>, <span style="..."> 등)를 자유롭게 포함하여 깔끔하게 줄바꿈과 목록을 구성하되, 이는 **오직 JSON 블록 내부의 데이터 값에만 적용**됩니다. JSON 외부의 사용자 설명용 말풍선 텍스트 영역에는 HTML 태그를 날것으로 적거나 백틱(\`\`) 코드 블록 형태로 노출하지 마십시오.
+4. **극도의 사설 배제**: 서론, 도입 설명, 맺음말, 변경 의도나 피드백 해설(예: "주니어가 혼동할 수 있습니다", "문장을 풀어 설명했습니다" 등)을 절대 적지 마십시오. 오직 수정 대조 결과만 간결하게 출력하십시오.
+5. **빈 항목 유지 규칙**: [원래 비어 있는 에디터 필드 목록]에 기재된 필드들은 원래 에디터에 값이 존재하지 않는 비어 있는 필드들입니다. **AI는 절대로 이 필드들의 내용을 임의로 유추하거나 상상해서 가상으로 지어내어 채워 넣지 마십시오. 오직 실제 사용자가 에디터에 입력한 텍스트 내용만을 기반으로 수정안을 제시해야 합니다.** 반환하는 JSON 블록 내에서도 해당 필드의 값은 반드시 빈 문자열 "" (예: "symptomTitle": "", "symptomContent": "")로 명확하게 비워서 반환해야 합니다. 사용자가 질문을 통해 특정 비어 있는 필드에 내용을 추가하라고 명시적으로 지시한 경우가 아니라면, 원래 비어 있는 필드는 JSON 출력 결과와 대조 출력 텍스트 모두에서 무조건 제외 및 공백 처리하십시오.
+6. **수정 전후 대조 출력 (HTML 카드 레이아웃 적용)**: 
+설명 영역에는 장황한 해설을 완전히 배제하고, 반드시 다음 HTML 카드 레이아웃 구조를 정확하게 사용하여 수정 전후 대조 결과를 출력하십시오. 마크다운 글머리기호(*, -)나 대괄호([ ])는 일체 사용하지 마십시오.
+[현재 에디터 정보] 중 실제 내용(텍스트)이 완전히 비어 있는 필드는 대조 출력 목록에서 완전히 제외하십시오. 실제 내용이 채워져 있는(비어있지 않은) 필드들은 단 하나도 누락하지 말고 반드시 모두 포함하여 출력하십시오.
+각 카드에는 다음 형식을 완벽하게 준수하여 소제목별로 출력하십시오:
+
+<div class="diff-section">
+  <h4 class="diff-title">필드명 (예: 증상 내용)</h4>
+  <div class="diff-box diff-before">
+    <span class="diff-label label-before">기존</span>
+    <div class="diff-content">기존 입력되었던 원본 텍스트 내용</div>
+  </div>
+  <div class="diff-box diff-after">
+    <span class="diff-label label-after">수정</span>
+    <div class="diff-content">수정된 텍스트 내용 (기존 대비 변경/추가/수정된 단어나 구절은 반드시 <span style="color: #ec455a; font-weight: bold;">수정된글자</span> 형태로 강조 처리할 것)</div>
+  </div>
+</div>
+
+(주의: 붉은색 <span> 강조 및 HTML 카드 레이아웃 구조는 오직 설명 영역에만 적용해야 하며, 자동 반영을 위해 반환하는 JSON 블록 내부의 데이터 값에는 절대로 이러한 HTML 태그들을 포함해서는 안 됩니다. JSON 내부 값은 오직 순수 에디터 렌더링용 텍스트/HTML이어야 합니다.)
+
+(예시:
+<div class="diff-section">
+  <h4 class="diff-title">증상 내용</h4>
+  <div class="diff-box diff-before">
+    <span class="diff-label label-before">기존</span>
+    <div class="diff-content">LQC 모드 진입 시에만 발생</div>
+  </div>
+  <div class="diff-box diff-after">
+    <span class="diff-label label-after">수정</span>
+    <div class="diff-content">LQC 모드 진입 <span style="color: #ec455a; font-weight: bold;">할 때만 간헐적으로</span> 발생</div>
+  </div>
+</div>)
+7. JSON 규격 예시:
+\`\`\`json
+{
+  "title": "...",
+  "actionSummary": "...",
+  "symptomTitle": "...",
+  "symptomContent": "...",
+  "causeTitle": "...",
+  "causeContent": "...",
+  "repairTitle": "...",
+  "repairContent": "...",
+  "additionalSections": [
+    { "title": "...", "content": "..." }
+  ]
+}
+\`\`\`
+질문: ${messageText}`;
+
+            try {
+                let aiResponseText = "";
+
+                if (provider === 'gemini') {
+                    const url = `https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent?key=${apiKey}`;
+
+                    let contentsList = [{
+                        role: 'user',
+                        parts: [{ text: systemPrompt }]
+                    }];
+
+                    const res = await fetch(url, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({ contents: contentsList })
+                    });
+
+                    if (res.ok) {
+                        const resData = await res.json();
+                        if (resData.candidates && resData.candidates[0].content.parts[0].text) {
+                            aiResponseText = resData.candidates[0].content.parts[0].text;
+                        } else {
+                            throw new Error('비정상적인 응답 포맷이 수신되었습니다.');
+                        }
+                    } else {
+                        const errData = await res.json();
+                        throw new Error(errData.error?.message || `HTTP ${res.status}`);
+                    }
+                } else {
+                    const url = `https://api.openai.com/v1/chat/completions`;
+
+                    let messagesList = [
+                        { role: 'system', content: "너는 HTML 문서 편집 보조 AI이다. 지정된 JSON 포맷 출력을 엄수해라." },
+                        { role: 'user', content: systemPrompt }
+                    ];
+
+                    const res = await fetch(url, {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'Authorization': `Bearer ${apiKey}`
+                        },
+                        body: JSON.stringify({
+                            model: model,
+                            messages: messagesList
+                        })
+                    });
+
+                    if (res.ok) {
+                        const resData = await res.json();
+                        aiResponseText = resData.choices[0].message.content;
+                    } else {
+                        const errData = await res.json();
+                        throw new Error(errData.error?.message || `HTTP ${res.status}`);
+                    }
+                }
+
+                loadingBubble.remove();
+
+                
+                
+                let dataToApply = null;
+                let displayText = aiResponseText;
+
+                
+                
+                let jsonMatch = aiResponseText.match(/```json\s*(\{[\s\S]*?\})\s*```/);
+                let matchedRawText = "";
+                let jsonString = "";
+
+                if (jsonMatch) {
+                    matchedRawText = jsonMatch[0];
+                    jsonString = jsonMatch[1];
+                } else {
+                    jsonMatch = aiResponseText.match(/```\s*(\{[\s\S]*?\})\s*```/);
+                    if (jsonMatch) {
+                        matchedRawText = jsonMatch[0];
+                        jsonString = jsonMatch[1];
+                    } else {
+                        
+                        const braceMatch = aiResponseText.match(/(\{[\s\S]*\})/);
+                        if (braceMatch) {
+                            matchedRawText = braceMatch[1];
+                            jsonString = braceMatch[1];
+                        }
+                    }
+                }
+
+                
+                if (jsonString) {
+                    try {
+                        dataToApply = JSON.parse(jsonString.trim());
+                    } catch (pe) {
+                        console.warn('JSON parsing error from AI response:', pe);
+                    }
+                }
+
+                
+                if (matchedRawText) {
+                    const idx = displayText.lastIndexOf(matchedRawText);
+                    if (idx !== -1) {
+                        displayText = displayText.substring(0, idx).trim();
+                        
+                        displayText = displayText.replace(/\n\s*---\s*$/, '').trim();
+                        displayText = displayText.replace(/\n\s*\*\*\*\s*$/, '').trim();
+                        displayText = displayText.replace(/---\s*$/, '').trim();
+                        displayText = displayText.replace(/\*\*\*\s*$/, '').trim();
+                    }
+                } else {
+                    
+                    displayText = displayText.replace(/```json[\s\S]*?```/g, '');
+                    displayText = displayText.replace(/```[\s\S]*?```/g, '');
+                }
+
+                
+                renderChatBubble('ai', displayText, dataToApply);
+
+            } catch (e) {
+                loadingBubble.remove();
+                let displayErrMsg = `⚠️ API 호출 오류: ${e.message}<br>연동 설정의 인증 키 만료 또는 차단 여부를 체크해 주세요.`;
+
+                
+                const lowerMsg = (e.message || '').toLowerCase();
+                if (lowerMsg.includes('quota') || lowerMsg.includes('limit') || lowerMsg.includes('rate')) {
+                    displayErrMsg = `⚠️ **API 호출 한도 초과 (Quota Exceeded / Rate Limit)**<br><br>현재 사용 중인 구글 Gemini 무료 API 키의 분당 호출 한도(분당 최대 15~20회)를 일시적으로 초과했습니다.<br><br>**💡 해결 방법**:<br>1. **약 30초 ~ 1분 정도 기다리신 후** 다시 시도하시면 정상 작동합니다.<br>2. 만약 빈번하게 발생하여 불편하시다면 Google AI Studio에서 결제(Billing) 설정을 등록하고 유료 티어(Pay-as-you-go)로 전환하시면 한도가 거의 무제한으로 확장됩니다.`;
+                }
+
+                renderChatBubble('system', displayErrMsg);
+            }
+        }
+
+        
+        function switchTab(tab) {
+            const editPanel = document.getElementById('inputPanel');
+            const previewPanel = document.getElementById('previewPanel');
+            const chatbotPanel = document.getElementById('chatbotPanel');
+
+            const btnEdit = document.getElementById('btnTabEdit');
+            const btnPreview = document.getElementById('btnTabPreview');
+            const btnChatbot = document.getElementById('btnTabChatbot');
+
+            if (editPanel) editPanel.classList.remove('active');
+            if (previewPanel) previewPanel.classList.remove('active');
+            if (chatbotPanel) chatbotPanel.classList.remove('active');
+
+            if (btnEdit) btnEdit.classList.remove('active');
+            if (btnPreview) btnPreview.classList.remove('active');
+            if (btnChatbot) btnChatbot.classList.remove('active');
+
+            if (tab === 'edit') {
+                if (editPanel) editPanel.classList.add('active');
+                if (btnEdit) btnEdit.classList.add('active');
+            } else if (tab === 'preview') {
+                if (previewPanel) previewPanel.classList.add('active');
+                if (btnPreview) btnPreview.classList.add('active');
+            } else if (tab === 'chatbot') {
+                if (chatbotPanel) chatbotPanel.classList.add('active');
+                if (btnChatbot) btnChatbot.classList.add('active');
+            }
         }
     </script>
 </body>
