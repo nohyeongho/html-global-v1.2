@@ -4821,7 +4821,7 @@ ${contentBody}
 
         function cleanEmptyHtml(html) {
             if (!html) return "";
-            const cleanText = html.replace(/<[^>]*>/g, '').replace(/&nbsp;/g, ' ').trim();
+            const cleanText = html.replace(/<[^>]*>/g, '').replace(/&nbsp;/g, ' ').replace(/[\u200B-\u200D\uFEFF\u200E\u200F\u202A-\u202E]/g, '').trim();
             return cleanText === "" ? "" : html;
         }
 
@@ -4830,8 +4830,9 @@ ${contentBody}
         function stripHtmlTags(html) {
             if (!html) return "";
             let text = html.replace(/<!--[\s\S]*?-->/g, ""); 
-                text = text.replace(/<[^>]*>/g, "");
+            text = text.replace(/<[^>]*>/g, "");
             text = text.replace(/&nbsp;/g, " ")
+                .replace(/[\u200B-\u200D\uFEFF\u200E\u200F\u202A-\u202E]/g, "")
                 .replace(/&lt;/g, "<")
                 .replace(/&gt;/g, ">")
                 .replace(/&amp;/g, "&");
@@ -4888,32 +4889,43 @@ ${contentBody}
         }
 
 
-        function applyEditorData(jsonData) {
+        function applyEditorData(jsonData, selectedFields = null) {
             try {
                 if (typeof jsonData === 'string') {
                     jsonData = JSON.parse(jsonData);
                 }
 
+                const shouldApply = (field) => {
+                    return !selectedFields || selectedFields.includes(field);
+                };
 
-                if (jsonData.title !== undefined) document.getElementById('inTitle').value = jsonData.title;
-                if (jsonData.actionSummary !== undefined) document.getElementById('inActionSummary').innerHTML = jsonData.actionSummary;
-                if (jsonData.symptomTitle !== undefined) document.getElementById('inSymptomTitle').value = jsonData.symptomTitle;
-                if (jsonData.symptomContent !== undefined) document.getElementById('inSymptom').innerHTML = jsonData.symptomContent;
-                if (jsonData.causeTitle !== undefined) document.getElementById('inCauseTitle').value = jsonData.causeTitle;
-                if (jsonData.causeContent !== undefined) document.getElementById('inCause').innerHTML = jsonData.causeContent;
-                if (jsonData.repairTitle !== undefined) document.getElementById('inRepairTitle').value = jsonData.repairTitle;
-                if (jsonData.repairContent !== undefined) document.getElementById('inRepairMethod').innerHTML = jsonData.repairContent;
+                if (jsonData.title !== undefined && shouldApply('title')) {
+                    document.getElementById('inTitle').value = jsonData.title;
+                }
+                if (jsonData.actionSummary !== undefined && shouldApply('actionSummary')) {
+                    document.getElementById('inActionSummary').innerHTML = jsonData.actionSummary;
+                }
+                if (shouldApply('symptom')) {
+                    if (jsonData.symptomTitle !== undefined) document.getElementById('inSymptomTitle').value = jsonData.symptomTitle;
+                    if (jsonData.symptomContent !== undefined) document.getElementById('inSymptom').innerHTML = jsonData.symptomContent;
+                }
+                if (shouldApply('cause')) {
+                    if (jsonData.causeTitle !== undefined) document.getElementById('inCauseTitle').value = jsonData.causeTitle;
+                    if (jsonData.causeContent !== undefined) document.getElementById('inCause').innerHTML = jsonData.causeContent;
+                }
+                if (shouldApply('repair')) {
+                    if (jsonData.repairTitle !== undefined) document.getElementById('inRepairTitle').value = jsonData.repairTitle;
+                    if (jsonData.repairContent !== undefined) document.getElementById('inRepairMethod').innerHTML = jsonData.repairContent;
+                }
 
-
-                if (jsonData.additionalSections && Array.isArray(jsonData.additionalSections)) {
+                if (jsonData.additionalSections && Array.isArray(jsonData.additionalSections) && shouldApply('additional')) {
                     document.getElementById('dynamicSections').innerHTML = '';
                     jsonData.additionalSections.forEach(sec => {
                         addDynamicSectionWithData(sec.title, sec.content);
                     });
                 }
 
-                alert('AI 추천 수정안이 에디터에 안전하게 반영되었습니다!');
-
+                alert('AI 추천 수정안이 에디터에 반영되었습니다!');
 
                 if (typeof generateHTML === 'function') generateHTML();
             } catch (e) {
@@ -4947,13 +4959,12 @@ ${contentBody}
             if (type === 'proofread') {
                 promptText = "현재 에디터에 입력된 제목과 본문에서 맞춤법 오류, 기술적 비표준어(예: 매치량, 경시성 등)를 정확히 교정하고 문맥을 자연스럽게 다듬어줘. 불필요한 서론은 배제하고, 어떤 항목이 어떻게 교정되었는지 결과 위주로 간결하게 알려줘. 단, 비어 있는 항목은 절대 내용을 임의로 유추하거나 창작해 추가하지 말고 빈 값 그대로 유지해야 해. 특히 편집기에 실제 입력된 값이 없는 필드(증상이나 원인 내용 등이 비어있는 경우)는 ai 추천이나 최종 JSON, 챗봇 대화방의 대조 출력(기존/수정) 모두에서 일체 관련 내용을 노출하지 말고 제외해야 하며, 오직 사용자가 입력한 내용에만 기반해서 수정해야 해.";
             } else if (type === 'simplify') {
-                promptText = "현재 에디터에 입력된 기술적인 내용을 갓 입사한 저연차 엔지니어도 바로 이해할 수 있는 수준으로, 어려운 기술 용어는 이해하기 쉽게 사용하고 기술용어는 한글명과 같이 표기해. 예를들어 베이퍼 챔버(Vapor Chamber) 다만 지나치게 유치한 표현 대신 엔지니어 문서의 기본 전문성은 유지해야 해. 불필요한 장황한 설명은 배제하고, 어떤 항목이 어떻게 다듬어졌는지 결과 위주로 간결하게 대조해줘. 단, 비어 있는 항목은 절대 내용을 임의로 유추하거나 창작해 추가하지 말고 빈 값 그대로 유지해야 해. 특히 편집기에 실제 입력된 값이 없는 필드(증상이나 원인 내용 등이 비어있는 경우)는 ai 추천이나 최종 JSON, 챗봇 대화방의 대조 출력(기존/수정) 모두에서 일체 관련 내용을 노출하지 말고 제외해야 하며, 오직 사용자가 입력한 내용에만 기반해서 수정해야 해.";
+                promptText = "기술 정보 처리: 용어는 최초 등장 시 괄호로 의미를 병기하고, 수치는 현장 이해가 쉽도록 풀어서 설명합니다. 예: W(와트): 전력. 부품 식별: 모든 부품과 액세서리는 정해진 형식인 [P/N(파트넘버): XXXXXXXX]로 표기합니다. 문서 구조: 모든 문서는 ① 핵심 요약(한 줄), ② 상세 설명(용어 해석 포함) 순서로 구성합니다. 문장 원칙: 문장은 짧고 명확하게 쓰며, 1문장 1의미 원칙을 준수합니다. 출력 규칙: 편집기 내 소제목 아래 내용이 없으면, 해당 소제목을 포함하여 아무것도 출력하지 않습니다. 출력 포함: 어떤 항목이 어떻게 다듬어졌는지 결과 위주로 간결하게 대조해줘. 단, 비어 있는 항목은 절대 내용을 임의로 유추하거나 창작해 추가하지 말고 빈 값 그대로 유지해야 해. 특히 편집기에 실제 입력된 값이 없는 필드(증상이나 원인 내용 등이 비어있는 경우)는 ai 추천이나 최종 JSON, 챗봇 대화방의 대조 출력(기존/수정) 모두에서 일체 관련 내용을 노출하지 말고 제외해야 하며, 오직 사용자가 입력한 내용에만 기반해서 수정해야 해.";
             } else if (type === 'enrich') {
                 promptText = "현재 에디터에 입력된 증상과 원인, 서비스 조치 단계별 가이드를 세부적이고 풍부하게 보강해줘. 새로 추가하거나 보완한 핵심 하드웨어 점검이나 정밀 테스트 팁 위주로 일목요연하게 알려줘. 단, 비어 있는 항목은 절대 내용을 임의로 유추하거나 창작해 추가하지 말고 빈 값 그대로 유지해야 해. 특히 편집기에 실제 입력된 값이 없는 필드(증상이나 원인 내용 등이 비어있는 경우)는 ai 추천이나 최종 JSON, 챗봇 대화방의 대조 출력(기존/수정) 모두에서 일체 관련 내용을 노출하지 말고 제외해야 하며, 오직 사용자가 입력한 내용에만 기반해서 수정해야 해.";
             }
 
             document.getElementById('chatInput').value = promptText;
-
 
 
             let bubbleLabel = "";
@@ -5001,20 +5012,51 @@ ${contentBody}
             if (dataToApply && sender === 'ai') {
                 const card = document.createElement('div');
                 card.className = 'ai-action-card';
+                
+                let checkboxHtml = '';
+                const fieldsConfig = [
+                    { key: 'title', label: '제목', test: () => dataToApply.title },
+                    { key: 'actionSummary', label: '조치 요약', test: () => dataToApply.actionSummary },
+                    { key: 'symptom', label: '증상', test: () => dataToApply.symptomContent || dataToApply.symptomTitle },
+                    { key: 'cause', label: '불량 원인', test: () => dataToApply.causeContent || dataToApply.causeTitle },
+                    { key: 'repair', label: '서비스 방법', test: () => dataToApply.repairContent || dataToApply.repairTitle },
+                    { key: 'additional', label: '추가 섹션', test: () => dataToApply.additionalSections && dataToApply.additionalSections.length > 0 }
+                ];
+
+                const cardId = `applyCard_${Date.now()}`;
+                checkboxHtml += `<div class="ai-apply-fields" style="display: flex; flex-wrap: wrap; gap: 8px 12px; margin: 10px 0; font-size: 12px; padding: 6px; background: #fff; border: 1px solid #e9ecef; border-radius: 6px;">`;
+                fieldsConfig.forEach(cfg => {
+                    if (cfg.test()) {
+                        checkboxHtml += `
+                            <label style="display: inline-flex; align-items: center; gap: 6px; cursor: pointer; font-weight: 500; color: #495057;">
+                                <input type="checkbox" class="field-chk" data-field="${cfg.key}" checked style="margin: 0; width: 15px; height: 15px; cursor: pointer;">
+                                <span>${cfg.label}</span>
+                            </label>
+                        `;
+                    }
+                });
+                checkboxHtml += `</div>`;
+
                 card.innerHTML = `
-                    <div class="ai-action-card-title">
+                    <div class="ai-action-card-title" style="margin-bottom: 6px;">
                         <i class="fas fa-check-circle"></i>
-                        <span>AI 추천 수정안 일괄 대입</span>
+                        <span>AI 추천 수정안 선택 대입</span>
                     </div>
-                    <p style="margin: 0; font-size: 11px; color: #555;">
-                        AI가 제안한 데이터로 에디터의 제목과 본문 내용을 즉시 업데이트합니다.
+                    <p style="margin: 0; font-size: 11px; color: #666; line-height: 1.4;">
+                        에디터에 반영할 항목을 선택한 후 아래 버튼을 눌러 적용하세요.
                     </p>
-                    <button class="ai-action-btn-apply" id="btnApply_${Date.now()}">에디터에 즉시 적용</button>
+                    ${checkboxHtml}
+                    <button class="ai-action-btn-apply" id="btnApply_${cardId}" style="width: 100%; box-sizing: border-box; padding: 8px; font-size: 13px; font-weight: bold; border-radius: 6px; cursor: pointer;">선택 항목 에디터에 적용</button>
                 `;
                 history.appendChild(card);
 
-                card.querySelector('.ai-action-btn-apply').onclick = () => {
-                    applyEditorData(dataToApply);
+                card.querySelector(`#btnApply_${cardId}`).onclick = () => {
+                    const checkedFields = Array.from(card.querySelectorAll('.field-chk:checked')).map(chk => chk.getAttribute('data-field'));
+                    if (checkedFields.length === 0) {
+                        alert('반영할 항목을 하나 이상 선택해 주세요.');
+                        return;
+                    }
+                    applyEditorData(dataToApply, checkedFields);
                 };
             }
 
@@ -5098,6 +5140,26 @@ ${contentBody}
 
             const editorData = getEditorData();
 
+            const originallyEmptyFields = [];
+            if (!editorData.title.trim()) originallyEmptyFields.push("title");
+            if (!editorData.productFamily.trim()) originallyEmptyFields.push("productFamily");
+            if (!editorData.appliedModel.trim()) originallyEmptyFields.push("appliedModel");
+            if (!editorData.targetSerial.trim()) originallyEmptyFields.push("targetSerial");
+            if (!stripHtmlTags(editorData.actionSummary)) originallyEmptyFields.push("actionSummary");
+
+            if (!stripHtmlTags(editorData.symptomContent)) {
+                editorData.symptomTitle = "";
+                originallyEmptyFields.push("symptomTitle", "symptomContent");
+            }
+            if (!stripHtmlTags(editorData.causeContent)) {
+                editorData.causeTitle = "";
+                originallyEmptyFields.push("causeTitle", "causeContent");
+            }
+            if (!stripHtmlTags(editorData.repairContent)) {
+                editorData.repairTitle = "";
+                originallyEmptyFields.push("repairTitle", "repairContent");
+            }
+
 
 
             let editorInfoText = "";
@@ -5177,8 +5239,8 @@ ${contentBody}
 
             const systemPrompt = `당신은 HTML 정보 변환기에 최적화된 AI 교정 파트너입니다.
 역할: 사용자가 제시한 교정 지시사항에 맞춰 [현재 에디터 정보] 중 채워져 있는 항목들의 내용을 전문적으로 수정하거나 다듬습니다.
-- **문맥/맞춤법 교정**이 요구된 경우: 문장의 맞춤법 오류, 오탈자, 띄어쓰기 및 비표준 기술 용어(예: 매치량 -> 배치량, 경시성 -> 경시 변화 등 기술 비표준어)를 한국어 표준 어문 규정에 맞게 완벽히 교정하고, 자연스러운 기술 문서체로 수정하십시오. (비어 있는 항목은 절대 추가 금지)
-- **초보자도 쉽게**가 요구된 경우: 초등학교 6학년 수준(혹은 갓 입사한 저연차 주니어 엔지니어 수준)에 맞춰 난해한 기술 용어는 그 뜻을 조금 이해하기 쉬운 단어로 풀어 설명하되, 기기의 작동 원리나 전문 기술 맥락의 기본 용어는 흐려지지 않도록 조절하십시오. 지나치게 유치한 표현은 배제하고, 전문성은 잃지 않으면서도 가독성이 높은 친근하고 평이한 설명체로 다듬으십시오. (비어 있는 항목 절대 추가 금지)
+- **문맥/맞춤법 교정**이 요구된 경우: 문장의 맞춤법 오류, 오탈자, 띄어쓰기 및 비표준 기술 용어(예: 매치량 -> 배치량, 경시성 -> 경시 변화 등 기술 비표준어)를 한국어 표준 어문 규정에 맞게 완벽히 교정하고, 자연스러운 기술 문서체로 수정하십시오. (편집기에 입력되지 않은 소제목 항목은 AI편집기에 어떠한 문구도 입력하지 않는다.)
+- **초보자도 쉽게**가 요구된 경우:  갓 입사한 저연차 주니어 엔지니어 수준에 맞춰 난해한 기술 용어는 그 뜻을 조금 이해하기 쉬운 단어로 풀어 설명하되, 기기의 작동 원리나 전문 기술 맥락의 기본 용어는 흐려지지 않도록 조절하십시오. 지나치게 유치한 표현은 배제하고, 전문성은 잃지 않으면서도 가독성이 높은 친근하고 평이한 설명체로 다듬으십시오. (비어 있는 항목 절대 추가 금지)
 
 
 [현재 에디터 정보]
@@ -5193,10 +5255,10 @@ ${emptyFields.length > 0 ? emptyFields.map(f => `- ${f}`).join('\n') : "(없음)
 이 JSON은 파싱되어 에디터에 일괄 대입되므로 절대 손상되면 안 됩니다. 바꿀 필드가 없다면 현재 에디터 정보를 그대로 채우세요.
 3. 에디터 본문(symptomContent, causeContent, repairContent 등) 내부에는 HTML 태그(<p>, <ul>, <li>, <strong>, <span style="..."> 등)를 자유롭게 포함하여 깔끔하게 줄바꿈과 목록을 구성하되, 이는 **오직 JSON 블록 내부의 데이터 값에만 적용**됩니다. JSON 외부의 사용자 설명용 말풍선 텍스트 영역에는 HTML 태그를 날것으로 적거나 백틱(\`\`) 코드 블록 형태로 노출하지 마십시오.
 4. **극도의 사설 배제**: 서론, 도입 설명, 맺음말, 변경 의도나 피드백 해설(예: "주니어가 혼동할 수 있습니다", "문장을 풀어 설명했습니다" 등)을 절대 적지 마십시오. 오직 수정 대조 결과만 간결하게 출력하십시오.
-5. **빈 항목 유지 규칙**: [원래 비어 있는 에디터 필드 목록]에 기재된 필드들은 원래 에디터에 값이 존재하지 않는 비어 있는 필드들입니다. **AI는 절대로 이 필드들의 내용을 임의로 유추하거나 상상해서 가상으로 지어내어 채워 넣지 마십시오. 오직 실제 사용자가 에디터에 입력한 텍스트 내용만을 기반으로 수정안을 제시해야 합니다.** 반환하는 JSON 블록 내에서도 해당 필드의 값은 반드시 빈 문자열 "" (예: "symptomTitle": "", "symptomContent": "")로 명확하게 비워서 반환해야 합니다. 사용자가 질문을 통해 특정 비어 있는 필드에 내용을 추가하라고 명시적으로 지시한 경우가 아니라면, 원래 비어 있는 필드는 JSON 출력 결과와 대조 출력 텍스트 모두에서 무조건 제외 및 공백 처리하십시오.
+5. **빈 항목 유지 규칙**: [원래 비어 있는 에디터 필드 목록]에 기재된 필드들은 원래 에디터에 값이 존재하지 않는 비어 있는 필드들입니다. **AI는 절대로 이 필드들의 내용을 임의로 유추하거나 상상해서 가상으로 지어내어 채워 넣지 마십시오. 오직 실제 사용자가 에디터에 입력한 텍스트 내용만을 기반으로 수정안을 제시해야 합니다.** 반환하는 JSON 블록 내에서도 해당 필드의 값은 반드시 빈 문자열 "" (예: "symptomTitle": "", "symptomContent": "")로 명확하게 비워서 반환해야 합니다. 사용자가 질문을 통해 특정 비어 있는 필드에 내용을 추가하라고 명시적으로 지시한 경우가 아니라면, 원래 비어 있는 필드는 JSON 출력 결과와 대조 출력 텍스트 모두에서 무조건 제외 및 공백 처리하십시오. 특히 내용(Content)이 비어있어 제외된 섹션의 제목 필드(Title)도 대조 출력 목록에서 완전히 제외해야 합니다.
 6. **수정 전후 대조 출력 (HTML 카드 레이아웃 적용)**: 
 설명 영역에는 장황한 해설을 완전히 배제하고, 반드시 다음 HTML 카드 레이아웃 구조를 정확하게 사용하여 수정 전후 대조 결과를 출력하십시오. 마크다운 글머리기호(*, -)나 대괄호([ ])는 일체 사용하지 마십시오.
-[현재 에디터 정보] 중 실제 내용(텍스트)이 완전히 비어 있는 필드는 대조 출력 목록에서 완전히 제외하십시오. 실제 내용이 채워져 있는(비어있지 않은) 필드들은 단 하나도 누락하지 말고 반드시 모두 포함하여 출력하십시오.
+[원래 비어 있는 에디터 필드 목록]에 포함된 필드(또는 실제 내용 텍스트가 완전히 비어 있는 필드)는 대조 출력 목록(HTML 카드 레이아웃)에서 단 하나도 누락하지 말고 완전히 제외(생략)하십시오. 또한, **기존 값과 수정 제안 값이 완벽히 동일하여 아무런 변경 사항이 없는 필드 역시 대조 출력 카드 목록에서 완전히 제외(생략)**하십시오. 오직 실제 수정(교정/보강 등)이 발생하여 변경 사항이 존재하는 필드들만 대조 카드를 생성하여 포함하십시오.
 각 카드에는 다음 형식을 완벽하게 준수하여 소제목별로 출력하십시오:
 
 <div class="diff-section">
@@ -5335,6 +5397,22 @@ ${emptyFields.length > 0 ? emptyFields.map(f => `- ${f}`).join('\n') : "(없음)
                 if (jsonString) {
                     try {
                         dataToApply = JSON.parse(jsonString.trim());
+                        if (dataToApply) {
+                            originallyEmptyFields.forEach(field => {
+                                if (field === 'symptomTitle' || field === 'symptomContent') {
+                                    dataToApply.symptomTitle = "";
+                                    dataToApply.symptomContent = "";
+                                } else if (field === 'causeTitle' || field === 'causeContent') {
+                                    dataToApply.causeTitle = "";
+                                    dataToApply.causeContent = "";
+                                } else if (field === 'repairTitle' || field === 'repairContent') {
+                                    dataToApply.repairTitle = "";
+                                    dataToApply.repairContent = "";
+                                } else {
+                                    dataToApply[field] = "";
+                                }
+                            });
+                        }
                     } catch (pe) {
                         console.warn('JSON parsing error from AI response:', pe);
                     }
