@@ -1,13 +1,11 @@
-<!DOCTYPE html>
-<html lang="ko">
-
-<head>
-    <meta charset="utf-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width" />
+<html lang="ko" style="height: 100%;"><head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width">
     <title>HTML 변환기</title>
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.css" />
 
     <script src="https://cdn.jsdelivr.net/npm/marked@4.3.0/marked.min.js"></script>
 
@@ -16,7 +14,7 @@
     <script src="global-model-data.js"></script>
 
     <style type="text/css">
-        @import url(https://fonts.googleapis.com/earlyaccess/notosanskr.css);
+        @import url("https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.css");
 
         :root {
             --lg-red: #a50034;
@@ -129,7 +127,7 @@
         }
 
         .content-service-view {
-            font-family: "Noto Sans", "Noto Sans KR", sans-serif;
+            font-family: 'Pretendard', sans-serif;
             font-size: 14px;
             line-height: 1.6;
             color: #444;
@@ -414,7 +412,7 @@
             background-color: #f0f0f2;
             margin: 0;
             padding: 20px;
-            font-family: "Noto Sans", "Noto Sans KR", sans-serif;
+            font-family: 'Pretendard', sans-serif;
             color: var(--lg-dark-gray);
         }
 
@@ -455,7 +453,7 @@
             margin-bottom: 25px;
             color: var(--lg-dark-gray);
             font-size: 20px;
-            font-weight: 700;
+            font-weight: 900;
             display: flex;
             justify-content: space-between;
             align-items: center;
@@ -721,59 +719,158 @@
             background: white;
             border: 1px solid #ddd;
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
-            padding: 15px;
+            padding: 14px 16px;
             z-index: 10000;
             display: none;
             width: 260px;
+            box-sizing: border-box;
             border-radius: 8px;
         }
 
         .cp-grid {
             display: grid;
             grid-template-columns: repeat(10, 1fr);
-            gap: 6px;
-            margin: 8px 0;
+            gap: 4px;
+            margin: 6px 0 10px 0;
+            width: 100%;
+            box-sizing: border-box;
         }
 
         .cp-cell {
-            width: 20px;
-            height: 20px;
-            border: 1px solid #eee;
+            width: 100%;
+            aspect-ratio: 1 / 1;
+            min-height: 18px;
+            border: 1px solid rgba(0, 0, 0, 0.1);
             cursor: pointer;
             border-radius: 2px;
-            transition: transform 0.15s;
+            box-sizing: border-box;
+            transition: transform 0.15s, border-color 0.15s;
         }
 
         .cp-cell:hover {
-            transform: scale(1.3);
+            transform: scale(1.25);
             z-index: 2;
             border-color: #333;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
         }
 
         .cp-section-title {
             font-size: 11px;
             font-weight: 700;
-            color: #888;
+            color: #666;
             text-transform: uppercase;
-            margin-top: 12px;
+            margin-top: 10px;
             margin-bottom: 6px;
             border-bottom: 1px solid #f0f0f0;
             padding-bottom: 4px;
+        }
+
+        .cp-section-title:first-child {
+            margin-top: 0;
         }
 
         .cp-more-btn {
             display: flex;
             align-items: center;
             gap: 8px;
-            padding: 8px;
+            padding: 8px 10px;
             cursor: pointer;
-            font-size: 13px;
-            color: #555;
+            font-size: 12.5px;
+            color: #444;
             border-radius: 4px;
+            box-sizing: border-box;
+            width: 100%;
+            margin-top: 4px;
         }
 
         .cp-more-btn:hover {
-            background: #f5f5f5;
+            background: #f2f4f7;
+            color: var(--lg-red);
+        }
+
+        /* 도형 테두리(윤곽선) 편집 팝업 및 서브메뉴 스타일 */
+        .border-picker-popup {
+            width: 260px !important;
+            padding: 14px 16px !important;
+            box-sizing: border-box !important;
+        }
+
+        .bp-menu-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 8px 10px;
+            font-size: 12.5px;
+            color: #333;
+            cursor: pointer;
+            border-radius: 4px;
+            position: relative;
+            user-select: none;
+            transition: background 0.15s;
+            box-sizing: border-box;
+            width: 100%;
+            margin-bottom: 2px;
+        }
+
+        .bp-menu-item:hover {
+            background-color: #f2f4f7;
+            color: var(--lg-red);
+        }
+
+        .bp-menu-item.has-submenu {
+            position: relative;
+        }
+
+        .bp-submenu {
+            display: none;
+            position: absolute;
+            left: calc(100% + 4px);
+            top: -5px;
+            background: white;
+            border: 1px solid #ddd;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+            padding: 8px 6px;
+            border-radius: 6px;
+            z-index: 10001;
+            min-width: 175px;
+            box-sizing: border-box;
+        }
+
+        .bp-menu-item.has-submenu:hover .bp-submenu,
+        .bp-submenu.active {
+            display: block;
+        }
+
+        .bp-sub-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 6px 10px;
+            font-size: 12px;
+            color: #444;
+            cursor: pointer;
+            border-radius: 4px;
+            transition: background 0.15s;
+            box-sizing: border-box;
+            width: 100%;
+        }
+
+        .bp-sub-item:hover {
+            background-color: #f2f4f7;
+            color: var(--lg-red);
+        }
+
+        .bp-line-preview {
+            width: 50px;
+            background-color: #333;
+            flex-shrink: 0;
+        }
+
+        .border-bar {
+            width: 16px;
+            height: 3px;
+            margin-top: 1px;
+            border: 0.5px solid rgba(0, 0, 0, 0.1);
         }
 
         .editor-content-textarea,
@@ -1153,7 +1250,7 @@
 
         .panel-title {
             font-size: 20px;
-            font-weight: 700;
+            font-weight: 900;
             display: flex;
             align-items: center;
             justify-content: space-between;
@@ -1739,9 +1836,9 @@
             }
         }
     </style>
-</head>
+<link type="text/css" rel="stylesheet" charset="UTF-8" href="https://www.gstatic.com/_/translate_http/_/ss/k=translate_http.tr.zZZZhVqDDCw.L.W.O/am=BECAAQ/d=0/rs=AN8SPfreld5KM52lJgLi44qeAC03eRorPQ/m=el_main_css"><script type="text/javascript" charset="UTF-8" src="https://translate.googleapis.com/_/translate_http/_/js/k=translate_http.tr.ko.UWriXO31y74.O/am=BECAAQ/d=1/ed=1/rs=AN8SPfrEdflpSBAqz6zgDz62RC0lP1YdIg/m=el_main"></script></head>
 
-<body>
+<body style="position: relative; min-height: 100%; top: 0px;">
     <div id="loadingOverlay">
         <div class="spinner"></div>
         <div id="loadingText">데이터를 불러오는 중입니다... (약 31만 행)</div>
@@ -1762,10 +1859,8 @@
                 <div style="display: flex; align-items: center; flex-wrap: wrap; gap: 5px;">
                     <span>Qbot HTML 변환기 / 정보 입력 (마크다운 지원)</span>
                     <div class="lang-btn-group">
-                        <button type="button" id="btnLangKo" class="lang-btn active"
-                            onclick="changeAppLanguage('ko')">한국</button>
-                        <button type="button" id="btnLangEn" class="lang-btn"
-                            onclick="changeAppLanguage('en')">Global</button>
+                        <button type="button" id="btnLangKo" class="lang-btn active" onclick="changeAppLanguage('ko')">한국</button>
+                        <button type="button" id="btnLangEn" class="lang-btn" onclick="changeAppLanguage('en')">Global</button>
                     </div>
                 </div>
                 <span style="font-size: 11px; color: #999; font-weight: normal;">Created by n.y.h V2.11</span>
@@ -1787,10 +1882,8 @@
                 <label>제품군</label>
                 <div style="display: flex; gap: 10px;">
                     <div class="input-wrap">
-                        <input type="text" id="inProductFamily" placeholder="예: 세탁기 (선택 버튼을 사용하세요)" readonly
-                            style="background-color: #f9f9f9; cursor: pointer; padding-right: 35px;"
-                            onclick="openProductModal()" oninput="toggleClearBtn('inProductFamily', 'clearProduct')">
-                        <div id="clearProduct" class="clear-btn" onclick="clearProductFamily()">&times;</div>
+                        <input type="text" id="inProductFamily" placeholder="예: 세탁기 (선택 버튼을 사용하세요)" readonly="" style="background-color: #f9f9f9; cursor: pointer; padding-right: 35px;" onclick="openProductModal()" oninput="toggleClearBtn('inProductFamily', 'clearProduct')">
+                        <div id="clearProduct" class="clear-btn" onclick="clearProductFamily()">×</div>
                     </div>
                     <button class="btn-secondary" onclick="openProductModal()" style="width: 80px;">선택</button>
                 </div>
@@ -1801,10 +1894,8 @@
                         모델명을 입력할 경우 모델명 사이 반드시 ","을 사용하여 구분하세요.)</span></label>
                 <div style="display: flex; gap: 10px;">
                     <div class="input-wrap">
-                        <input type="text" id="inAppliedModel" placeholder="예: FX23/FX24/FX25 시리즈"
-                            oninput="syncModelData(); toggleClearBtn('inAppliedModel', 'clearModel')"
-                            onblur="validateModelInput()" style="padding-right: 35px;">
-                        <div id="clearModel" class="clear-btn" onclick="clearAppliedModel()">&times;</div>
+                        <input type="text" id="inAppliedModel" placeholder="예: FX23/FX24/FX25 시리즈" oninput="syncModelData(); toggleClearBtn('inAppliedModel', 'clearModel')" onblur="validateModelInput()" style="padding-right: 35px;">
+                        <div id="clearModel" class="clear-btn" onclick="clearAppliedModel()">×</div>
                     </div>
                     <button class="btn-secondary" onclick="openModelModal()" style="width: 80px;">선택</button>
                 </div>
@@ -1819,17 +1910,53 @@
                 <label>조치 방법 (요약)</label>
                 <div class="editor-container">
                     <div class="editor-toolbar">
-
-                    </div>
-                    <div id="inActionSummary" class="editor-content-view paste-area" contenteditable="true"
-                        placeholder="예: LQC 모드 진입 시에만 발생되며, 에러 발생 시 메인 PCB 교체 안내"></div>
+            <select onchange="changeFontFamily(this)" class="font-family-select" onmousedown="event.stopPropagation()">
+                <option value="'Pretendard', sans-serif" selected="">프리텐다드</option>
+                <option value="'LG Smart UI Regular', 'LG Smart UI', '맑은 고딕'">LG 스마트체</option>
+                <option value="맑은 고딕">맑은 고딕</option>
+                <option value="돋움">돋움</option>
+                <option value="굴림">굴림</option>
+                <option value="바탕">바탕</option>
+                <option value="Arial">Arial</option>
+            </select>
+            <select onchange="changeFontSize(this)" class="font-size-select" id="fontSizeSelect" onmousedown="event.stopPropagation()">
+                <option value="6px">6</option><option value="8px">8</option><option value="9px">9</option>
+                <option value="10px">10</option><option value="11px" selected="">11</option><option value="12px">12</option>
+                <option value="14px">14</option><option value="16px">16</option><option value="18px">18</option>
+                <option value="20px">20</option><option value="22px">22</option><option value="24px">24</option>
+                <option value="26px">26</option><option value="28px">28</option><option value="36px">36</option>
+                <option value="48px">48</option>
+            </select>
+            <button onclick="stepFontSize(1)" class="btn-font-step" onmousedown="event.preventDefault()">가<span>+</span></button>
+            <button onclick="stepFontSize(-1)" class="btn-font-step" onmousedown="event.preventDefault()">가<span>-</span></button>
+            <div class="color-tool-split">
+                <button class="color-btn-main" onclick="applyLastColor('foreColor', event)" onmousedown="event.preventDefault()"><div class="color-icon-wrapper"><b>가</b><div class="color-bar" style="background-color: red;"></div></div></button>
+                <button class="color-btn-arrow" onclick="openColorTool('foreColor', event)" onmousedown="event.preventDefault()"><i class="fas fa-caret-down"></i></button>
+            </div>
+            <button onclick="insertFormat('bold')" onmousedown="event.preventDefault()"><i class="fas fa-bold"></i></button>
+            <button onclick="insertFormat('italic')" onmousedown="event.preventDefault()"><i class="fas fa-italic"></i></button>
+            <button onclick="insertFormat('insertUnorderedList')" onmousedown="event.preventDefault()"><i class="fas fa-list-ul"></i></button>
+            <button onclick="insertFormat('insertOrderedList')" onmousedown="event.preventDefault()"><i class="fas fa-list-ol"></i></button>
+            <button onclick="openTableModal(event)" onmousedown="event.preventDefault()"><i class="fas fa-table"></i></button>
+            <div class="color-tool-split" title="도형 테두리(윤곽선) 편집">
+                <button class="color-btn-main" onclick="applyLastBorder(event)" onmousedown="event.preventDefault()"><div class="color-icon-wrapper"><i class="fas fa-border-all" style="font-size:12px; color:#555;"></i><div class="border-bar" style="background-color: #333;"></div></div></button>
+                <button class="color-btn-arrow" onclick="openBorderTool(event)" onmousedown="event.preventDefault()"><i class="fas fa-caret-down"></i></button>
+            </div>
+            <div class="toolbar-divider"></div>
+            <div class="toolbar-size-group">
+                <span class="toolbar-label">크기:</span>
+                <i class="fas fa-arrows-alt-v" style="font-size:10px; color:#aaa;"></i>
+                <input type="number" class="ed-toolbar-h" placeholder="높이" step="2" title="높이(px)" oninput="applyManualSizeToElement(this, 'height')" onmousedown="event.stopPropagation()">
+                <i class="fas fa-arrows-alt-h" style="font-size:10px; color:#aaa;"></i>
+                <input type="number" class="ed-toolbar-w" placeholder="너비" step="2" title="너비(px)" oninput="applyManualSizeToElement(this, 'width')" onmousedown="event.stopPropagation()">
+            </div>
+        </div>
+                    <div id="inActionSummary" class="editor-content-view paste-area" contenteditable="true" placeholder="예: LQC 모드 진입 시에만 발생되며, 에러 발생 시 메인 PCB 교체 안내"></div>
                 </div>
             </div>
 
-            <div
-                style="margin-top: 30px; margin-bottom: 20px; border-bottom: 2px solid var(--lg-red); padding-bottom: 10px;">
-                <h3 style="color: var(--lg-red); margin: 0; font-size: 18px;">내용 입력 <span
-                        style="font-size: 12px; color: #666; font-weight: normal; margin-left: 10px;">(TEXT 형태의 내용위주로
+            <div style="margin-top: 30px; margin-bottom: 20px; border-bottom: 2px solid var(--lg-red); padding-bottom: 10px;">
+                <h3 style="color: var(--lg-red); margin: 0; font-size: 18px;">내용 입력 <span style="font-size: 12px; color: #666; font-weight: normal; margin-left: 10px;">(TEXT 형태의 내용위주로
                         저연차도 너무 쉽게 이해할수 있도록 작성해주세요. 이미지와 표는 참고용으로만 작성해주세요)</span></h3>
             </div>
             <div class="form-group">
@@ -1840,10 +1967,48 @@
                 </div>
                 <div class="editor-container">
                     <div class="editor-toolbar">
-
-                    </div>
-                    <div id="inSymptom" class="editor-content-view paste-area" contenteditable="true"
-                        placeholder="예: - LE9 에러 발생"></div>
+            <select onchange="changeFontFamily(this)" class="font-family-select" onmousedown="event.stopPropagation()">
+                <option value="'Pretendard', sans-serif" selected="">프리텐다드</option>
+                <option value="'LG Smart UI Regular', 'LG Smart UI', '맑은 고딕'">LG 스마트체</option>
+                <option value="맑은 고딕">맑은 고딕</option>
+                <option value="돋움">돋움</option>
+                <option value="굴림">굴림</option>
+                <option value="바탕">바탕</option>
+                <option value="Arial">Arial</option>
+            </select>
+            <select onchange="changeFontSize(this)" class="font-size-select" id="fontSizeSelect" onmousedown="event.stopPropagation()">
+                <option value="6px">6</option><option value="8px">8</option><option value="9px">9</option>
+                <option value="10px">10</option><option value="11px" selected="">11</option><option value="12px">12</option>
+                <option value="14px">14</option><option value="16px">16</option><option value="18px">18</option>
+                <option value="20px">20</option><option value="22px">22</option><option value="24px">24</option>
+                <option value="26px">26</option><option value="28px">28</option><option value="36px">36</option>
+                <option value="48px">48</option>
+            </select>
+            <button onclick="stepFontSize(1)" class="btn-font-step" onmousedown="event.preventDefault()">가<span>+</span></button>
+            <button onclick="stepFontSize(-1)" class="btn-font-step" onmousedown="event.preventDefault()">가<span>-</span></button>
+            <div class="color-tool-split">
+                <button class="color-btn-main" onclick="applyLastColor('foreColor', event)" onmousedown="event.preventDefault()"><div class="color-icon-wrapper"><b>가</b><div class="color-bar" style="background-color: red;"></div></div></button>
+                <button class="color-btn-arrow" onclick="openColorTool('foreColor', event)" onmousedown="event.preventDefault()"><i class="fas fa-caret-down"></i></button>
+            </div>
+            <button onclick="insertFormat('bold')" onmousedown="event.preventDefault()"><i class="fas fa-bold"></i></button>
+            <button onclick="insertFormat('italic')" onmousedown="event.preventDefault()"><i class="fas fa-italic"></i></button>
+            <button onclick="insertFormat('insertUnorderedList')" onmousedown="event.preventDefault()"><i class="fas fa-list-ul"></i></button>
+            <button onclick="insertFormat('insertOrderedList')" onmousedown="event.preventDefault()"><i class="fas fa-list-ol"></i></button>
+            <button onclick="openTableModal(event)" onmousedown="event.preventDefault()"><i class="fas fa-table"></i></button>
+            <div class="color-tool-split" title="도형 테두리(윤곽선) 편집">
+                <button class="color-btn-main" onclick="applyLastBorder(event)" onmousedown="event.preventDefault()"><div class="color-icon-wrapper"><i class="fas fa-border-all" style="font-size:12px; color:#555;"></i><div class="border-bar" style="background-color: #333;"></div></div></button>
+                <button class="color-btn-arrow" onclick="openBorderTool(event)" onmousedown="event.preventDefault()"><i class="fas fa-caret-down"></i></button>
+            </div>
+            <div class="toolbar-divider"></div>
+            <div class="toolbar-size-group">
+                <span class="toolbar-label">크기:</span>
+                <i class="fas fa-arrows-alt-v" style="font-size:10px; color:#aaa;"></i>
+                <input type="number" class="ed-toolbar-h" placeholder="높이" step="2" title="높이(px)" oninput="applyManualSizeToElement(this, 'height')" onmousedown="event.stopPropagation()">
+                <i class="fas fa-arrows-alt-h" style="font-size:10px; color:#aaa;"></i>
+                <input type="number" class="ed-toolbar-w" placeholder="너비" step="2" title="너비(px)" oninput="applyManualSizeToElement(this, 'width')" onmousedown="event.stopPropagation()">
+            </div>
+        </div>
+                    <div id="inSymptom" class="editor-content-view paste-area" contenteditable="true" placeholder="예: - LE9 에러 발생"></div>
                 </div>
             </div>
 
@@ -1855,10 +2020,48 @@
                 </div>
                 <div class="editor-container">
                     <div class="editor-toolbar">
-
-                    </div>
-                    <div id="inCause" class="editor-content-view paste-area" contenteditable="true"
-                        placeholder="예: - 메인 PCB 불량"></div>
+            <select onchange="changeFontFamily(this)" class="font-family-select" onmousedown="event.stopPropagation()">
+                <option value="'Pretendard', sans-serif" selected="">프리텐다드</option>
+                <option value="'LG Smart UI Regular', 'LG Smart UI', '맑은 고딕'">LG 스마트체</option>
+                <option value="맑은 고딕">맑은 고딕</option>
+                <option value="돋움">돋움</option>
+                <option value="굴림">굴림</option>
+                <option value="바탕">바탕</option>
+                <option value="Arial">Arial</option>
+            </select>
+            <select onchange="changeFontSize(this)" class="font-size-select" id="fontSizeSelect" onmousedown="event.stopPropagation()">
+                <option value="6px">6</option><option value="8px">8</option><option value="9px">9</option>
+                <option value="10px">10</option><option value="11px" selected="">11</option><option value="12px">12</option>
+                <option value="14px">14</option><option value="16px">16</option><option value="18px">18</option>
+                <option value="20px">20</option><option value="22px">22</option><option value="24px">24</option>
+                <option value="26px">26</option><option value="28px">28</option><option value="36px">36</option>
+                <option value="48px">48</option>
+            </select>
+            <button onclick="stepFontSize(1)" class="btn-font-step" onmousedown="event.preventDefault()">가<span>+</span></button>
+            <button onclick="stepFontSize(-1)" class="btn-font-step" onmousedown="event.preventDefault()">가<span>-</span></button>
+            <div class="color-tool-split">
+                <button class="color-btn-main" onclick="applyLastColor('foreColor', event)" onmousedown="event.preventDefault()"><div class="color-icon-wrapper"><b>가</b><div class="color-bar" style="background-color: red;"></div></div></button>
+                <button class="color-btn-arrow" onclick="openColorTool('foreColor', event)" onmousedown="event.preventDefault()"><i class="fas fa-caret-down"></i></button>
+            </div>
+            <button onclick="insertFormat('bold')" onmousedown="event.preventDefault()"><i class="fas fa-bold"></i></button>
+            <button onclick="insertFormat('italic')" onmousedown="event.preventDefault()"><i class="fas fa-italic"></i></button>
+            <button onclick="insertFormat('insertUnorderedList')" onmousedown="event.preventDefault()"><i class="fas fa-list-ul"></i></button>
+            <button onclick="insertFormat('insertOrderedList')" onmousedown="event.preventDefault()"><i class="fas fa-list-ol"></i></button>
+            <button onclick="openTableModal(event)" onmousedown="event.preventDefault()"><i class="fas fa-table"></i></button>
+            <div class="color-tool-split" title="도형 테두리(윤곽선) 편집">
+                <button class="color-btn-main" onclick="applyLastBorder(event)" onmousedown="event.preventDefault()"><div class="color-icon-wrapper"><i class="fas fa-border-all" style="font-size:12px; color:#555;"></i><div class="border-bar" style="background-color: #333;"></div></div></button>
+                <button class="color-btn-arrow" onclick="openBorderTool(event)" onmousedown="event.preventDefault()"><i class="fas fa-caret-down"></i></button>
+            </div>
+            <div class="toolbar-divider"></div>
+            <div class="toolbar-size-group">
+                <span class="toolbar-label">크기:</span>
+                <i class="fas fa-arrows-alt-v" style="font-size:10px; color:#aaa;"></i>
+                <input type="number" class="ed-toolbar-h" placeholder="높이" step="2" title="높이(px)" oninput="applyManualSizeToElement(this, 'height')" onmousedown="event.stopPropagation()">
+                <i class="fas fa-arrows-alt-h" style="font-size:10px; color:#aaa;"></i>
+                <input type="number" class="ed-toolbar-w" placeholder="너비" step="2" title="너비(px)" oninput="applyManualSizeToElement(this, 'width')" onmousedown="event.stopPropagation()">
+            </div>
+        </div>
+                    <div id="inCause" class="editor-content-view paste-area" contenteditable="true" placeholder="예: - 메인 PCB 불량"></div>
                 </div>
             </div>
 
@@ -1870,10 +2073,48 @@
                 </div>
                 <div class="editor-container">
                     <div class="editor-toolbar">
-
-                    </div>
-                    <div id="inRepairMethod" class="editor-content-view paste-area" contenteditable="true"
-                        placeholder="예: - LQC 모드 진입 시에만 발생되며, 에러 발생 시 메인 PCB 교체 안내"></div>
+            <select onchange="changeFontFamily(this)" class="font-family-select" onmousedown="event.stopPropagation()">
+                <option value="'Pretendard', sans-serif" selected="">프리텐다드</option>
+                <option value="'LG Smart UI Regular', 'LG Smart UI', '맑은 고딕'">LG 스마트체</option>
+                <option value="맑은 고딕">맑은 고딕</option>
+                <option value="돋움">돋움</option>
+                <option value="굴림">굴림</option>
+                <option value="바탕">바탕</option>
+                <option value="Arial">Arial</option>
+            </select>
+            <select onchange="changeFontSize(this)" class="font-size-select" id="fontSizeSelect" onmousedown="event.stopPropagation()">
+                <option value="6px">6</option><option value="8px">8</option><option value="9px">9</option>
+                <option value="10px">10</option><option value="11px" selected="">11</option><option value="12px">12</option>
+                <option value="14px">14</option><option value="16px">16</option><option value="18px">18</option>
+                <option value="20px">20</option><option value="22px">22</option><option value="24px">24</option>
+                <option value="26px">26</option><option value="28px">28</option><option value="36px">36</option>
+                <option value="48px">48</option>
+            </select>
+            <button onclick="stepFontSize(1)" class="btn-font-step" onmousedown="event.preventDefault()">가<span>+</span></button>
+            <button onclick="stepFontSize(-1)" class="btn-font-step" onmousedown="event.preventDefault()">가<span>-</span></button>
+            <div class="color-tool-split">
+                <button class="color-btn-main" onclick="applyLastColor('foreColor', event)" onmousedown="event.preventDefault()"><div class="color-icon-wrapper"><b>가</b><div class="color-bar" style="background-color: red;"></div></div></button>
+                <button class="color-btn-arrow" onclick="openColorTool('foreColor', event)" onmousedown="event.preventDefault()"><i class="fas fa-caret-down"></i></button>
+            </div>
+            <button onclick="insertFormat('bold')" onmousedown="event.preventDefault()"><i class="fas fa-bold"></i></button>
+            <button onclick="insertFormat('italic')" onmousedown="event.preventDefault()"><i class="fas fa-italic"></i></button>
+            <button onclick="insertFormat('insertUnorderedList')" onmousedown="event.preventDefault()"><i class="fas fa-list-ul"></i></button>
+            <button onclick="insertFormat('insertOrderedList')" onmousedown="event.preventDefault()"><i class="fas fa-list-ol"></i></button>
+            <button onclick="openTableModal(event)" onmousedown="event.preventDefault()"><i class="fas fa-table"></i></button>
+            <div class="color-tool-split" title="도형 테두리(윤곽선) 편집">
+                <button class="color-btn-main" onclick="applyLastBorder(event)" onmousedown="event.preventDefault()"><div class="color-icon-wrapper"><i class="fas fa-border-all" style="font-size:12px; color:#555;"></i><div class="border-bar" style="background-color: #333;"></div></div></button>
+                <button class="color-btn-arrow" onclick="openBorderTool(event)" onmousedown="event.preventDefault()"><i class="fas fa-caret-down"></i></button>
+            </div>
+            <div class="toolbar-divider"></div>
+            <div class="toolbar-size-group">
+                <span class="toolbar-label">크기:</span>
+                <i class="fas fa-arrows-alt-v" style="font-size:10px; color:#aaa;"></i>
+                <input type="number" class="ed-toolbar-h" placeholder="높이" step="2" title="높이(px)" oninput="applyManualSizeToElement(this, 'height')" onmousedown="event.stopPropagation()">
+                <i class="fas fa-arrows-alt-h" style="font-size:10px; color:#aaa;"></i>
+                <input type="number" class="ed-toolbar-w" placeholder="너비" step="2" title="너비(px)" oninput="applyManualSizeToElement(this, 'width')" onmousedown="event.stopPropagation()">
+            </div>
+        </div>
+                    <div id="inRepairMethod" class="editor-content-view paste-area" contenteditable="true" placeholder="예: - LQC 모드 진입 시에만 발생되며, 에러 발생 시 메인 PCB 교체 안내"></div>
                 </div>
             </div>
 
@@ -1891,23 +2132,17 @@
                 <div style="display: flex; align-items: center; gap: 10px;">
                     <i class="fas fa-language" style="color: #666; font-size: 14px;"></i>
                     <span>기기 미리보기</span>
-                    <div id="google_translate_element">번역기 불러오는 중...</div>
+                    <div id="google_translate_element"></div>
                 </div>
                 <div style="display: flex; gap: 8px; margin-left: auto;">
-                    <button id="btnHtmlViewer" onclick="openHTMLViewer()" title="생성된 HTML을 새 창에서 뷰어로 확인"
-                        style="font-size: 13px; font-weight: 600; padding: 6px 14px; background: #2196F3; color: white; border: none; border-radius: 6px; cursor: pointer; transition: opacity 0.2s;"
-                        onmouseover="this.style.opacity='0.85'" onmouseout="this.style.opacity='1'">🌐 HTML 뷰어</button>
-                    <button id="btnCopyPreview" onclick="copyPreview()" title="미리보기 내용을 이미지로 복사하여 PPT에 붙여넣기"
-                        style="font-size: 13px; font-weight: 600; padding: 6px 14px; background: #4caf50; color: white; border: none; border-radius: 6px; cursor: pointer; display: none; transition: opacity 0.2s;"
-                        onmouseover="this.style.opacity='0.85'" onmouseout="this.style.opacity='1'">📋 미리보기 복사
+                    <button id="btnHtmlViewer" onclick="openHTMLViewer()" title="생성된 HTML을 새 창에서 뷰어로 확인" style="font-size: 13px; font-weight: 600; padding: 6px 14px; background: rgb(33, 150, 243); color: white; border-width: medium; border-style: none; border-color: currentcolor; border-image: none; border-radius: 6px; cursor: pointer; transition: opacity 0.2s; opacity: 1;" onmouseover="this.style.opacity='0.85'" onmouseout="this.style.opacity='1'">🌐 HTML 뷰어</button>
+                    <button id="btnCopyPreview" onclick="copyPreview()" title="미리보기 내용을 이미지로 복사하여 PPT에 붙여넣기" style="font-size: 13px; font-weight: 600; padding: 6px 14px; background: #4caf50; color: white; border: none; border-radius: 6px; cursor: pointer; display: none; transition: opacity 0.2s;" onmouseover="this.style.opacity='0.85'" onmouseout="this.style.opacity='1'">📋 미리보기 복사
                         (PPT용)</button>
 
-                    <button id="btnToggleChatbotPanel" onclick="toggleChatbotPanelVisibility()" title="AI 편집기 접기/펼치기"
-                        style="font-size: 13px; font-weight: 600; padding: 6px 9px; background: #333; color: white; border: none; border-radius: 6px; cursor: pointer; display: flex; align-items: center; justify-content: center; width: 34px; height: 32px; transition: background-color 0.2s, opacity 0.2s;"
-                        onmouseover="this.style.opacity='0.85'" onmouseout="this.style.opacity='1'">
+                    <button id="btnToggleChatbotPanel" onclick="toggleChatbotPanelVisibility()" title="AI 편집기 접기/펼치기" style="font-size: 13px; font-weight: 600; padding: 6px 9px; background: rgb(136, 136, 136); color: white; border-width: medium; border-style: none; border-color: currentcolor; border-image: none; border-radius: 6px; cursor: pointer; display: flex; align-items: center; justify-content: center; width: 34px; height: 32px; transition: background-color 0.2s, opacity 0.2s;" onmouseover="this.style.opacity='0.85'" onmouseout="this.style.opacity='1'">
                         <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <rect x="1.5" y="1.5" width="13" height="13" rx="1.5" stroke="white" stroke-width="1.5" />
-                            <path d="M10.5 2V14" stroke="white" stroke-width="1.5" />
+                            <rect x="1.5" y="1.5" width="13" height="13" rx="1.5" stroke="white" stroke-width="1.5"></rect>
+                            <path d="M10.5 2V14" stroke="white" stroke-width="1.5"></path>
                         </svg>
                     </button>
                 </div>
@@ -1923,16 +2158,15 @@
                 <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
                     <h3 style="font-size: 16px; margin: 0;">HTML 소스 코드</h3>
                     <div style="display: flex; gap: 8px;">
-                        <button class="btn-primary" onclick="copyCode()"
-                            style="padding: 5px 15px; font-size: 13px;">복사</button>
+                        <button class="btn-primary" onclick="copyCode()" style="padding: 5px 15px; font-size: 13px;">복사</button>
                     </div>
                 </div>
-                <textarea id="codeOutput" class="notranslate" placeholder="변환된 코드가 이곳에 표시됩니다..." readonly></textarea>
+                <textarea id="codeOutput" class="notranslate" placeholder="변환된 코드가 이곳에 표시됩니다..." readonly=""></textarea>
             </div>
         </div>
 
 
-        <div class="chatbot-panel notranslate" id="chatbotPanel">
+        <div class="chatbot-panel notranslate collapsed" id="chatbotPanel">
             <h2 class="panel-title">
                 <div style="display: flex; align-items: center; gap: 10px;">
                     <span>Qbot AI 에디터</span>
@@ -1951,7 +2185,7 @@
                 <div class="chat-config-overlay-content">
                     <div class="chat-config-overlay-header">
                         <span>🛠️ API 연동 설정</span>
-                        <button class="chat-config-close-btn" onclick="toggleChatConfigOverlay()">&times;</button>
+                        <button class="chat-config-close-btn" onclick="toggleChatConfigOverlay()">×</button>
                     </div>
                     <div style="display: flex; flex-direction: column; gap: 10px;">
                         <div class="chat-config-row">
@@ -1963,22 +2197,18 @@
                         </div>
                         <div class="chat-config-row">
                             <label>API Key</label>
-                            <input type="password" id="chatApiKey" placeholder="API Key 입력"
-                                onchange="saveChatSettings()">
+                            <input type="password" id="chatApiKey" placeholder="API Key 입력" onchange="saveChatSettings()">
                         </div>
                         <div class="chat-config-row">
                             <label>모델 선택</label>
                             <select id="chatModel" onchange="saveChatSettings()">
-
-                                <option value="gemini-2.5-flash">gemini-2.5-flash (권장)</option>
-                                <option value="gemini-2.5-pro">gemini-2.5-pro (고품질)</option>
-                                <option value="gemini-1.5-flash">gemini-1.5-flash</option>
-                            </select>
+                    <option value="gemini-2.5-flash">gemini-2.5-flash (권장/빠름)</option>
+                    <option value="gemini-2.5-pro">gemini-2.5-pro (정교함)</option>
+                    <option value="gemini-1.5-flash">gemini-1.5-flash</option>
+                </select>
                         </div>
-                        <button class="btn-primary" onclick="testChatApiConnection()"
-                            style="padding: 6px 12px; font-size: 12px; width: 100%; margin-top: 5px;">연동 테스트</button>
-                        <button class="btn-secondary" onclick="deleteChatApiKey()"
-                            style="padding: 6px 12px; font-size: 12px; width: 100%; background: #fff0f0; color: var(--lg-red); border-color: #ffcccc; margin-top: 5px;">API
+                        <button class="btn-primary" onclick="testChatApiConnection()" style="padding: 6px 12px; font-size: 12px; width: 100%; margin-top: 5px;">연동 테스트</button>
+                        <button class="btn-secondary" onclick="deleteChatApiKey()" style="padding: 6px 12px; font-size: 12px; width: 100%; background: #fff0f0; color: var(--lg-red); border-color: #ffcccc; margin-top: 5px;">API
                             Key 삭제</button>
                     </div>
                 </div>
@@ -2002,43 +2232,36 @@
 
 
             <div class="chat-input-wrapper">
-                <textarea id="chatInput" placeholder="AI에게 수정 지시사항을 입력하세요..."
-                    onkeydown="handleChatInputKeyDown(event)"></textarea>
+                <textarea id="chatInput" placeholder="AI에게 수정 지시사항을 입력하세요..." onkeydown="handleChatInputKeyDown(event)"></textarea>
                 <button class="chat-send-btn" onclick="sendChatMessage()" title="전송">
                     <i class="fas fa-paper-plane"></i>
                 </button>
             </div>
 
             <div style="display: flex; gap: 8px; margin-top: 8px;">
-                <button class="btn-secondary" onclick="loadCurrentEditorToInput()"
-                    style="flex: 1; padding: 8px; font-size: 12px; height: auto;">
+                <button class="btn-secondary" onclick="loadCurrentEditorToInput()" style="flex: 1; padding: 8px; font-size: 12px; height: auto;">
                     📥 에디터 글 가져오기
                 </button>
-                <button class="btn-secondary" onclick="clearChatHistory()"
-                    style="flex: 0.4; padding: 8px; font-size: 12px; height: auto; background: #fff0f0; color: var(--lg-red); border-color: #ffcccc;">
+                <button class="btn-secondary" onclick="clearChatHistory()" style="flex: 0.4; padding: 8px; font-size: 12px; height: auto; background: #fff0f0; color: var(--lg-red); border-color: #ffcccc;">
                     비우기
                 </button>
             </div>
         </div>
     </div>
 
-    <div id="htmlViewerModal" class="modal notranslate">
+    <div id="htmlViewerModal" class="modal notranslate" style="display: none;">
         <div class="modal-content" style="max-width: 900px; width: 90%;">
-            <span class="close-modal" onclick="closeHTMLViewerModal()">&times;</span>
-            <h2
-                style="margin-top: 0; border-bottom: 2px solid #2196F3; padding-bottom: 12px; margin-bottom: 20px; font-size: 24px; color: #2196F3;">
+            <span class="close-modal" onclick="closeHTMLViewerModal()">×</span>
+            <h2 style="margin-top: 0; border-bottom: 2px solid #2196F3; padding-bottom: 12px; margin-bottom: 20px; font-size: 24px; color: #2196F3;">
                 🌐 HTML 직접 입력 뷰어 <span style="font-size: 14px; color: #666; font-weight: normal; margin-left: 10px;">코드를
                     직접 붙여넣어 확인하세요</span></h2>
 
             <div class="modal-body">
                 <div style="margin-bottom: 10px; display: flex; justify-content: space-between; align-items: center;">
                     <label style="font-weight: bold; color: #555;">HTML 소스 코드:</label>
-                    <button class="btn-secondary" onclick="loadConvertedCode()"
-                        style="padding: 5px 15px; font-size: 12px;">현 변환 코드 불러오기</button>
+                    <button class="btn-secondary" onclick="loadConvertedCode()" style="padding: 5px 15px; font-size: 12px;">현 변환 코드 불러오기</button>
                 </div>
-                <textarea id="manualHtmlInput"
-                    style="width: 100%; height: 400px; padding: 15px; border: 1px solid #333; border-radius: 8px; font-family: 'Consolas', 'Monaco', 'Courier New', monospace; font-size: 13px; resize: vertical; box-sizing: border-box; background: #23241f; color: #f8f8f2;"
-                    placeholder="여기에 HTML 코드를 붙여넣으세요..."></textarea>
+                <textarea id="manualHtmlInput" style="width: 100%; height: 400px; padding: 15px; border: 1px solid #333; border-radius: 8px; font-family: 'Consolas', 'Monaco', 'Courier New', monospace; font-size: 13px; resize: vertical; box-sizing: border-box; background: #23241f; color: #f8f8f2;" placeholder="여기에 HTML 코드를 붙여넣으세요..."></textarea>
             </div>
 
             <div style="text-align: right; margin-top: 20px; display: flex; justify-content: flex-end; gap: 10px;">
@@ -2052,19 +2275,15 @@
 
     <div id="tableModal" class="modal notranslate">
         <div class="modal-content">
-            <span class="close-modal" onclick="closeTableModal()">&times;</span>
-            <h2
-                style="margin-top: 0; border-bottom: 2px solid var(--lg-red); padding-bottom: 12px; margin-bottom: 20px; font-size: 24px;">
+            <span class="close-modal" onclick="closeTableModal()">×</span>
+            <h2 style="margin-top: 0; border-bottom: 2px solid var(--lg-red); padding-bottom: 12px; margin-bottom: 20px; font-size: 24px;">
                 표 삽입 <span style="font-size: 14px; color: #666; font-weight: normal; margin-left: 10px;">아래표에 직접
                     입력하세요</span></h2>
-            <div class="table-controls"
-                style="display: flex; flex-wrap: wrap; align-items: center; gap: 15px; background: #f8f8f8; padding: 15px; border-radius: 8px; margin-bottom: 20px;">
+            <div class="table-controls" style="display: flex; flex-wrap: wrap; align-items: center; gap: 15px; background: #f8f8f8; padding: 15px; border-radius: 8px; margin-bottom: 20px;">
                 <div style="display: flex; align-items: center; gap: 8px;">
                     <label style="font-weight: 600; font-size: 13px;">구성:</label>
-                    <label>행 <input type="number" id="tblRows" value="3" min="1"
-                            style="width: 45px; padding: 4px; border: 1px solid #ccc; border-radius: 4px;"></label>
-                    <label>열 <input type="number" id="tblCols" value="2" min="1"
-                            style="width: 45px; padding: 4px; border: 1px solid #ccc; border-radius: 4px;"></label>
+                    <label>행 <input type="number" id="tblRows" value="3" min="1" style="width: 45px; padding: 4px; border: 1px solid #ccc; border-radius: 4px;"></label>
+                    <label>열 <input type="number" id="tblCols" value="2" min="1" style="width: 45px; padding: 4px; border: 1px solid #ccc; border-radius: 4px;"></label>
                 </div>
                 <div style="width: 1px; height: 24px; background: #ddd;"></div>
                 <div style="display: flex; align-items: center; gap: 12px;">
@@ -2072,23 +2291,17 @@
                     <div style="display: flex; align-items: center; gap: 5px;">
                         <i class="fas fa-arrows-alt-v" style="color: #666; font-size: 12px;"></i>
                         <span style="font-size: 12px;">높이</span>
-                        <input type="number" id="tblTotalHeight" min="20" step="2"
-                            style="width: 65px; padding: 4px; border: 1px solid #ccc; border-radius: 4px;"
-                            oninput="applyManualSize()">
+                        <input type="number" id="tblTotalHeight" min="20" step="2" style="width: 65px; padding: 4px; border: 1px solid #ccc; border-radius: 4px;" oninput="applyManualSize()">
                     </div>
                     <div style="display: flex; align-items: center; gap: 5px;">
                         <i class="fas fa-arrows-alt-h" style="color: #666; font-size: 12px;"></i>
                         <span style="font-size: 12px;">너비</span>
-                        <input type="number" id="tblTotalWidth" min="20" step="2"
-                            style="width: 65px; padding: 4px; border: 1px solid #ccc; border-radius: 4px;"
-                            oninput="applyManualSize()">
+                        <input type="number" id="tblTotalWidth" min="20" step="2" style="width: 65px; padding: 4px; border: 1px solid #ccc; border-radius: 4px;" oninput="applyManualSize()">
                     </div>
                 </div>
-                <button class="btn-secondary" onclick="generateVisualTable()"
-                    style="padding: 5px 12px; font-size: 12px; margin-left: auto;">표 초기화</button>
+                <button class="btn-secondary" onclick="generateVisualTable()" style="padding: 5px 12px; font-size: 12px; margin-left: auto;">표 초기화</button>
             </div>
-            <div
-                style="font-size: 11px; color: #888; margin-bottom: 10px; display: flex; align-items: center; gap: 5px;">
+            <div style="font-size: 11px; color: #888; margin-bottom: 10px; display: flex; align-items: center; gap: 5px;">
                 <i class="fas fa-info-circle"></i>
                 <span>마우스로 테두리를 잡고 조절하거나 위 입력창에 숫자를 직접 입력하세요. (PPT 동일 방식)</span>
             </div>
@@ -2102,17 +2315,54 @@
         </div>
     </div>
 
-    <div id="customColorPicker" class="color-picker-popup" onmousedown="event.preventDefault()">
+    <div id="customColorPicker" class="color-picker-popup" onmousedown="event.preventDefault()" style="display: none;">
         <div class="cp-section-title">테마 색상</div>
-        <div id="themeColorsGrid" class="cp-grid"></div>
+        <div id="themeColorsGrid" class="cp-grid"><div class="cp-cell" style="background-color: rgb(255, 255, 255);"></div><div class="cp-cell" style="background-color: rgb(0, 0, 0);"></div><div class="cp-cell" style="background-color: rgb(238, 236, 225);"></div><div class="cp-cell" style="background-color: rgb(31, 73, 125);"></div><div class="cp-cell" style="background-color: rgb(79, 129, 189);"></div><div class="cp-cell" style="background-color: rgb(192, 80, 77);"></div><div class="cp-cell" style="background-color: rgb(155, 187, 89);"></div><div class="cp-cell" style="background-color: rgb(128, 100, 162);"></div><div class="cp-cell" style="background-color: rgb(75, 172, 198);"></div><div class="cp-cell" style="background-color: rgb(247, 150, 70);"></div><div class="cp-cell" style="background-color: rgb(242, 242, 242);"></div><div class="cp-cell" style="background-color: rgb(127, 127, 127);"></div><div class="cp-cell" style="background-color: rgb(221, 217, 195);"></div><div class="cp-cell" style="background-color: rgb(198, 217, 240);"></div><div class="cp-cell" style="background-color: rgb(219, 229, 241);"></div><div class="cp-cell" style="background-color: rgb(242, 220, 219);"></div><div class="cp-cell" style="background-color: rgb(235, 241, 222);"></div><div class="cp-cell" style="background-color: rgb(229, 224, 236);"></div><div class="cp-cell" style="background-color: rgb(219, 238, 243);"></div><div class="cp-cell" style="background-color: rgb(253, 234, 218);"></div><div class="cp-cell" style="background-color: rgb(216, 216, 216);"></div><div class="cp-cell" style="background-color: rgb(89, 89, 89);"></div><div class="cp-cell" style="background-color: rgb(196, 189, 151);"></div><div class="cp-cell" style="background-color: rgb(141, 179, 226);"></div><div class="cp-cell" style="background-color: rgb(184, 204, 228);"></div><div class="cp-cell" style="background-color: rgb(229, 185, 183);"></div><div class="cp-cell" style="background-color: rgb(215, 227, 188);"></div><div class="cp-cell" style="background-color: rgb(204, 193, 217);"></div><div class="cp-cell" style="background-color: rgb(183, 221, 232);"></div><div class="cp-cell" style="background-color: rgb(251, 213, 181);"></div><div class="cp-cell" style="background-color: rgb(191, 191, 191);"></div><div class="cp-cell" style="background-color: rgb(63, 63, 63);"></div><div class="cp-cell" style="background-color: rgb(147, 137, 83);"></div><div class="cp-cell" style="background-color: rgb(84, 141, 212);"></div><div class="cp-cell" style="background-color: rgb(149, 179, 215);"></div><div class="cp-cell" style="background-color: rgb(217, 150, 148);"></div><div class="cp-cell" style="background-color: rgb(195, 214, 155);"></div><div class="cp-cell" style="background-color: rgb(178, 162, 199);"></div><div class="cp-cell" style="background-color: rgb(146, 205, 220);"></div><div class="cp-cell" style="background-color: rgb(250, 192, 143);"></div><div class="cp-cell" style="background-color: rgb(165, 165, 165);"></div><div class="cp-cell" style="background-color: rgb(38, 38, 38);"></div><div class="cp-cell" style="background-color: rgb(73, 68, 41);"></div><div class="cp-cell" style="background-color: rgb(23, 54, 93);"></div><div class="cp-cell" style="background-color: rgb(54, 96, 146);"></div><div class="cp-cell" style="background-color: rgb(149, 55, 52);"></div><div class="cp-cell" style="background-color: rgb(118, 146, 60);"></div><div class="cp-cell" style="background-color: rgb(95, 73, 122);"></div><div class="cp-cell" style="background-color: rgb(49, 133, 155);"></div><div class="cp-cell" style="background-color: rgb(227, 108, 9);"></div><div class="cp-cell" style="background-color: rgb(127, 127, 127);"></div><div class="cp-cell" style="background-color: rgb(12, 12, 12);"></div><div class="cp-cell" style="background-color: rgb(29, 27, 16);"></div><div class="cp-cell" style="background-color: rgb(15, 36, 62);"></div><div class="cp-cell" style="background-color: rgb(36, 64, 97);"></div><div class="cp-cell" style="background-color: rgb(99, 36, 35);"></div><div class="cp-cell" style="background-color: rgb(79, 97, 40);"></div><div class="cp-cell" style="background-color: rgb(63, 49, 81);"></div><div class="cp-cell" style="background-color: rgb(32, 88, 103);"></div><div class="cp-cell" style="background-color: rgb(151, 72, 6);"></div></div>
         <div class="cp-section-title">표준 색상</div>
-        <div id="standardColorsRow" class="cp-grid"></div>
+        <div id="standardColorsRow" class="cp-grid"><div class="cp-cell" style="background-color: rgb(192, 0, 0);"></div><div class="cp-cell" style="background-color: rgb(255, 0, 0);"></div><div class="cp-cell" style="background-color: rgb(255, 192, 0);"></div><div class="cp-cell" style="background-color: rgb(255, 255, 0);"></div><div class="cp-cell" style="background-color: rgb(146, 208, 80);"></div><div class="cp-cell" style="background-color: rgb(0, 176, 80);"></div><div class="cp-cell" style="background-color: rgb(0, 176, 240);"></div><div class="cp-cell" style="background-color: rgb(0, 112, 192);"></div><div class="cp-cell" style="background-color: rgb(0, 32, 96);"></div><div class="cp-cell" style="background-color: rgb(112, 48, 160);"></div></div>
         <div class="cp-section-title">기타</div>
         <div class="cp-more-btn" onclick="triggerNativeColorInput()"><i class="fas fa-palette"></i> 다른 색 선택...</div>
         <input type="color" id="nativeColorInput" style="display:none;" onchange="selectQuickColor(this.value)">
 
-        <input type="file" id="excelFileInput" style="display:none;" accept=".xlsx, .xls"
-            onchange="handleFileSelect(event)">
+        <input type="file" id="excelFileInput" style="display:none;" accept=".xlsx, .xls" onchange="handleFileSelect(event)">
+    </div>
+
+    <!-- 도형 테두리(윤곽선) 편집 팝업 (PPT 스타일) -->
+    <div id="customBorderPicker" class="color-picker-popup border-picker-popup" onmousedown="event.preventDefault()" style="display: none;">
+        <div class="cp-section-title" style="margin-top:0;">테마 색</div>
+        <div id="borderThemeColorsGrid" class="cp-grid"></div>
+        <div class="cp-section-title">표준 색</div>
+        <div id="borderStandardColorsRow" class="cp-grid"></div>
+        <div style="border-top: 1px solid #f0f0f0; margin: 10px 0 8px 0;"></div>
+        <div class="bp-menu-item" onclick="applyBorderNone(event)">
+            <i class="far fa-square" style="font-size: 13px; color: #888;"></i> <span>윤곽선 없음(<u>N</u>)</span>
+        </div>
+        <div class="bp-menu-item" onclick="triggerNativeBorderColorInput(event)">
+            <i class="fas fa-palette" style="font-size: 13px; color: #888;"></i> <span>다른 윤곽선 색(<u>M</u>)...</span>
+        </div>
+        <input type="color" id="nativeBorderColorInput" style="display:none;" onchange="applyBorderColor(this.value, event)">
+        <div class="bp-menu-item has-submenu" onmouseenter="showBorderSubmenu('width')" onmouseleave="hideBorderSubmenu('width')">
+            <i class="fas fa-bars" style="font-size: 13px; color: #888;"></i> <span>두께(<u>W</u>)</span>
+            <i class="fas fa-chevron-right" style="font-size: 10px; margin-left: auto; color: #aaa;"></i>
+            <div class="bp-submenu" id="borderWidthSubmenu">
+                <div class="bp-sub-item" onclick="applyBorderWidth('1px', event)"><div class="bp-line-preview" style="height:1px;"></div><span>1px (0.75pt)</span></div>
+                <div class="bp-sub-item" onclick="applyBorderWidth('1.5px', event)"><div class="bp-line-preview" style="height:1.5px;"></div><span>1.5px (1pt)</span></div>
+                <div class="bp-sub-item" onclick="applyBorderWidth('2px', event)"><div class="bp-line-preview" style="height:2px;"></div><span>2px (1.5pt)</span></div>
+                <div class="bp-sub-item" onclick="applyBorderWidth('3px', event)"><div class="bp-line-preview" style="height:3px;"></div><span>3px (2.25pt)</span></div>
+                <div class="bp-sub-item" onclick="applyBorderWidth('4px', event)"><div class="bp-line-preview" style="height:4px;"></div><span>4px (3pt)</span></div>
+                <div class="bp-sub-item" onclick="applyBorderWidth('6px', event)"><div class="bp-line-preview" style="height:6px;"></div><span>6px (4.5pt)</span></div>
+            </div>
+        </div>
+        <div class="bp-menu-item has-submenu" onmouseenter="showBorderSubmenu('dash')" onmouseleave="hideBorderSubmenu('dash')">
+            <i class="fas fa-ellipsis-h" style="font-size: 13px; color: #888;"></i> <span>대시(<u>S</u>)</span>
+            <i class="fas fa-chevron-right" style="font-size: 10px; margin-left: auto; color: #aaa;"></i>
+            <div class="bp-submenu" id="borderDashSubmenu">
+                <div class="bp-sub-item" onclick="applyBorderStyle('solid', event)"><div class="bp-line-preview" style="border-top:2px solid #333; height:0; background:transparent;"></div><span>실선 (Solid)</span></div>
+                <div class="bp-sub-item" onclick="applyBorderStyle('dashed', event)"><div class="bp-line-preview" style="border-top:2px dashed #333; height:0; background:transparent;"></div><span>파선 (Dashed)</span></div>
+                <div class="bp-sub-item" onclick="applyBorderStyle('dotted', event)"><div class="bp-line-preview" style="border-top:2px dotted #333; height:0; background:transparent;"></div><span>점선 (Dotted)</span></div>
+                <div class="bp-sub-item" onclick="applyBorderStyle('double', event)"><div class="bp-line-preview" style="border-top:3px double #333; height:0; background:transparent;"></div><span>이중선 (Double)</span></div>
+            </div>
+        </div>
     </div>
 
     <script>
@@ -2198,7 +2448,8 @@
 
         const TOOLBAR_HTML = `
             <select onchange="changeFontFamily(this)" class="font-family-select" onmousedown="event.stopPropagation()">
-                <option value="'LG Smart UI Regular', 'LG Smart UI', '맑은 고딕'" selected>LG 스마트체</option>
+                <option value="'Pretendard', sans-serif" selected>프리텐다드</option>
+                <option value="'LG Smart UI Regular', 'LG Smart UI', '맑은 고딕'">LG 스마트체</option>
                 <option value="맑은 고딕">맑은 고딕</option>
                 <option value="돋움">돋움</option>
                 <option value="굴림">굴림</option>
@@ -2224,6 +2475,10 @@
             <button onclick="insertFormat('insertUnorderedList')" onmousedown="event.preventDefault()"><i class="fas fa-list-ul"></i></button>
             <button onclick="insertFormat('insertOrderedList')" onmousedown="event.preventDefault()"><i class="fas fa-list-ol"></i></button>
             <button onclick="openTableModal(event)" onmousedown="event.preventDefault()"><i class="fas fa-table"></i></button>
+            <div class="color-tool-split" title="도형 테두리(윤곽선) 편집">
+                <button class="color-btn-main" onclick="applyLastBorder(event)" onmousedown="event.preventDefault()"><div class="color-icon-wrapper"><i class="fas fa-border-all" style="font-size:12px; color:#555;"></i><div class="border-bar" style="background-color: #333;"></div></div></button>
+                <button class="color-btn-arrow" onclick="openBorderTool(event)" onmousedown="event.preventDefault()"><i class="fas fa-caret-down"></i></button>
+            </div>
             <div class="toolbar-divider"></div>
             <div class="toolbar-size-group">
                 <span class="toolbar-label">크기:</span>
@@ -2238,7 +2493,7 @@
         let isRestoringSelection = false;
 
         let edIsRowResizing = false, edIsColResizing = false, edIsImgResizing = false;
-        let edStartX, edStartY, edStartW, edStartH, edStartTableW, edStartImgW;
+        let edStartX, edStartY, edStartW, edStartH, edStartTableW, edStartImgW, edStartImgH;
         let edTargetCell = null, edTargetRow = null, edTargetImg = null, edImgCorner = '';
         let edIsPendingColResize = false, edIsPendingRowResize = false, edIsPendingImgResize = false;
 
@@ -2378,8 +2633,17 @@
         }
         function openColorTool(type, e) {
             e.stopPropagation(); activeColorType = type;
+            // 선택 상태를 저장해야 색상 적용 시 올바른 텍스트에 적용됨
+            saveSelectionState();
+            // 테두리 팝업이 열려있으면 닫기
+            closeBorderTool();
             activeToolbar = e.currentTarget.closest('.color-tool-split');
             const p = document.getElementById('customColorPicker'), r = e.currentTarget.getBoundingClientRect();
+            // 이미 열려있으면 닫기(토글), 아니면 열기
+            if (p.style.display === 'block') {
+                p.style.display = 'none';
+                return;
+            }
             p.style.display = 'block'; p.style.top = (window.scrollY + r.bottom + 5) + 'px';
             p.style.left = Math.min(r.left, window.innerWidth - 275) + 'px';
         }
@@ -2417,10 +2681,177 @@
             const theme = ['#ffffff', '#000000', '#eeece1', '#1f497d', '#4f81bd', '#c0504d', '#9bbb59', '#8064a2', '#4bacc6', '#f79646', '#f2f2f2', '#7f7f7f', '#ddd9c3', '#c6d9f0', '#dbe5f1', '#f2dcdb', '#ebf1de', '#e5e0ec', '#dbeef3', '#fdeada', '#d8d8d8', '#595959', '#c4bd97', '#8db3e2', '#b8cce4', '#e5b9b7', '#d7e3bc', '#ccc1d9', '#b7dde8', '#fbd5b5', '#bfbfbf', '#3f3f3f', '#938953', '#548dd4', '#95b3d7', '#d99694', '#c3d69b', '#b2a2c7', '#92cddc', '#fac08f', '#a5a5a5', '#262626', '#494429', '#17365d', '#366092', '#953734', '#76923c', '#5f497a', '#31859b', '#e36c09', '#7f7f7f', '#0c0c0c', '#1d1b10', '#0f243e', '#244061', '#632423', '#4f6128', '#3f3151', '#205867', '#974806'];
             const std = ['#c00000', '#ff0000', '#ffc000', '#ffff00', '#92d050', '#00b050', '#00b0f0', '#0070c0', '#002060', '#7030a0'];
             const tg = document.getElementById('themeColorsGrid'), sg = document.getElementById('standardColorsRow');
+            // 기존 HTML 하드코딩 셀을 모두 제거한 뒤, onclick이 바인딩된 셀만 새로 생성
+            // (HTML에 이미 셀이 있으면 중복 생성되어 팔레트가 2배로 표시되는 버그 방지)
+            tg.innerHTML = ''; sg.innerHTML = '';
             theme.forEach(c => { const d = document.createElement('div'); d.className = 'cp-cell'; d.style.backgroundColor = c; d.onclick = () => selectQuickColor(c); tg.appendChild(d); });
             std.forEach(c => { const d = document.createElement('div'); d.className = 'cp-cell'; d.style.backgroundColor = c; d.onclick = () => selectQuickColor(c); sg.appendChild(d); });
-            document.addEventListener('click', () => document.getElementById('customColorPicker').style.display = 'none');
+            document.addEventListener('click', () => {
+                const cp = document.getElementById('customColorPicker');
+                if (cp) cp.style.display = 'none';
+                closeBorderTool();
+            });
             document.getElementById('customColorPicker').onclick = e => e.stopPropagation();
+        }
+
+        /* ===== 도형 테두리(윤곽선) 편집 기능 로직 ===== */
+        let lastBorderColor = '#333333', lastBorderWidth = '1px', lastBorderStyle = 'solid';
+        let activeBorderTarget = null;
+
+        /**
+         * 테두리를 적용할 대상 엘리먼트 감지
+         * 테이블, 셀(td/th), 이미지, 카드/섹션 박스, 컨테이너 등 우선순위로 판별
+         */
+        function detectActiveBorderTarget() {
+            if (edActiveElement && document.body.contains(edActiveElement)) {
+                return edActiveElement;
+            }
+            const sel = window.getSelection();
+            if (sel && sel.rangeCount > 0) {
+                let node = sel.anchorNode;
+                if (node && node.nodeType === 3) node = node.parentElement;
+                if (node) {
+                    const blockTarget = node.closest('table, td, th, .dynamic-section, .editor-container, .img-only, .tip-box, .txt-box, .error-sound-box, p, div');
+                    if (blockTarget) return blockTarget;
+                }
+            }
+            if (lastFocusedEditor && document.body.contains(lastFocusedEditor)) {
+                const parentBox = lastFocusedEditor.closest('.dynamic-section, .editor-container');
+                return parentBox || lastFocusedEditor;
+            }
+            return null;
+        }
+
+        function openBorderTool(e) {
+            e.stopPropagation();
+            restoreSelectionState();
+            activeBorderTarget = detectActiveBorderTarget();
+
+            const cp = document.getElementById('customColorPicker');
+            if (cp) cp.style.display = 'none';
+
+            const bp = document.getElementById('customBorderPicker');
+            if (!bp) return;
+            const r = e.currentTarget.getBoundingClientRect();
+            bp.style.display = 'block';
+            bp.style.top = (window.scrollY + r.bottom + 5) + 'px';
+            bp.style.left = Math.min(r.left, window.innerWidth - 275) + 'px';
+        }
+
+        function closeBorderTool() {
+            const bp = document.getElementById('customBorderPicker');
+            if (bp) bp.style.display = 'none';
+            hideBorderSubmenu('width');
+            hideBorderSubmenu('dash');
+        }
+
+        function showBorderSubmenu(type) {
+            if (type === 'width') {
+                const sm = document.getElementById('borderWidthSubmenu');
+                if (sm) sm.style.display = 'block';
+                hideBorderSubmenu('dash');
+            } else if (type === 'dash') {
+                const sm = document.getElementById('borderDashSubmenu');
+                if (sm) sm.style.display = 'block';
+                hideBorderSubmenu('width');
+            }
+        }
+
+        function hideBorderSubmenu(type) {
+            if (type === 'width') {
+                const sm = document.getElementById('borderWidthSubmenu');
+                if (sm) sm.style.display = 'none';
+            } else if (type === 'dash') {
+                const sm = document.getElementById('borderDashSubmenu');
+                if (sm) sm.style.display = 'none';
+            }
+        }
+
+        function applyBorderColor(c, e) {
+            if (e) e.stopPropagation();
+            lastBorderColor = c;
+            const target = activeBorderTarget || detectActiveBorderTarget();
+            if (target) {
+                target.style.borderColor = c;
+                if (!target.style.borderStyle || target.style.borderStyle === 'none') {
+                    target.style.borderStyle = lastBorderStyle || 'solid';
+                }
+                if (!target.style.borderWidth) {
+                    target.style.borderWidth = lastBorderWidth || '1px';
+                }
+            }
+            document.querySelectorAll('.border-bar').forEach(b => b.style.backgroundColor = c);
+            closeBorderTool();
+        }
+
+        function applyBorderWidth(w, e) {
+            if (e) e.stopPropagation();
+            lastBorderWidth = w;
+            const target = activeBorderTarget || detectActiveBorderTarget();
+            if (target) {
+                target.style.borderWidth = w;
+                if (!target.style.borderStyle || target.style.borderStyle === 'none') {
+                    target.style.borderStyle = lastBorderStyle || 'solid';
+                }
+                if (!target.style.borderColor) {
+                    target.style.borderColor = lastBorderColor || '#333333';
+                }
+            }
+            closeBorderTool();
+        }
+
+        function applyBorderStyle(s, e) {
+            if (e) e.stopPropagation();
+            lastBorderStyle = s;
+            const target = activeBorderTarget || detectActiveBorderTarget();
+            if (target) {
+                target.style.borderStyle = s;
+                if (!target.style.borderWidth) {
+                    target.style.borderWidth = lastBorderWidth || '1px';
+                }
+                if (!target.style.borderColor) {
+                    target.style.borderColor = lastBorderColor || '#333333';
+                }
+            }
+            closeBorderTool();
+        }
+
+        function applyBorderNone(e) {
+            if (e) e.stopPropagation();
+            const target = activeBorderTarget || detectActiveBorderTarget();
+            if (target) {
+                target.style.border = 'none';
+                target.style.borderStyle = 'none';
+            }
+            closeBorderTool();
+        }
+
+        function applyLastBorder(e) {
+            e.stopPropagation();
+            activeBorderTarget = detectActiveBorderTarget();
+            if (activeBorderTarget) {
+                activeBorderTarget.style.borderColor = lastBorderColor;
+                activeBorderTarget.style.borderWidth = lastBorderWidth;
+                activeBorderTarget.style.borderStyle = lastBorderStyle;
+            }
+        }
+
+        function triggerNativeBorderColorInput(e) {
+            if (e) e.stopPropagation();
+            document.getElementById('nativeBorderColorInput').click();
+        }
+
+        function initBorderPicker() {
+            const theme = ['#ffffff', '#000000', '#eeece1', '#1f497d', '#4f81bd', '#c0504d', '#9bbb59', '#8064a2', '#4bacc6', '#f79646', '#f2f2f2', '#7f7f7f', '#ddd9c3', '#c6d9f0', '#dbe5f1', '#f2dcdb', '#ebf1de', '#e5e0ec', '#dbeef3', '#fdeada', '#d8d8d8', '#595959', '#c4bd97', '#8db3e2', '#b8cce4', '#e5b9b7', '#d7e3bc', '#ccc1d9', '#b7dde8', '#fbd5b5', '#bfbfbf', '#3f3f3f', '#938953', '#548dd4', '#95b3d7', '#d99694', '#c3d69b', '#b2a2c7', '#92cddc', '#fac08f', '#a5a5a5', '#262626', '#494429', '#17365d', '#366092', '#953734', '#76923c', '#5f497a', '#31859b', '#e36c09', '#7f7f7f', '#0c0c0c', '#1d1b10', '#0f243e', '#244061', '#632423', '#4f6128', '#3f3151', '#205867', '#974806'];
+            const std = ['#c00000', '#ff0000', '#ffc000', '#ffff00', '#92d050', '#00b050', '#00b0f0', '#0070c0', '#002060', '#7030a0'];
+            const btg = document.getElementById('borderThemeColorsGrid'), bsg = document.getElementById('borderStandardColorsRow');
+            if (btg && bsg) {
+                btg.innerHTML = ''; bsg.innerHTML = '';
+                theme.forEach(c => { const d = document.createElement('div'); d.className = 'cp-cell'; d.style.backgroundColor = c; d.onclick = (e) => applyBorderColor(c, e); btg.appendChild(d); });
+                std.forEach(c => { const d = document.createElement('div'); d.className = 'cp-cell'; d.style.backgroundColor = c; d.onclick = (e) => applyBorderColor(c, e); bsg.appendChild(d); });
+            }
+            const bp = document.getElementById('customBorderPicker');
+            if (bp) bp.onclick = e => e.stopPropagation();
         }
 
         document.querySelectorAll('.paste-area').forEach(el => {
@@ -2436,15 +2867,19 @@
 
         document.querySelectorAll('.editor-toolbar').forEach(tb => { tb.innerHTML = TOOLBAR_HTML; });
         initColorPicker();
+        initBorderPicker();
 
         let edNextStartW = 0, edNextRowStartH = 0;
         window.addEventListener('mousedown', function (e) {
             const cell = e.target.closest('.editor-content-view td, .editor-content-view th');
             if (cell) {
                 const rect = cell.getBoundingClientRect();
-                const isRightEdge = Math.abs(e.clientX - rect.right) < 10;
-                const isLeftEdge = Math.abs(e.clientX - rect.left) < 10;
-                const isBottomEdge = Math.abs(e.clientY - rect.bottom) < 10;
+                const hTol = Math.min(6, Math.max(3, rect.width * 0.25));
+                const vTol = Math.min(6, Math.max(3, rect.height * 0.25));
+
+                const isRightEdge = Math.abs(e.clientX - rect.right) < hTol;
+                const isLeftEdge = Math.abs(e.clientX - rect.left) < hTol;
+                const isBottomEdge = Math.abs(e.clientY - rect.bottom) < vTol;
                 const tbl = cell.closest('table');
                 if (!tbl) return;
 
@@ -2453,15 +2888,44 @@
                 if (isRightEdge || isLeftEdge || isBottomEdge) {
                     edStartX = e.clientX;
                     edStartY = e.clientY;
-                    if (isRightEdge || isLeftEdge) {
-                        edIsPendingColResize = true;
+                    edIsPendingColResize = false;
+                    edIsPendingRowResize = false;
+                    edIsColResizing = false;
+                    edIsRowResizing = false;
+                    edIsImgResizing = false;
+                    edTargetImg = null;
+                    edImgCorner = '';
 
+                    const isVerticalMiddle = (e.clientY > rect.top + vTol) && (e.clientY < rect.bottom - vTol);
+                    const isHorizontalMiddle = (e.clientX > rect.left + hTol) && (e.clientX < rect.right - hTol);
+
+                    if ((isRightEdge || isLeftEdge) && isVerticalMiddle) {
+                        // 순수 가로 리사이즈 (우측/좌측 중앙 핸들)
+                        edIsPendingColResize = true;
                         edTargetCell = isRightEdge ? cell : cell.previousElementSibling;
                         if (!edTargetCell && isLeftEdge) edTargetCell = cell;
-                    }
-                    if (isBottomEdge) {
+                        edTargetRow = null;
+                    } else if (isBottomEdge && isHorizontalMiddle) {
+                        // 순수 세로 리사이즈 (하단 중앙 핸들)
                         edIsPendingRowResize = true;
                         edTargetRow = cell.parentElement;
+                        edTargetCell = null;
+                    } else if (isBottomEdge && (isRightEdge || isLeftEdge)) {
+                        // 모서리 코너
+                        edIsPendingColResize = true;
+                        edIsPendingRowResize = true;
+                        edTargetCell = isRightEdge ? cell : cell.previousElementSibling;
+                        if (!edTargetCell && isLeftEdge) edTargetCell = cell;
+                        edTargetRow = cell.parentElement;
+                    } else if (isRightEdge || isLeftEdge) {
+                        edIsPendingColResize = true;
+                        edTargetCell = isRightEdge ? cell : cell.previousElementSibling;
+                        if (!edTargetCell && isLeftEdge) edTargetCell = cell;
+                        edTargetRow = null;
+                    } else if (isBottomEdge) {
+                        edIsPendingRowResize = true;
+                        edTargetRow = cell.parentElement;
+                        edTargetCell = null;
                     }
                     document.body.style.userSelect = 'none';
                     return;
@@ -2472,35 +2936,34 @@
             if (img) {
                 const iRect = img.getBoundingClientRect();
                 const pad = 20;
-                const isL = e.clientX < iRect.left + pad;
-                const isR = e.clientX > iRect.right - pad;
-                const isT = e.clientY < iRect.top + pad;
-                const isB = e.clientY > iRect.bottom + pad;
 
                 const isLeft = (e.clientX - iRect.left) < pad;
                 const isRight = (iRect.right - e.clientX) < pad;
                 const isTop = (e.clientY - iRect.top) < pad;
                 const isBottom = (iRect.bottom - e.clientY) < pad;
 
-                if ((isLeft || isRight) && (isTop || isBottom)) {
+                if (isLeft || isRight || isTop || isBottom) {
                     updateActiveElementForToolbar(img);
                     edStartX = e.clientX;
+                    edStartY = e.clientY;
                     edIsPendingImgResize = true;
                     edTargetImg = img;
                     edStartImgW = iRect.width;
+                    edStartImgH = iRect.height;
 
-                    img.removeAttribute('width');
-                    img.style.height = 'auto';
                     if (isLeft && isTop) edImgCorner = 'tl';
                     else if (isRight && isTop) edImgCorner = 'tr';
                     else if (isLeft && isBottom) edImgCorner = 'bl';
                     else if (isRight && isBottom) edImgCorner = 'br';
+                    else if (isLeft) edImgCorner = 'l';
+                    else if (isRight) edImgCorner = 'r';
+                    else if (isTop) edImgCorner = 't';
+                    else if (isBottom) edImgCorner = 'b';
 
                     document.body.style.userSelect = 'none';
                     e.preventDefault();
                     return;
                 } else {
-
                     updateActiveElementForToolbar(img);
                 }
             }
@@ -2559,13 +3022,21 @@
             if (!tbl) return;
             edIsColResizing = true;
 
+            // ── 1단계: 레이아웃 변경 전 모든 행의 현재 높이를 저장 ──
+            // tableLayout 전환 전의 실제 렌더링 높이를 기록
+            const savedRowHeights = [];
+            for (let i = 0; i < tbl.rows.length; i++) {
+                savedRowHeights.push(tbl.rows[i].offsetHeight);
+            }
+
+            // ── 2단계: 셀 CSS 속성 변경 (레이아웃에 영향) ──
             tbl.querySelectorAll('td, th').forEach(c => {
                 c.style.minWidth = '0';
                 c.style.maxWidth = 'none';
                 c.style.whiteSpace = 'normal';
             });
 
-            const colIdx = edTargetCell.cellIndex;
+            // ── 3단계: 열 너비 기록 및 고정 ──
             const cellRect = edTargetCell.getBoundingClientRect();
             edStartW = cellRect.width;
             const tblRect = tbl.getBoundingClientRect();
@@ -2579,6 +3050,18 @@
             }
             tbl.style.width = edStartTableW.toFixed(2) + 'px';
             tbl.style.tableLayout = 'fixed';
+
+            // ── 4단계: 저장된 높이를 <tr>과 <td>/<th> 양쪽 모두에 복원 ──
+            // CSS에서 <tr>의 height는 최솟값으로만 동작하므로,
+            // <td>에도 동일 높이를 설정해야 tableLayout 전환 후에도 높이가 변하지 않음
+            for (let i = 0; i < tbl.rows.length; i++) {
+                const h = savedRowHeights[i] + 'px';
+                tbl.rows[i].style.height = h;
+                for (let c of tbl.rows[i].cells) {
+                    c.style.height = h;
+                }
+            }
+
             document.body.style.cursor = 'ew-resize';
         }
 
@@ -2587,6 +3070,22 @@
             edIsRowResizing = true;
 
             const tbl = edTargetRow.closest('table');
+            if (tbl) {
+                // 세로 리사이즈 시 테이블 가로 너비 보존
+                if (!tbl.style.width) {
+                    tbl.style.width = tbl.offsetWidth + 'px';
+                }
+                const firstRow = tbl.rows[0];
+                if (firstRow) {
+                    for (let i = 0; i < firstRow.cells.length; i++) {
+                        if (!firstRow.cells[i].style.width) {
+                            firstRow.cells[i].style.width = firstRow.cells[i].getBoundingClientRect().width.toFixed(2) + 'px';
+                        }
+                    }
+                }
+                tbl.style.tableLayout = 'fixed';
+            }
+
             tbl.querySelectorAll('tr, td, th').forEach(el => {
                 el.style.minHeight = '0';
                 el.style.maxHeight = 'none';
@@ -2619,25 +3118,43 @@
                             if (edIsPendingRowResize) edStartRowResize();
                         }
                     } else if (edIsPendingImgResize && edTargetImg) {
-                        const dist = Math.abs(curX - edStartX);
+                        const dist = Math.sqrt(Math.pow(curX - edStartX, 2) + Math.pow(curY - edStartY, 2));
                         if (dist > 3) {
                             edIsImgResizing = true;
-                            document.body.style.cursor = 'nwse-resize';
+                            if (edImgCorner === 'tl' || edImgCorner === 'br') document.body.style.cursor = 'nwse-resize';
+                            else if (edImgCorner === 'tr' || edImgCorner === 'bl') document.body.style.cursor = 'nesw-resize';
+                            else if (edImgCorner === 'l' || edImgCorner === 'r') document.body.style.cursor = 'ew-resize';
+                            else if (edImgCorner === 't' || edImgCorner === 'b') document.body.style.cursor = 'ns-resize';
                         }
                     }
                 }
 
                 if (edIsImgResizing && edTargetImg) {
-                    const diff = curX - edStartX;
-                    let newW = edStartImgW;
-                    if (edImgCorner === 'tr' || edImgCorner === 'br') {
-                        newW = edStartImgW + diff;
-                    } else if (edImgCorner === 'tl' || edImgCorner === 'bl') {
-                        newW = edStartImgW - diff;
+                    const diffX = curX - edStartX;
+                    const diffY = curY - edStartY;
+
+                    // 가로 폭(Width) 조절: 우측(r, tr, br), 좌측(l, tl, bl)
+                    if (edImgCorner === 'r' || edImgCorner === 'tr' || edImgCorner === 'br') {
+                        const finalW = Math.max(20, edStartImgW + diffX);
+                        edTargetImg.style.width = finalW + 'px';
+                        edTargetImg.setAttribute('width', finalW);
+                    } else if (edImgCorner === 'l' || edImgCorner === 'tl' || edImgCorner === 'bl') {
+                        const finalW = Math.max(20, edStartImgW - diffX);
+                        edTargetImg.style.width = finalW + 'px';
+                        edTargetImg.setAttribute('width', finalW);
                     }
-                    const finalW = Math.max(30, newW);
-                    edTargetImg.style.width = finalW + 'px';
-                    edTargetImg.setAttribute('width', finalW);
+
+                    // 세로 높이(Height) 조절: 하단(b, bl, br), 상단(t, tl, tr)
+                    if (edImgCorner === 'b' || edImgCorner === 'bl' || edImgCorner === 'br') {
+                        const finalH = Math.max(20, edStartImgH + diffY);
+                        edTargetImg.style.height = finalH + 'px';
+                        edTargetImg.setAttribute('height', finalH);
+                    } else if (edImgCorner === 't' || edImgCorner === 'tl' || edImgCorner === 'tr') {
+                        const finalH = Math.max(20, edStartImgH - diffY);
+                        edTargetImg.style.height = finalH + 'px';
+                        edTargetImg.setAttribute('height', finalH);
+                    }
+
                     updateActiveElementForToolbar(edTargetImg);
                 } else {
                     if (edIsColResizing && edTargetCell) {
@@ -2677,6 +3194,10 @@
                             img.style.cursor = 'nwse-resize';
                         } else if ((isRight && isTop) || (isLeft && isBottom)) {
                             img.style.cursor = 'nesw-resize';
+                        } else if (isLeft || isRight) {
+                            img.style.cursor = 'ew-resize';
+                        } else if (isTop || isBottom) {
+                            img.style.cursor = 'ns-resize';
                         } else {
                             img.style.cursor = '';
                         }
@@ -2685,11 +3206,21 @@
                     const cell = e.target.closest('.editor-content-view td, .editor-content-view th');
                     if (cell) {
                         const rect = cell.getBoundingClientRect();
-                        const isRight = Math.abs(curX - rect.right) < 10;
-                        const isLeft = Math.abs(curX - rect.left) < 10;
-                        const isBottom = Math.abs(curY - rect.bottom) < 10;
+                        const hTol = Math.min(6, Math.max(3, rect.width * 0.25));
+                        const vTol = Math.min(6, Math.max(3, rect.height * 0.25));
 
-                        if (isBottom && (isRight || isLeft)) {
+                        const isRight = Math.abs(curX - rect.right) < hTol;
+                        const isLeft = Math.abs(curX - rect.left) < hTol;
+                        const isBottom = Math.abs(curY - rect.bottom) < vTol;
+
+                        const isVerticalMiddle = (curY > rect.top + vTol) && (curY < rect.bottom - vTol);
+                        const isHorizontalMiddle = (curX > rect.left + hTol) && (curX < rect.right - hTol);
+
+                        if ((isRight || isLeft) && isVerticalMiddle) {
+                            cell.style.cursor = 'ew-resize';
+                        } else if (isBottom && isHorizontalMiddle) {
+                            cell.style.cursor = 'ns-resize';
+                        } else if (isBottom && (isRight || isLeft)) {
                             cell.style.cursor = isRight ? 'nwse-resize' : 'nesw-resize';
                         } else if (isRight || isLeft) {
                             cell.style.cursor = 'ew-resize';
@@ -2707,6 +3238,7 @@
         window.addEventListener('mouseup', function () {
             edIsColResizing = edIsRowResizing = edIsImgResizing = false;
             edIsPendingColResize = edIsPendingRowResize = edIsPendingImgResize = false;
+            edTargetCell = null; edTargetRow = null; edTargetImg = null; edImgCorner = '';
             document.body.style.cursor = ''; document.body.style.userSelect = '';
 
             if (window.isManualFontSizeChange) {
@@ -2809,20 +3341,48 @@
                 const cell = e.target.closest('td, th');
                 if (!cell || !container.contains(cell)) return;
                 const rect = cell.getBoundingClientRect();
-                const isRight = Math.abs(e.clientX - rect.right) < 10;
-                const isLeft = Math.abs(e.clientX - rect.left) < 10;
-                const isBottom = Math.abs(e.clientY - rect.bottom) < 10;
+                const hTol = Math.min(6, Math.max(3, rect.width * 0.25));
+                const vTol = Math.min(6, Math.max(3, rect.height * 0.25));
+
+                const isRight = Math.abs(e.clientX - rect.right) < hTol;
+                const isLeft = Math.abs(e.clientX - rect.left) < hTol;
+                const isBottom = Math.abs(e.clientY - rect.bottom) < vTol;
                 const tbl = cell.closest('table');
                 if (!tbl) return;
                 if (isRight || isLeft || isBottom) {
                     tblStartX = e.clientX; tblStartY = e.clientY;
-                    if (isRight || isLeft) {
+                    isPendingTblColResize = false;
+                    isPendingTblRowResize = false;
+                    isTblColResizing = false;
+                    isTblRowResizing = false;
+
+                    const isVerticalMiddle = (e.clientY > rect.top + vTol) && (e.clientY < rect.bottom - vTol);
+                    const isHorizontalMiddle = (e.clientX > rect.left + hTol) && (e.clientX < rect.right - hTol);
+
+                    if ((isRight || isLeft) && isVerticalMiddle) {
                         isPendingTblColResize = true;
                         tblTargetCell = isRight ? cell : cell.previousElementSibling;
-                    }
-                    if (isBottom) {
+                        if (!tblTargetCell && isLeft) tblTargetCell = cell;
+                        tblTargetRow = null;
+                    } else if (isBottom && isHorizontalMiddle) {
                         isPendingTblRowResize = true;
                         tblTargetRow = cell.parentElement;
+                        tblTargetCell = null;
+                    } else if (isBottom && (isRight || isLeft)) {
+                        isPendingTblColResize = true;
+                        isPendingTblRowResize = true;
+                        tblTargetCell = isRight ? cell : cell.previousElementSibling;
+                        if (!tblTargetCell && isLeft) tblTargetCell = cell;
+                        tblTargetRow = cell.parentElement;
+                    } else if (isRight || isLeft) {
+                        isPendingTblColResize = true;
+                        tblTargetCell = isRight ? cell : cell.previousElementSibling;
+                        if (!tblTargetCell && isLeft) tblTargetCell = cell;
+                        tblTargetRow = null;
+                    } else if (isBottom) {
+                        isPendingTblRowResize = true;
+                        tblTargetRow = cell.parentElement;
+                        tblTargetCell = null;
                     }
                     document.body.style.userSelect = 'none';
                 }
@@ -2842,6 +3402,13 @@
                                 const tblRect = tbl.getBoundingClientRect();
                                 tblStartW = cellRect.width;
                                 tblStartTableW = tblRect.width;
+
+                                // 레이아웃 변경 전 행 높이 저장
+                                const savedH = [];
+                                for (let ri = 0; ri < tbl.rows.length; ri++) {
+                                    savedH.push(tbl.rows[ri].offsetHeight);
+                                }
+
                                 const firstRow = tbl.rows[0];
                                 if (firstRow) {
                                     for (let i = 0; i < firstRow.cells.length; i++) {
@@ -2850,8 +3417,17 @@
                                 }
                                 tbl.style.width = tblStartTableW.toFixed(2) + 'px';
                                 tbl.style.tableLayout = 'fixed';
-                                document.body.style.cursor = 'ew-resize';
 
+                                // 레이아웃 전환 후 저장된 높이를 tr+td에 강제 복원
+                                for (let ri = 0; ri < tbl.rows.length; ri++) {
+                                    const h = savedH[ri] + 'px';
+                                    tbl.rows[ri].style.height = h;
+                                    for (let c of tbl.rows[ri].cells) {
+                                        c.style.height = h;
+                                    }
+                                }
+
+                                document.body.style.cursor = 'ew-resize';
                                 syncSizeInputs(tbl);
                             }
                             if (isPendingTblRowResize && tblTargetRow) {
@@ -2889,11 +3465,21 @@
                     const cell = e.target.closest('#visualTableContainer td, #visualTableContainer th');
                     if (cell) {
                         const rect = cell.getBoundingClientRect();
-                        const isRight = Math.abs(curX - rect.right) < 10;
-                        const isLeft = Math.abs(curX - rect.left) < 10;
-                        const isBottom = Math.abs(curY - rect.bottom) < 10;
+                        const hTol = Math.min(6, Math.max(3, rect.width * 0.25));
+                        const vTol = Math.min(6, Math.max(3, rect.height * 0.25));
 
-                        if (isBottom && (isRight || isLeft)) {
+                        const isRight = Math.abs(curX - rect.right) < hTol;
+                        const isLeft = Math.abs(curX - rect.left) < hTol;
+                        const isBottom = Math.abs(curY - rect.bottom) < vTol;
+
+                        const isVerticalMiddle = (curY > rect.top + vTol) && (curY < rect.bottom - vTol);
+                        const isHorizontalMiddle = (curX > rect.left + hTol) && (curX < rect.right - hTol);
+
+                        if ((isRight || isLeft) && isVerticalMiddle) {
+                            cell.style.cursor = 'ew-resize';
+                        } else if (isBottom && isHorizontalMiddle) {
+                            cell.style.cursor = 'ns-resize';
+                        } else if (isBottom && (isRight || isLeft)) {
                             cell.style.cursor = isRight ? 'nwse-resize' : 'nesw-resize';
                         } else if (isRight || isLeft) {
                             cell.style.cursor = 'ew-resize';
@@ -3207,7 +3793,7 @@ ${sectionsHtml}`;
 <meta name="viewport" content="width=device-width"/>
 <title></title>
 <style type="text/css">
-@import url(https://fonts.googleapis.com/earlyaccess/notosanskr.css);
+@import url("https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.css");
 blockquote, body, button, code, dd, div, dl, dt, fieldset, form, h1, h2, h3, h4, h5, h6, input, legend, li, ol, p, pre, select, table, td, textarea, th, ul {word-break:break-word;}
 .tal{text-align:left!important}
 .ml-1{margin-left:20px!important}
@@ -3215,7 +3801,7 @@ blockquote, body, button, code, dd, div, dl, dt, fieldset, form, h1, h2, h3, h4,
 .mt-1{margin-top:20px!important}
 caption{overflow:hidden;width:1px;height:1px;margin:0;padding:0;font-size:1px;text-indent:-9999px}
 .ir-hidden{position:absolute;margin:-1px;width:1px;height:1px;padding:0;border:0;white-space:nowrap;overflow:hidden;clip:rect(0,0,0,0);clip-path:inset(50%)}
-.content-service-view{font-family:'Noto Sans','Noto Sans KR',sans-serif;font-size:14px;line-height:1.6}
+.content-service-view{font-family:'Pretendard',sans-serif;font-size:14px;line-height:1.6}
 .content-service-view .lg-red{color:#ec455a!important}
 .content-service-view .c-gray{color:#999!important}
 .content-service-view strong{font-weight:600}
@@ -3887,10 +4473,10 @@ ${contentBody}
 <meta name="viewport" content="width=device-width"/>
 <title></title>
 <style type="text/css">
-@import url(https://fonts.googleapis.com/earlyaccess/notosanskr.css);
+@import url("https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.css");
 blockquote, body, button, code, dd, div, dl, dt, fieldset, form, h1, h2, h3, h4, h5, h6, input, legend, li, ol, p, pre, select, table, td, textarea, th, ul {word-break:break-word;}
 .tal{text-align:left!important}
-.content-service-view{font-family:'Noto Sans','Noto Sans KR',sans-serif;font-size:14px;line-height:1.6;padding:0 16px;box-sizing:border-box}
+.content-service-view{font-family:'Pretendard',sans-serif;font-size:14px;line-height:1.6;padding:0 16px;box-sizing:border-box}
 .content-service-view p{margin:0 0 10px 0;padding:0}
 .content-service-view .tit{position:relative;margin:60px 0 15px 0;padding:0;font-weight:600;font-size:22px;color:#444;line-height:1.5}
 .content-service-view .tit:before{content:"";overflow:hidden;position:absolute;left:0;top:-8px;width:25px;height:3px;background:#ec455a}
@@ -3930,9 +4516,8 @@ ${contentBody}
 
     <div id="productModal" class="modal notranslate">
         <div class="modal-content" style="max-width: 800px;">
-            <span class="close-modal" onclick="closeProductModal()">&times;</span>
-            <h2
-                style="margin-top: 0; border-bottom: 2px solid var(--lg-red); padding-bottom: 12px; margin-bottom: 20px;">
+            <span class="close-modal" onclick="closeProductModal()">×</span>
+            <h2 style="margin-top: 0; border-bottom: 2px solid var(--lg-red); padding-bottom: 12px; margin-bottom: 20px;">
                 제품군 선택</h2>
 
             <div style="display: flex; gap: 20px; height: 400px;">
@@ -3940,10 +4525,8 @@ ${contentBody}
                 <div style="flex: 1; border: 1px solid #ddd; padding: 10px; display: flex; flex-direction: column;">
                     <h3 style="margin-top: 0; font-size: 16px; border-bottom: 1px solid #eee; padding-bottom: 5px;">대분류
                         (Product Lv2)</h3>
-                    <div
-                        style="margin-bottom: 8px; padding: 6px 5px; background: #fff8e1; border: 1px solid #ffe082; border-radius: 4px;">
-                        <label
-                            style="cursor: pointer; font-size: 12px; font-weight: bold; display: flex; align-items: center; gap: 6px; color: #e65100;">
+                    <div style="margin-bottom: 8px; padding: 6px 5px; background: #fff8e1; border: 1px solid #ffe082; border-radius: 4px;">
+                        <label style="cursor: pointer; font-size: 12px; font-weight: bold; display: flex; align-items: center; gap: 6px; color: #e65100;">
                             <input type="checkbox" id="allProductCheck" onchange="toggleAllProduct(this)">
                             ★ ALL (전체 제품군)
                         </label>
@@ -3951,8 +4534,7 @@ ${contentBody}
                     <div id="lv2List" style="overflow-y: auto; flex: 1;">
                         <div style="color: #999; text-align: center; margin-top: 50px;">
                             데이터를 선택하거나<br>
-                            <button class="btn-secondary" style="font-size: 11px; margin-top: 10px;"
-                                onclick="document.getElementById('excelFileInput').click()">엑셀 직접 선택</button>
+                            <button class="btn-secondary" style="font-size: 11px; margin-top: 10px;" onclick="document.getElementById('excelFileInput').click()">엑셀 직접 선택</button>
                         </div>
                     </div>
                 </div>
@@ -3961,8 +4543,7 @@ ${contentBody}
                     <h3 style="margin-top: 0; font-size: 16px; border-bottom: 1px solid #eee; padding-bottom: 5px;">소분류
                         (Product Lv3)</h3>
                     <div id="lv3SelectAllContainer" style="margin-bottom: 5px; display: none;">
-                        <label
-                            style="cursor: pointer; font-size: 12px; font-weight: bold; display: flex; align-items: center; gap: 5px;">
+                        <label style="cursor: pointer; font-size: 12px; font-weight: bold; display: flex; align-items: center; gap: 5px;">
                             <input type="checkbox" id="selectAllLv3" onchange="toggleSelectAllLv3(this)">
                             전체 선택
                         </label>
@@ -3980,15 +4561,13 @@ ${contentBody}
         </div>
     </div>
 
-    <script type="text/javascript"
-        src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+    <script type="text/javascript" src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
 
 
     <div id="modelModal" class="modal notranslate">
         <div class="modal-content" style="max-width: 600px;">
-            <span class="close-modal" onclick="closeModelModal()">&times;</span>
-            <h2
-                style="margin-top: 0; border-bottom: 2px solid var(--lg-red); padding-bottom: 12px; margin-bottom: 20px;">
+            <span class="close-modal" onclick="closeModelModal()">×</span>
+            <h2 style="margin-top: 0; border-bottom: 2px solid var(--lg-red); padding-bottom: 12px; margin-bottom: 20px;">
                 모델 선택</h2>
 
             <div style="margin-bottom: 15px;">
@@ -3997,23 +4576,20 @@ ${contentBody}
                 <div id="corpFilterContainer" style="margin-bottom: 10px; display: none;">
                     <label style="font-size: 12px; font-weight: bold; margin-bottom: 3px; display: block;">법인 필터 (Corp
                         Cd):</label>
-                    <select id="corpCdSelect" onchange="handleCorpCdChange(this)"
-                        style="width: 100%; padding: 5px; font-size: 12px; border: 1px solid #ccc; border-radius: 4px;">
+                    <select id="corpCdSelect" onchange="handleCorpCdChange(this)" style="width: 100%; padding: 5px; font-size: 12px; border: 1px solid #ccc; border-radius: 4px;">
                         <option value="ALL">★ ALL (전체 법인)</option>
                     </select>
                 </div>
 
                 <div style="display: flex; gap: 10px;">
-                    <input type="text" id="modelSearchInput" placeholder="모델명 검색 (예: OLED65)"
-                        style="flex: 1; padding: 8px;" onkeyup="filterModelList()">
+                    <input type="text" id="modelSearchInput" placeholder="모델명 검색 (예: OLED65)" style="flex: 1; padding: 8px;" onkeyup="filterModelList()">
                     <button class="btn-primary" onclick="filterModelList()">검색</button>
                 </div>
             </div>
 
             <div style="margin-bottom: 10px; display: flex; flex-direction: column; gap: 8px;">
                 <div style="padding: 6px 5px; background: #fff8e1; border: 1px solid #ffe082; border-radius: 4px;">
-                    <label
-                        style="cursor: pointer; font-size: 12px; font-weight: bold; display: flex; align-items: center; gap: 6px; color: #e65100;">
+                    <label style="cursor: pointer; font-size: 12px; font-weight: bold; display: flex; align-items: center; gap: 6px; color: #e65100;">
                         <input type="checkbox" id="allModelsCheck" onchange="toggleAllModels(this)">
                         ★ ALL (전체 모델)
                     </label>
@@ -4028,13 +4604,11 @@ ${contentBody}
                 </div>
             </div>
 
-            <div id="modelList"
-                style="height: 300px; overflow-y: auto; border: 1px solid #ddd; padding: 10px; background: #fff;">
+            <div id="modelList" style="height: 300px; overflow-y: auto; border: 1px solid #ddd; padding: 10px; background: #fff;">
 
                 <div style="text-align: center; color: #999; margin-top: 100px;">
                     제품군을 먼저 선택하거나<br>
-                    <button class="btn-secondary" style="font-size: 11px; margin-top: 10px;"
-                        onclick="document.getElementById('excelFileInput').click()">엑셀 직접 선택</button>
+                    <button class="btn-secondary" style="font-size: 11px; margin-top: 10px;" onclick="document.getElementById('excelFileInput').click()">엑셀 직접 선택</button>
                 </div>
             </div>
 
@@ -4062,6 +4636,61 @@ ${contentBody}
 
         const KOREA_MODEL_API_URL = 'https://script.google.com/macros/s/AKfycbwmMzocgSxfpcu0Gcr2a4nu79JNt1rGHQ791NumW5oPbfV-Nk2stQ1vmF9yQgVt8LmxJQ/exec';
 
+        // ===== [브라우저 캐싱] IndexedDB를 활용한 대용량 모델 데이터 초고속 캐시 시스템 =====
+        const MODEL_CACHE_DB_NAME = 'QbotModelCacheDB';
+        const MODEL_CACHE_STORE_NAME = 'models';
+        const MODEL_CACHE_KEY = 'korea_model_data';
+
+        function openModelCacheDB() {
+            return new Promise((resolve, reject) => {
+                if (!window.indexedDB) {
+                    reject(new Error('IndexedDB not supported'));
+                    return;
+                }
+                const req = indexedDB.open(MODEL_CACHE_DB_NAME, 1);
+                req.onupgradeneeded = (e) => {
+                    const db = e.target.result;
+                    if (!db.objectStoreNames.contains(MODEL_CACHE_STORE_NAME)) {
+                        db.createObjectStore(MODEL_CACHE_STORE_NAME);
+                    }
+                };
+                req.onsuccess = () => resolve(req.result);
+                req.onerror = () => reject(req.error);
+            });
+        }
+
+        async function getModelCache() {
+            try {
+                const db = await openModelCacheDB();
+                return new Promise((resolve) => {
+                    const tx = db.transaction(MODEL_CACHE_STORE_NAME, 'readonly');
+                    const store = tx.objectStore(MODEL_CACHE_STORE_NAME);
+                    const req = store.get(MODEL_CACHE_KEY);
+                    req.onsuccess = () => resolve(req.result || null);
+                    req.onerror = () => resolve(null);
+                });
+            } catch (err) {
+                console.warn('[모델 캐시] IndexedDB 읽기 실패:', err);
+                return null;
+            }
+        }
+
+        async function setModelCache(data) {
+            try {
+                const db = await openModelCacheDB();
+                return new Promise((resolve) => {
+                    const tx = db.transaction(MODEL_CACHE_STORE_NAME, 'readwrite');
+                    const store = tx.objectStore(MODEL_CACHE_STORE_NAME);
+                    const req = store.put(data, MODEL_CACHE_KEY);
+                    req.onsuccess = () => resolve(true);
+                    req.onerror = () => resolve(false);
+                });
+            } catch (err) {
+                console.warn('[모델 캐시] IndexedDB 저장 실패:', err);
+                return false;
+            }
+        }
+
         async function loadKoreaModelData() {
             if (globalModelData !== null || isKoreaModelLoading) return;
 
@@ -4072,9 +4701,32 @@ ${contentBody}
                 return;
             }
 
+            // 1단계: 브라우저 IndexedDB 캐시에서 0.05초 만에 즉시 로드
+            try {
+                const cachedData = await getModelCache();
+                if (cachedData && Array.isArray(cachedData) && cachedData.length > 0) {
+                    globalModelData = cachedData;
+                    isKoreaModelLoading = false;
+                    isKoreaModelError = false;
+                    console.log(`[모델 캐시] IndexedDB에서 ${cachedData.length}건의 캐시 데이터를 0.1초 만에 즉시 로드했습니다.`);
+
+                    const modelModal = document.getElementById('modelModal');
+                    if (modelModal && modelModal.style.display === 'block') {
+                        renderModelList();
+                    }
+
+                    // 화면 표시 후 백그라운드에서 최신 데이터 자동 동기화
+                    syncKoreaModelDataInBackground();
+                    return;
+                }
+            } catch (cacheErr) {
+                console.warn('[모델 캐시] 캐시 확인 중 오류:', cacheErr);
+            }
+
+            // 2단계: 캐시가 없는 최초 1회에는 구글 시트에서 다운로드
             isKoreaModelLoading = true;
             isKoreaModelError = false;
-            console.log('[구글시트 API] Apps Script 웹 앱 호출 시작...');
+            console.log('[구글시트 API] 캐시 없음 -> 실시간 다운로드 시작...');
 
             try {
                 const response = await fetch(KOREA_MODEL_API_URL);
@@ -4094,7 +4746,10 @@ ${contentBody}
                 globalModelData = data;
                 isKoreaModelLoading = false;
                 isKoreaModelError = false;
-                console.log(`[구글시트 API] ${globalModelData.length}건의 데이터를 성공적으로 실시간 로드했습니다.`);
+                console.log(`[구글시트 API] ${globalModelData.length}건의 데이터를 성공적으로 실시간 로드 & 캐시 저장 완료`);
+
+                // IndexedDB에 저장하여 다음 접속 시 0.1초 즉시 로딩
+                setModelCache(data);
 
                 const modelModal = document.getElementById('modelModal');
                 if (modelModal && modelModal.style.display === 'block') {
@@ -4105,6 +4760,25 @@ ${contentBody}
                 isKoreaModelLoading = false;
                 isKoreaModelError = true;
                 showModelLoadingError(`데이터 로딩 실패: ${error.message}`);
+            }
+        }
+
+        /**
+         * 백그라운드에서 조용히 최신 구글 시트 데이터를 동기화하여 IndexedDB를 갱신
+         */
+        async function syncKoreaModelDataInBackground() {
+            try {
+                console.log('[모델 캐시] 백그라운드 최신 데이터 동기화 시작...');
+                const response = await fetch(KOREA_MODEL_API_URL);
+                if (!response.ok) return;
+                const data = await response.json();
+                if (Array.isArray(data) && data.length > 0 && !data.error) {
+                    globalModelData = data;
+                    await setModelCache(data);
+                    console.log(`[모델 캐시] 백그라운드 최신 동기화 완료: ${data.length}건 갱신`);
+                }
+            } catch (e) {
+                console.warn('[모델 캐시] 백그라운드 동기화 스킵 (기존 캐시 정상 유지):', e.message);
             }
         }
 
@@ -5483,6 +6157,4 @@ ${emptyFields.length > 0 ? emptyFields.map(f => `- ${f}`).join('\n') : "(없음)
         }
     </script>
 </body>
-
 </html>
-```
