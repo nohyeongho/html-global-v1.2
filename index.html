@@ -11,8 +11,6 @@
 
     <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
 
-    <script src="global-model-data.js"></script>
-
     <style type="text/css">
         @import url("https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.css");
 
@@ -1973,8 +1971,7 @@
                 <div style="display: flex; align-items: center; flex-wrap: wrap; gap: 5px;">
                     <span>Qbot HTML 변환기 / 정보 입력 (마크다운 지원)</span>
                     <div class="lang-btn-group">
-                        <button type="button" id="btnLangKo" class="lang-btn active" onclick="changeAppLanguage('ko')">한국</button>
-                        <button type="button" id="btnLangEn" class="lang-btn" onclick="changeAppLanguage('en')">Global</button>
+                        <button type="button" id="btnLangKo" class="lang-btn active">한국</button>
                     </div>
                 </div>
                 <span style="font-size: 11px; color: #999; font-weight: normal;">Created by n.y.h V2.11</span>
@@ -2237,7 +2234,7 @@
 
             <button class="btn-add-section" onclick="addDynamicSection()">+ 섹션 추가</button>
 
-            <button class="btn-convert" onclick="generateHTML()">HTML 변환 생성</button>
+            <button type="button" class="btn-convert" id="btnGenerateHTML" onclick="generateHTML()">HTML 변환 생성</button>
         </div>
 
         <div class="preview-panel" id="previewPanel">
@@ -2480,50 +2477,8 @@
 
     <script>
 
-        let appRegion = 'ko';
-
-        async function changeAppLanguage(lang) {
-            const koBtn = document.getElementById('btnLangKo');
-            const enBtn = document.getElementById('btnLangEn');
-
-            if (lang === 'ko') {
-                appRegion = 'ko';
-                koBtn.classList.add('active');
-                enBtn.classList.remove('active');
-            } else {
-                appRegion = 'global';
-                enBtn.classList.add('active');
-                koBtn.classList.remove('active');
-
-                if (!globalExcelData) {
-                    await loadGlobalExcelData();
-                } else {
-
-                    renderLv2List();
-                }
-            }
-
-            clearProductFamily();
-            clearAppliedModel();
-
-            console.log('Selected Region:', appRegion);
-        }
-
-        async function loadGlobalExcelData() {
-
-            if (typeof globalExcelData !== 'undefined' && globalExcelData !== null) {
-                console.log('Global model data already loaded from JS file:', globalExcelData.length, 'rows');
-                return;
-            }
-
-            console.warn('globalExcelData not found. JS file might be missing or failed to load.');
-
-            if (confirm('Global 모델 데이터(global-model-data.js)를 찾을 수 없습니다. 파일을 확인해 주세요.')) {
-
-            } else {
-                changeAppLanguage('ko');
-            }
-        }
+        // 한국 내수 전용 단일 모드로 고정
+        const appRegion = 'ko';
 
         const renderer = new marked.Renderer();
         renderer.table = function (header, body) {
@@ -3804,18 +3759,19 @@
         }
 
         function generateHTML() {
-            const title = document.getElementById('inTitle').value;
-            const appliedModel = document.getElementById('inAppliedModel').value;
-            const productFamily = document.getElementById('inProductFamily').value;
-            const targetSerial = document.getElementById('inTargetSerial').value;
-            const actionSummary = document.getElementById('inActionSummary').innerHTML;
+            try {
+                const title = document.getElementById('inTitle')?.value || '';
+                const appliedModel = document.getElementById('inAppliedModel')?.value || '';
+                const productFamily = document.getElementById('inProductFamily')?.value || '';
+                const targetSerial = document.getElementById('inTargetSerial')?.value || '';
+                const actionSummary = document.getElementById('inActionSummary')?.innerHTML || '';
 
-            const symptomTitle = document.getElementById('inSymptomTitle').value;
-            const symptom = document.getElementById('inSymptom').innerHTML;
-            const causeTitle = document.getElementById('inCauseTitle').value;
-            const cause = document.getElementById('inCause').innerHTML;
-            const repairTitle = document.getElementById('inRepairTitle').value;
-            const repairMethod = document.getElementById('inRepairMethod').innerHTML;
+                const symptomTitle = document.getElementById('inSymptomTitle')?.value || '증상';
+                const symptom = document.getElementById('inSymptom')?.innerHTML || '';
+                const causeTitle = document.getElementById('inCauseTitle')?.value || '원인';
+                const cause = document.getElementById('inCause')?.innerHTML || '';
+                const repairTitle = document.getElementById('inRepairTitle')?.value || '조치방법';
+                const repairMethod = document.getElementById('inRepairMethod')?.innerHTML || '';
 
             let sectionIndex = 1;
             function generateSection(title, content) {
@@ -4236,7 +4192,26 @@ ${contentBody}
             if (window.innerWidth <= 768) {
                 switchTab('preview');
             }
+
+            // [시각적 피드백] 버튼 클릭 시 변환이 완료되었음을 0.8초간 '✓ 변환 완료!'로 표시
+            const convertBtn = document.getElementById('btnGenerateHTML');
+            if (convertBtn && !convertBtn.dataset.converting) {
+                convertBtn.dataset.converting = 'true';
+                const originalText = convertBtn.innerHTML;
+                convertBtn.innerHTML = '✓ 변환 완료!';
+                convertBtn.style.opacity = '0.9';
+                setTimeout(() => {
+                    convertBtn.innerHTML = originalText;
+                    convertBtn.style.opacity = '';
+                    delete convertBtn.dataset.converting;
+                }, 800);
+            }
+        } catch (err) {
+            // [예외 처리] 변환 처리 중 오류 발생 시 사용자 알림 및 로그 기록
+            console.error('HTML 변환 오류 발생:', err);
+            alert('HTML 변환 도중 오류가 발생했습니다: ' + (err.message || err));
         }
+    }
 
         function copyCode() {
             const copyText = document.getElementById("codeOutput").value;
@@ -4690,14 +4665,6 @@ ${contentBody}
             <div style="margin-bottom: 15px;">
                 <p id="modelFilterInfo" style="font-size: 14px; color: #666; margin-bottom: 5px;">선택된 제품군: 없음</p>
 
-                <div id="corpFilterContainer" style="margin-bottom: 10px; display: none;">
-                    <label style="font-size: 12px; font-weight: bold; margin-bottom: 3px; display: block;">법인 필터 (Corp
-                        Cd):</label>
-                    <select id="corpCdSelect" onchange="handleCorpCdChange(this)" style="width: 100%; padding: 5px; font-size: 12px; border: 1px solid #ccc; border-radius: 4px;">
-                        <option value="ALL">★ ALL (전체 법인)</option>
-                    </select>
-                </div>
-
                 <div style="display: flex; gap: 10px;">
                     <input type="text" id="modelSearchInput" placeholder="모델명 검색 (예: OLED65)" style="flex: 1; padding: 8px;" onkeyup="filterModelList()">
                     <button class="btn-primary" onclick="filterModelList()">검색</button>
@@ -4729,6 +4696,13 @@ ${contentBody}
                 </div>
             </div>
 
+            <!-- 더보기 버튼 항상 노출 고정 영역: 스크롤과 무관하게 목록 하단에 항상 고정 표시되어 존재 여부를 즉시 인지 가능 -->
+            <div id="modelMoreContainer" style="display: none; text-align: center; margin-top: 8px;">
+                <button id="modelMoreBtn" class="btn-secondary" style="width: 100%; padding: 9px 20px; font-size: 12px; cursor: pointer; background: #f0f0f2; border: 1px solid #ddd; border-radius: 4px; font-weight: bold; color: #333;" onclick="loadMoreModels()">
+                    더 보기
+                </button>
+            </div>
+
             <div style="margin-top: 20px; text-align: right;">
                 <button class="btn-secondary" onclick="closeModelModal()">취소</button>
                 <button class="btn-primary" onclick="confirmModelSelection()">선택 완료</button>
@@ -4741,7 +4715,6 @@ ${contentBody}
         let selectedLv2Codes = new Set();
         let selectedLv3Codes = new Set();
         let selectedModels = new Set();
-        let selectedCorpCd = 'ALL';
         let currentFilteredModels = [];
         let modelRenderLimit = 500;
 
@@ -4751,8 +4724,8 @@ ${contentBody}
 
         const KOREA_MODEL_API_URL = 'https://script.google.com/macros/s/AKfycbwmMzocgSxfpcu0Gcr2a4nu79JNt1rGHQ791NumW5oPbfV-Nk2stQ1vmF9yQgVt8LmxJQ/exec';
 
-        // ===== [브라우저 캐싱] IndexedDB를 활용한 대용량 모델 데이터 초고속 캐시 시스템 =====
-        const MODEL_CACHE_DB_NAME = 'QbotModelCacheDB';
+        // ===== [브라우저 캐싱] IndexedDB를 활용한 대용량 모델 데이터 초고속 캐시 시스템 (v2: 한국 모델 단일화) =====
+        const MODEL_CACHE_DB_NAME = 'QbotModelCacheDB_v2';
         const MODEL_CACHE_STORE_NAME = 'models';
         const MODEL_CACHE_KEY = 'korea_model_data';
 
@@ -4928,7 +4901,7 @@ ${contentBody}
             const container = document.getElementById('lv2List');
             container.innerHTML = "";
 
-            let sourceData = (appRegion === 'ko') ? productData : globalExcelData;
+            const sourceData = productData;
 
             if (!sourceData) {
                 container.innerHTML = '<div style="color: #999; text-align: center; margin-top: 50px; font-size: 12px;">데이터를 불러오는 중입니다...</div>';
@@ -4942,7 +4915,7 @@ ${contentBody}
             const lv2Map = new Map();
             sourceData.forEach(item => {
                 const code = item.lv2;
-                const name = (appRegion === 'ko') ? item.lv2Name : item.lv2;
+                const name = item.lv2Name;
                 if (!lv2Map.has(code)) {
                     lv2Map.set(code, name);
                 }
@@ -5012,7 +4985,7 @@ ${contentBody}
 
             selectAllContainer.style.display = 'block';
 
-            const sourceData = (appRegion === 'ko') ? productData : globalExcelData;
+            const sourceData = productData;
             if (!sourceData) return;
 
             const availableLv3 = sourceData.filter(item => selectedLv2Codes.has(item.lv2));
@@ -5024,7 +4997,7 @@ ${contentBody}
             availableLv3.forEach(item => {
                 if (seenLv3.has(item.lv3)) return;
                 seenLv3.add(item.lv3);
-                const displayName = (appRegion === 'ko') ? `[${item.lv2Name}] ${item.lv3Name}` : `[${item.lv2}] ${item.lv3}`;
+                const displayName = `[${item.lv2Name}] ${item.lv3Name}`;
                 uniqueLv3List.push({ ...item, displayName });
             });
 
@@ -5105,13 +5078,13 @@ ${contentBody}
             postDataDiv.setAttribute('data-productlv3', lv3Str);
 
             let displayNames = [];
-            const sourceData = (appRegion === 'ko') ? productData : globalExcelData;
+            const sourceData = productData;
 
             if (sourceData) {
                 lv3Array.forEach(code => {
                     const item = sourceData.find(i => i.lv3 === code);
                     if (item) {
-                        displayNames.push((appRegion === 'ko') ? item.lv3Name : item.lv3);
+                        displayNames.push(item.lv3Name);
                     } else {
                         displayNames.push(code);
                     }
@@ -5126,7 +5099,7 @@ ${contentBody}
                     lv2Array.forEach(code => {
                         const item = sourceData.find(i => i.lv2 === code);
                         if (item) {
-                            const name = (appRegion === 'ko') ? item.lv2Name : item.lv2;
+                            const name = item.lv2Name;
                             if (!lv2Names.includes(name)) lv2Names.push(name);
                         }
                     });
@@ -5145,59 +5118,19 @@ ${contentBody}
                 return;
             }
 
-            // [구글 시트 연동] 한국 지역일 때 아직 데이터 로드가 시작되지 않았다면 비동기 호출을 처리합니다.
-            if (appRegion === 'ko' && globalModelData === null) {
+            // [구글 시트 연동] 한국 모델 데이터가 아직 로드되지 않았다면 비동기 로드 시작
+            if (globalModelData === null) {
                 loadKoreaModelData();
             }
 
             const lv3Names = [];
-            const sourceData = (appRegion === 'ko') ? productData : globalExcelData;
-            if (sourceData) {
-                selectedLv3Codes.forEach(code => {
-                    const item = sourceData.find(i => i.lv3 === code);
-                    if (item) lv3Names.push((appRegion === 'ko') ? item.lv3Name : item.lv3);
-                });
-            }
+            selectedLv3Codes.forEach(code => {
+                const item = productData.find(i => i.lv3 === code);
+                if (item) lv3Names.push(item.lv3Name);
+            });
             document.getElementById('modelFilterInfo').textContent = "선택된 제품군: " + lv3Names.join(", ");
 
-            selectedCorpCd = 'ALL';
-            const corpContainer = document.getElementById('corpFilterContainer');
-            if (appRegion === 'global') {
-                corpContainer.style.display = 'block';
-                renderCorpCdFilter();
-            } else {
-                corpContainer.style.display = 'none';
-            }
-
             document.getElementById('modelModal').style.display = "block";
-            modelRenderLimit = 500;
-            renderModelList();
-        }
-
-        function renderCorpCdFilter() {
-            const select = document.getElementById('corpCdSelect');
-            select.innerHTML = '<option value="ALL">★ ALL (전체 법인)</option>';
-
-            if (appRegion !== 'global' || !globalExcelData) return;
-
-            const corps = new Set();
-            globalExcelData.forEach(item => {
-                if (selectedLv3Codes.has(item.lv3) && item.corp) {
-                    corps.add(item.corp);
-                }
-            });
-
-            const sortedCorps = Array.from(corps).sort();
-            sortedCorps.forEach(code => {
-                const opt = document.createElement('option');
-                opt.value = code;
-                opt.textContent = code;
-                select.appendChild(opt);
-            });
-        }
-
-        function handleCorpCdChange(select) {
-            selectedCorpCd = select.value;
             modelRenderLimit = 500;
             renderModelList();
         }
@@ -5253,6 +5186,8 @@ ${contentBody}
             const search = document.getElementById('modelSearchInput').value.toUpperCase();
 
             container.innerHTML = "";
+            const initMoreContainer = document.getElementById('modelMoreContainer');
+            if (initMoreContainer) initMoreContainer.style.display = 'none';
 
             // [구글 시트 연동] 한국 지역의 데이터 로딩 상태 대응 UI 핸들러
             if (appRegion === 'ko') {
@@ -5276,7 +5211,7 @@ ${contentBody}
                 }
             }
 
-            const currentData = (appRegion === 'ko') ? (typeof globalModelData !== 'undefined' ? globalModelData : null) : globalExcelData;
+            const currentData = (typeof globalModelData !== 'undefined' && globalModelData) ? globalModelData : null;
 
             if (!currentData) {
                 container.innerHTML = '<div style="text-align:center; padding: 20px; color: #888;">모델 데이터를 불러오는 중이거나 찾을 수 없습니다.</div>';
@@ -5284,13 +5219,7 @@ ${contentBody}
             }
 
             currentFilteredModels = currentData.filter(item => {
-
                 if (!selectedLv3Codes.has(item.lv3)) return false;
-
-                if (appRegion === 'global' && selectedCorpCd !== 'ALL') {
-                    if (item.corp !== selectedCorpCd) return false;
-                }
-
                 if (search && !item.model.toUpperCase().includes(search)) return false;
                 return true;
             });
@@ -5298,11 +5227,14 @@ ${contentBody}
             if (currentFilteredModels.length === 0) {
                 container.innerHTML = '<div style="text-align:center; padding: 20px; color: #888;">표시할 모델이 없습니다.</div>';
                 document.getElementById('selectAllModels').checked = false;
+                const moreContainer = document.getElementById('modelMoreContainer');
+                if (moreContainer) moreContainer.style.display = 'none';
                 return;
             }
 
             const fragment = document.createDocumentFragment();
 
+            // 페이징: 현재 제한(modelRenderLimit)만큼만 렌더링
             const modelsToRender = currentFilteredModels.slice(0, modelRenderLimit);
 
             modelsToRender.forEach(item => {
@@ -5325,24 +5257,17 @@ ${contentBody}
 
             container.appendChild(fragment);
 
-            if (currentFilteredModels.length > modelRenderLimit) {
-                const moreBtnContainer = document.createElement('div');
-                moreBtnContainer.style.textAlign = 'center';
-                moreBtnContainer.style.padding = '15px';
-
-                const moreBtn = document.createElement('button');
-                moreBtn.className = 'btn-secondary';
-                moreBtn.style.padding = '8px 20px';
-                moreBtn.style.fontSize = '12px';
-                moreBtn.style.cursor = 'pointer';
-                moreBtn.innerHTML = `더 보기 (${currentFilteredModels.length - modelRenderLimit}개의 검색된 모델이 더 있습니다)`;
-                moreBtn.onclick = function () {
-                    modelRenderLimit += 500;
-                    renderModelList();
-                };
-
-                moreBtnContainer.appendChild(moreBtn);
-                container.appendChild(moreBtnContainer);
+            // 더보기 버튼 가시성 제어: 목록 하단 고정 영역에 항상 노출하여 스크롤 없이도 즉시 인지 가능
+            const moreContainer = document.getElementById('modelMoreContainer');
+            const moreBtn = document.getElementById('modelMoreBtn');
+            if (moreContainer && moreBtn) {
+                if (currentFilteredModels.length > modelRenderLimit) {
+                    const remaining = currentFilteredModels.length - modelRenderLimit;
+                    moreBtn.innerHTML = `더 보기 (${remaining}개의 검색된 모델이 더 있습니다)`;
+                    moreContainer.style.display = 'block';
+                } else {
+                    moreContainer.style.display = 'none';
+                }
             }
 
             const allFilteredSelected = currentFilteredModels.length > 0 && currentFilteredModels.every(m => selectedModels.has(m.model));
@@ -5350,7 +5275,14 @@ ${contentBody}
         }
 
         function filterModelList() {
+            // 검색어 입력 시 500개 페이징 리셋 후 렌더링
             modelRenderLimit = 500;
+            renderModelList();
+        }
+
+        function loadMoreModels() {
+            // 더보기 클릭 시 500개씩 추가 로드 및 실시간 잔여 개수 갱신
+            modelRenderLimit += 500;
             renderModelList();
         }
 
@@ -5414,16 +5346,13 @@ ${contentBody}
         }
 
         let modelSet = null;
-        let lastSetRegion = null;
         function getModelSet() {
-            const currentRegion = appRegion;
-            const currentData = (currentRegion === 'ko') ? (typeof globalModelData !== 'undefined' ? globalModelData : null) : globalExcelData;
+            const currentData = (typeof globalModelData !== 'undefined' && globalModelData) ? globalModelData : null;
 
             if (!currentData) return null;
 
-            if (!modelSet || lastSetRegion !== currentRegion) {
+            if (!modelSet) {
                 modelSet = new Set(currentData.map(item => item.model.toUpperCase()));
-                lastSetRegion = currentRegion;
             }
             return modelSet;
         }
