@@ -26,6 +26,119 @@
             --shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
         }
 
+        /* ==========================================================================
+           [Pretendard 폰트 시스템 일괄 적용]
+           - 제목, KPI 숫자, 카드/섹션/필터 제목, 메뉴, 버튼, 테이블 헤더, 탭: Pretendard Black (900)
+           - 일반 본문, 설명, 도움말, 입력값, 테이블 데이터, 검색 결과 텍스트: Pretendard Regular (400)
+           ========================================================================== */
+
+        /* 1) 앱 전체 기본 폰트 & 본문: Pretendard Regular (400) */
+        html, body {
+            font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, system-ui, Roboto, 'Helvetica Neue', 'Segoe UI', sans-serif;
+            font-weight: 400;
+        }
+
+        /* 일반 본문, 설명 문구, 도움말 문구, 입력값, 테이블 데이터, 검색 결과 텍스트 */
+        p, span, div, label,
+        input, textarea, select,
+        td, table td, .visual-table td,
+        .desc-text, .help-text, .search-result, .tooltip,
+        .modal-body, .drawer-body {
+            font-family: 'Pretendard', sans-serif;
+            font-weight: 400;
+        }
+
+        /* 2) 제목 (H1 ~ H3) : Pretendard Black (900) */
+        h1, h2, h3,
+        .h1, .h2, .h3 {
+            font-family: 'Pretendard', sans-serif !important;
+            font-weight: 900 !important;
+        }
+
+        /* 3) 카드 제목, 섹션 제목, 필터 제목 : Pretendard Black (900) */
+        .panel-title,
+        .card-title,
+        .section-title,
+        .cp-section-title,
+        .diff-title,
+        .dyn-title,
+        .ai-action-card-title,
+        .chat-config-overlay-header,
+        .filter-title,
+        .filter-header,
+        .search-box-title {
+            font-family: 'Pretendard', sans-serif !important;
+            font-weight: 900 !important;
+        }
+
+        /* 4) KPI 숫자 : Pretendard Black (900) */
+        .kpi-value,
+        .kpi-number,
+        .stat-value,
+        .stat-number,
+        .kpi-card .number,
+        .kpi-card .value {
+            font-family: 'Pretendard', sans-serif !important;
+            font-weight: 900 !important;
+        }
+
+        /* 5) 메뉴명, 탭 메뉴 : Pretendard Black (900) */
+        .bp-menu-item,
+        .mobile-tabs,
+        .mobile-tabs button,
+        .tab-btn,
+        .tab-item,
+        .tab-menu,
+        .nav-item,
+        .menu-item {
+            font-family: 'Pretendard', sans-serif !important;
+            font-weight: 900 !important;
+        }
+
+        /* 6) 버튼 텍스트 : Pretendard Black (900) */
+        button,
+        .btn,
+        .btn-primary,
+        .btn-secondary,
+        .btn-convert,
+        .btn-font-step,
+        .btn-add-section,
+        .btn-remove-section,
+        .lang-btn,
+        .chat-send-btn,
+        .chat-quick-btn,
+        .chat-config-toggle-btn,
+        .chat-config-close-btn,
+        .ai-action-btn-apply,
+        .clear-btn,
+        .cp-more-btn {
+            font-family: 'Pretendard', sans-serif !important;
+            font-weight: 900 !important;
+        }
+
+        /* 7) 테이블 헤더 : Pretendard Black (900) */
+        th,
+        table th,
+        .visual-table th,
+        thead th {
+            font-family: 'Pretendard', sans-serif !important;
+            font-weight: 900 !important;
+        }
+
+        /* 8) Font Awesome 아이콘 보호: Pretendard가 아이콘 폰트를 덮어쓰지 않도록 최우선 보장 */
+        .fa, .fas, .far, .fal, .fab, .fad,
+        i.fa, i.fas, i.far, i.fal, i.fab, i.fad,
+        [class*="fa-"],
+        .fa::before, .fas::before, .far::before, .fal::before, .fab::before,
+        i.fa::before, i.fas::before, i.far::before, i.fal::before, i.fab::before,
+        [class*="fa-"]::before,
+        button i, .btn i, button [class*="fa-"], .btn [class*="fa-"] {
+            font-family: "Font Awesome 5 Free" !important;
+        }
+        .fab, .fab::before, i.fab, i.fab::before, button i.fab, .btn i.fab {
+            font-family: "Font Awesome 5 Brands" !important;
+        }
+
         blockquote,
         body,
         button,
@@ -700,7 +813,8 @@
 
         .color-icon-wrapper b {
             font-size: 14px;
-            font-family: 'Malgun Gothic', '맑은 고딕', sans-serif;
+            font-family: 'Pretendard', sans-serif;
+            font-weight: 900;
         }
 
         .color-icon-wrapper i {
@@ -1866,7 +1980,6 @@
                 <span style="font-size: 11px; color: #999; font-weight: normal;">Created by n.y.h V2.11</span>
             </h2>
             <p style="font-size: 12px; color: #666; margin-bottom: 20px;">
-                <b>팁</b>: 이미지를 붙여넣거나(Ctrl+V), 엑셀 표를 복사해서 붙여넣어도 자동으로 변환됩니다.<br>
                 표 작성방법 : 엑셀 표를 복사해서 붙여넣기를 하거나, 표 입력창을 선택하여 직접 내용을 작성해도 됩니다.
             </p>
 
@@ -4525,6 +4638,10 @@ ${contentBody}
                 <div style="flex: 1; border: 1px solid #ddd; padding: 10px; display: flex; flex-direction: column;">
                     <h3 style="margin-top: 0; font-size: 16px; border-bottom: 1px solid #eee; padding-bottom: 5px;">대분류
                         (Product Lv2)</h3>
+                    <!-- 제품군 실시간 검색창: 제품명 또는 코드(대소문자 무관)로 대분류 목록 필터링 -->
+                    <div style="margin-bottom: 8px;">
+                        <input type="text" id="lv2SearchInput" placeholder="Search Product..." oninput="renderLv2List()" style="width: 100%; box-sizing: border-box; padding: 6px 8px; font-size: 12px; border: 1px solid #ccc; border-radius: 4px;">
+                    </div>
                     <div style="margin-bottom: 8px; padding: 6px 5px; background: #fff8e1; border: 1px solid #ffe082; border-radius: 4px;">
                         <label style="cursor: pointer; font-size: 12px; font-weight: bold; display: flex; align-items: center; gap: 6px; color: #e65100;">
                             <input type="checkbox" id="allProductCheck" onchange="toggleAllProduct(this)">
@@ -4619,9 +4736,7 @@ ${contentBody}
         </div>
     </div>
 
-    <script>
-
-        const productData = [{ "lv2Name": "시스템 에어컨", "lv2": "ACE", "lv3": "CHCHL", "lv3Name": "칠러" }, { "lv2Name": "시스템 에어컨", "lv2": "ACE", "lv3": "COCRA", "lv3Name": "상업용 천정형" }, { "lv2Name": "시스템 에어컨", "lv2": "ACE", "lv3": "COPAH", "lv3Name": "상업용 스탠드" }, { "lv2Name": "시스템 에어컨", "lv2": "ACE", "lv3": "GAGHP", "lv3Name": "가스식시스템에어컨" }, { "lv2Name": "시스템 에어컨", "lv2": "ACE", "lv3": "SYSBL", "lv3Name": "시스템보일러" }, { "lv2Name": "에어컨", "lv2": "AIC", "lv3": "REWRA", "lv3Name": "이동식 에어컨" }, { "lv2Name": "에어컨", "lv2": "AIC", "lv3": "STPAC", "lv3Name": "스탠드형 에어컨" }, { "lv2Name": "에어컨", "lv2": "AIC", "lv3": "TWPAT", "lv3Name": "2in1" }, { "lv2Name": "에어컨", "lv2": "AIC", "lv3": "WASRA", "lv3Name": "벽걸이형" }, { "lv2Name": "에어컨", "lv2": "AIC", "lv3": "WIWRA", "lv3Name": "창호형 에어컨" }, { "lv2Name": "공기청정기", "lv2": "ARC", "lv3": "AIARC", "lv3Name": "공기청정기" }, { "lv2Name": "공기청정기", "lv2": "ARC", "lv3": "EMARC", "lv3Name": "전자식 마스크" }, { "lv2Name": "AV", "lv2": "AUD", "lv3": "APAUD", "lv3Name": "오디오/플레이어" }, { "lv2Name": "AV", "lv2": "AUD", "lv3": "BTEAR", "lv3Name": "블루투스 이어폰" }, { "lv2Name": "AV", "lv2": "AUD", "lv3": "SOHTH", "lv3Name": "사운드바" }, { "lv2Name": "보일러", "lv2": "BLR", "lv3": "BOBLR", "lv3Name": "보일러" }, { "lv2Name": "소물액세서리", "lv2": "BUL", "lv3": "ACBUL", "lv3Name": "소물액세서리" }, { "lv2Name": "CDMA폰", "lv2": "CDM", "lv3": "RPCDM", "lv3Name": "CDMA폰" }, { "lv2Name": "실링팬", "lv2": "CLF", "lv3": "SECLF", "lv3Name": "실링팬" }, { "lv2Name": "상업용 디스플레이", "lv2": "CSP", "lv3": "DIDSM", "lv3Name": "디지털 사이니지" }, { "lv2Name": "상업용 디스플레이", "lv2": "CSP", "lv3": "LEDSM", "lv3Name": "LED 사이니지" }, { "lv2Name": "상업용 디스플레이", "lv2": "CSP", "lv3": "ONEQU", "lv3Name": "원퀵" }, { "lv2Name": "상업용 디스플레이", "lv2": "CSP", "lv3": "OTDSM", "lv3Name": "올레드 사이니지" }, { "lv2Name": "청소기", "lv2": "CVC", "lv3": "A9CLN", "lv3Name": "무선청소기" }, { "lv2Name": "청소기", "lv2": "CVC", "lv3": "GECVC", "lv3Name": "유선청소기" }, { "lv2Name": "청소기", "lv2": "CVC", "lv3": "GERBC", "lv3Name": "로봇청소기" }, { "lv2Name": "청소기", "lv2": "CVC", "lv3": "LARBJ", "lv3Name": "잔디깍이 로봇" }, { "lv2Name": "스타일러", "lv2": "DCS", "lv3": "SADCS", "lv3Name": "슈케이스" }, { "lv2Name": "스타일러", "lv2": "DCS", "lv3": "SCDCS", "lv3Name": "슈케어" }, { "lv2Name": "스타일러", "lv2": "DCS", "lv3": "STDCS", "lv3Name": "스타일러" }, { "lv2Name": "제습/가습기", "lv2": "DEH", "lv3": "DEDEH", "lv3Name": "제습기" }, { "lv2Name": "제습/가습기", "lv2": "DEH", "lv3": "DEHMD", "lv3Name": "가습기" }, { "lv2Name": "의류건조기", "lv2": "DRR", "lv3": "CLDRR", "lv3Name": "의류건조기" }, { "lv2Name": "세탁기", "lv2": "DRW", "lv3": "DUDRW", "lv3Name": "트롬" }, { "lv2Name": "세탁기", "lv2": "DRW", "lv3": "GEDRW", "lv3Name": "통돌이" }, { "lv2Name": "세탁기", "lv2": "DRW", "lv3": "MIDRW", "lv3Name": "미니세탁기" }, { "lv2Name": "일체형/데스크톱", "lv2": "DSK", "lv3": "CLDSK", "lv3Name": "클라우드 PC" }, { "lv2Name": "일체형/데스크톱", "lv2": "DSK", "lv3": "MUDSK", "lv3Name": "일체형/데스크톱" }, { "lv2Name": "식기세척기", "lv2": "DWM", "lv3": "DIDWM", "lv3Name": "식기세척기" }, { "lv2Name": "워시타워", "lv2": "DWS", "lv3": "WADWS", "lv3Name": "워시타워" }, { "lv2Name": "전기레인지", "lv2": "ELR", "lv3": "HIELR", "lv3Name": "하이라이트" }, { "lv2Name": "전기레인지", "lv2": "ELR", "lv3": "HYELR", "lv3Name": "하이브리드" }, { "lv2Name": "전기레인지", "lv2": "ELR", "lv3": "INELR", "lv3Name": "인덕션" }, { "lv2Name": "EV충전기", "lv2": "EVC", "lv3": "LSEVC", "lv3Name": "완속충전기" }, { "lv2Name": "171", "lv2": "EVF", "lv3": "급속충전기", "lv3Name": "" }, { "lv2Name": "선풍기", "lv2": "FAN", "lv3": "COFAN", "lv3Name": "선풍기" }, { "lv2Name": "석유식_온풍기", "lv2": "FHO", "lv3": "OIFHO", "lv3Name": "석유식_온풍기" }, { "lv2Name": "전기/가스식_온풍기", "lv2": "FHT", "lv3": "ELFHT", "lv3Name": "전기/가스식_온풍기" }, { "lv2Name": "광파오븐/전자레인지", "lv2": "GOR", "lv3": "ERGOR", "lv3Name": "전자레인지" }, { "lv2Name": "광파오븐/전자레인지", "lv2": "GOR", "lv3": "OVGOR", "lv3Name": "광파오븐레인지" }, { "lv2Name": "가스오븐/가스레인지", "lv2": "GRN", "lv3": "GAGRN", "lv3Name": "가스레인지" }, { "lv2Name": "가스오븐/가스레인지", "lv2": "GRN", "lv3": "GVGRN", "lv3Name": "가스오븐레인지" }, { "lv2Name": "맥주제조기", "lv2": "HBR", "lv3": "BEHBR", "lv3Name": "맥주제조기" }, { "lv2Name": "안마의자", "lv2": "HMC", "lv3": "MAHMC", "lv3Name": "안마의자" }, { "lv2Name": "홈넷", "lv2": "HNS", "lv3": "HOHNS", "lv3Name": "홈넷솔루션" }, { "lv2Name": "홈넷", "lv2": "HNS", "lv3": "INBMS", "lv3Name": "지능형빌딩자동제어시스템" }, { "lv2Name": "SMART폰", "lv2": "HSD", "lv3": "SMHSD", "lv3Name": "SMART폰" }, { "lv2Name": "히터", "lv2": "HTR", "lv3": "HOHTR", "lv3Name": "히터" }, { "lv2Name": "정수기", "lv2": "HWI", "lv3": "HCHWI", "lv3Name": "냉온정수기" }, { "lv2Name": "정수기", "lv2": "HWI", "lv3": "PUHWI", "lv3Name": "정수전용" }, { "lv2Name": "스마트씽큐", "lv2": "IOT", "lv3": "SMIOT", "lv3Name": "스마트씽큐" }, { "lv2Name": "키오스크", "lv2": "KOS", "lv3": "KIOSK", "lv3Name": "키오스크" }, { "lv2Name": "김치냉장고", "lv2": "KRE", "lv3": "COKRE", "lv3Name": "뚜껑식형" }, { "lv2Name": "김치냉장고", "lv2": "KRE", "lv3": "STKRE", "lv3Name": "스탠드형" }, { "lv2Name": "LED조명", "lv2": "LED", "lv3": "LELED", "lv3Name": "LED조명" }, { "lv2Name": "의료기기", "lv2": "MDD", "lv3": "HAMHC", "lv3Name": "메디헤어" }, { "lv2Name": "뷰티 디바이스", "lv2": "MHC", "lv3": "CLMHC", "lv3Name": "클렌징 기기" }, { "lv2Name": "뷰티 디바이스", "lv2": "MHC", "lv3": "REMHC", "lv3Name": "탄력기기" }, { "lv2Name": "모니터", "lv2": "MNT", "lv3": "CLMNT", "lv3Name": "클라우드 모니터" }, { "lv2Name": "모니터", "lv2": "MNT", "lv3": "MEMNT", "lv3Name": "의료용 모니터" }, { "lv2Name": "모니터", "lv2": "MNT", "lv3": "PCMNT", "lv3Name": "PC 모니터" }, { "lv2Name": "모니터", "lv2": "MNT", "lv3": "TVMNT", "lv3Name": "TV 모니터" }, { "lv2Name": "모니터", "lv2": "MNT", "lv3": "UGMNT", "lv3Name": "울트라 기어 게이밍 모니터" }, { "lv2Name": "모니터", "lv2": "MNT", "lv3": "UWMNT", "lv3Name": "울트라 와이드 모니터" }, { "lv2Name": "마인드웰니스", "lv2": "MWD", "lv3": "DHMWD", "lv3Name": "마인드웰니스" }, { "lv2Name": "저장장치", "lv2": "NAS", "lv3": "CDCDR", "lv3Name": "CD-ROM/RW/콤보" }, { "lv2Name": "저장장치", "lv2": "NAS", "lv3": "NENAS", "lv3Name": "넷하드" }, { "lv2Name": "노트북", "lv2": "NTB", "lv3": "GRNTB", "lv3Name": "그램" }, { "lv2Name": "노트북", "lv2": "NTB", "lv3": "TBNTB", "lv3Name": "태블릿(Tablet)" }, { "lv2Name": "노트북", "lv2": "NTB", "lv3": "UDNTB", "lv3Name": "울트라 PC" }, { "lv2Name": "노트북", "lv2": "NTB", "lv3": "UGNTB", "lv3Name": "울트라 기어" }, { "lv2Name": "사무기기", "lv2": "OFM", "lv3": "ININK", "lv3Name": "잉크젯_프린터" }, { "lv2Name": "사무기기", "lv2": "OFM", "lv3": "LALAS", "lv3Name": "레이저젯_프린터" }, { "lv2Name": "사무기기", "lv2": "OFM", "lv3": "OFOFA", "lv3Name": "사무기기" }, { "lv2Name": "기타제품", "lv2": "OTH", "lv3": "ZZOTH", "lv3Name": "기타제품" }, { "lv2Name": "식물생활가전", "lv2": "PCD", "lv3": "VEPCD", "lv3Name": "식물재배기" }, { "lv2Name": "PLS조명", "lv2": "PLS", "lv3": "PLPLS", "lv3Name": "PLS조명" }, { "lv2Name": "로봇", "lv2": "RBT", "lv3": "GURBT", "lv3Name": "안내 로봇" }, { "lv2Name": "로봇", "lv2": "RBT", "lv3": "SERBT", "lv3Name": "서빙로봇" }, { "lv2Name": "로봇", "lv2": "RBT", "lv3": "UVRBT", "lv3Name": "UVC 로봇" }, { "lv2Name": "밥솥", "lv2": "RCK", "lv3": "CORCK", "lv3Name": "밥솥" }, { "lv2Name": "냉장고", "lv2": "REF", "lv3": "BUSBS", "lv3Name": "비즈니스" }, { "lv2Name": "냉장고", "lv2": "REF", "lv3": "NOREF", "lv3Name": "일반형" }, { "lv2Name": "냉장고", "lv2": "REF", "lv3": "PUSBS", "lv3Name": "정수기형" }, { "lv2Name": "냉장고", "lv2": "REF", "lv3": "SISBS", "lv3Name": "양문형" }, { "lv2Name": "냉장고", "lv2": "REF", "lv3": "ULSBS", "lv3Name": "상냉장/하냉동" }, { "lv2Name": "토스터", "lv2": "TOT", "lv3": "TOTOT", "lv3Name": "토스터" }, { "lv2Name": "TV", "lv2": "TVL", "lv3": "LSLED", "lv3Name": "라이프 스타일 스크린" }, { "lv2Name": "TV", "lv2": "TVL", "lv3": "NALED", "lv3Name": "나노셀 TV" }, { "lv2Name": "TV", "lv2": "TVL", "lv3": "NOTLV", "lv3Name": "일반형(TV)" }, { "lv2Name": "TV", "lv2": "TVL", "lv3": "OTLED", "lv3Name": "올레드 TV" }, { "lv2Name": "TV", "lv2": "TVL", "lv3": "QNLED", "lv3Name": "QNED TV" }, { "lv2Name": "TV", "lv2": "TVL", "lv3": "SDLED", "lv3Name": "일반 LED TV" }, { "lv2Name": "TV", "lv2": "TVL", "lv3": "UDLED", "lv3Name": "울트라 HD TV" }, { "lv2Name": "프로젝터", "lv2": "VPJ", "lv3": "BSVPJ", "lv3Name": "프로빔 (상업용)" }, { "lv2Name": "프로젝터", "lv2": "VPJ", "lv3": "MOVPJ", "lv3Name": "시네빔" }, { "lv2Name": "Wearable Band", "lv2": "WEA", "lv3": "BAWEA", "lv3Name": "Wearable Band" }, { "lv2Name": "와인셀러", "lv2": "WEF", "lv3": "WIWEF", "lv3Name": "와인셀러" }].filter(i => i.lv2 !== 'PRODUCT_LVL2_CD');
+    <script>        const productData = [{"lv2Name": "히터", "lv2": "HTR", "lv3": "HOHTR", "lv3Name": "히터"}, {"lv2Name": "홈넷", "lv2": "HNS", "lv3": "HOHNS", "lv3Name": "홈넷솔루션"}, {"lv2Name": "전기레인지", "lv2": "ELR", "lv3": "HYELR", "lv3Name": "하이브리드"}, {"lv2Name": "전기레인지", "lv2": "ELR", "lv3": "HIELR", "lv3Name": "하이라이트"}, {"lv2Name": "프로젝터", "lv2": "VPJ", "lv3": "BSVPJ", "lv3Name": "프로빔 (상업용)"}, {"lv2Name": "세탁기", "lv2": "DRW", "lv3": "DUDRW", "lv3Name": "트롬"}, {"lv2Name": "세탁기", "lv2": "DRW", "lv3": "GEDRW", "lv3Name": "통돌이"}, {"lv2Name": "토스터", "lv2": "TOT", "lv3": "TOTOT", "lv3Name": "토스터"}, {"lv2Name": "노트북", "lv2": "NTB", "lv3": "TBNTB", "lv3Name": "태블릿(Tablet)"}, {"lv2Name": "뷰티 디바이스", "lv2": "MHC", "lv3": "REMHC", "lv3Name": "탄력기기"}, {"lv2Name": "키오스크", "lv2": "KOS", "lv3": "KIOSK", "lv3Name": "키오스크"}, {"lv2Name": "뷰티 디바이스", "lv2": "MHC", "lv3": "CLMHC", "lv3Name": "클렌징 기기"}, {"lv2Name": "모니터", "lv2": "MNT", "lv3": "CLMNT", "lv3Name": "클라우드 모니터"}, {"lv2Name": "일체형/데스크톱", "lv2": "DSK", "lv3": "CLDSK", "lv3Name": "클라우드 PC"}, {"lv2Name": "시스템 에어컨", "lv2": "ACE", "lv3": "CHCHL", "lv3Name": "칠러"}, {"lv2Name": "에어컨", "lv2": "AIC", "lv3": "WIWRA", "lv3Name": "창호형 에어컨"}, {"lv2Name": "홈넷", "lv2": "HNS", "lv3": "INBMS", "lv3Name": "지능형빌딩자동제어시스템"}, {"lv2Name": "제습/가습기", "lv2": "DEH", "lv3": "DEDEH", "lv3Name": "제습기"}, {"lv2Name": "정수기", "lv2": "HWI", "lv3": "PUHWI", "lv3Name": "정수전용"}, {"lv2Name": "냉장고", "lv2": "REF", "lv3": "PUSBS", "lv3Name": "정수기형"}, {"lv2Name": "전화기", "lv2": "TEL", "lv3": "TETEL", "lv3Name": "전화기"}, {"lv2Name": "공기청정기", "lv2": "ARC", "lv3": "EMARC", "lv3Name": "전자식 마스크"}, {"lv2Name": "광파오븐/전자레인지", "lv2": "GOR", "lv3": "ERGOR", "lv3Name": "전자레인지"}, {"lv2Name": "전기/가스식_온풍기", "lv2": "FHT", "lv3": "ELFHT", "lv3Name": "전기/가스식_온풍기"}, {"lv2Name": "청소기", "lv2": "CVC", "lv3": "LARBJ", "lv3Name": "잔디깍이 로봇"}, {"lv2Name": "사무기기", "lv2": "OFM", "lv3": "ININK", "lv3Name": "잉크젯_프린터"}, {"lv2Name": "일체형/데스크톱", "lv2": "DSK", "lv3": "MUDSK", "lv3Name": "일체형/데스크톱"}, {"lv2Name": "TV", "lv2": "TVL", "lv3": "NOTLV", "lv3Name": "일반형(TV)"}, {"lv2Name": "냉장고", "lv2": "REF", "lv3": "NOREF", "lv3Name": "일반형"}, {"lv2Name": "TV", "lv2": "TVL", "lv3": "SDLED", "lv3Name": "일반 LED TV"}, {"lv2Name": "전기레인지", "lv2": "ELR", "lv3": "INELR", "lv3Name": "인덕션"}, {"lv2Name": "에어컨", "lv2": "AIC", "lv3": "REWRA", "lv3Name": "이동식 에어컨"}, {"lv2Name": "의류건조기", "lv2": "DRR", "lv3": "CLDRR", "lv3Name": "의류건조기"}, {"lv2Name": "모니터", "lv2": "MNT", "lv3": "MEMNT", "lv3Name": "의료용 모니터"}, {"lv2Name": "청소기", "lv2": "CVC", "lv3": "GECVC", "lv3Name": "유선청소기"}, {"lv2Name": "상업용 디스플레이", "lv2": "CSP", "lv3": "ONEQU", "lv3Name": "원퀵"}, {"lv2Name": "워시타워", "lv2": "DWS", "lv3": "WADWS", "lv3Name": "워시타워"}, {"lv2Name": "모니터", "lv2": "MNT", "lv3": "UWMNT", "lv3Name": "울트라 와이드 모니터"}, {"lv2Name": "모니터", "lv2": "MNT", "lv3": "UGMNT", "lv3Name": "울트라 기어 게이밍 모니터"}, {"lv2Name": "노트북", "lv2": "NTB", "lv3": "UGNTB", "lv3Name": "울트라 기어"}, {"lv2Name": "노트북", "lv2": "NTB", "lv3": "UDNTB", "lv3Name": "울트라 PC"}, {"lv2Name": "TV", "lv2": "TVL", "lv3": "UDLED", "lv3Name": "울트라 HD TV"}, {"lv2Name": "EV충전기", "lv2": "EVC", "lv3": "LSEVC", "lv3Name": "완속충전기"}, {"lv2Name": "와인셀러", "lv2": "WEF", "lv3": "WIWEF", "lv3Name": "와인셀러"}, {"lv2Name": "상업용 디스플레이", "lv2": "CSP", "lv3": "OTDSM", "lv3Name": "올레드 사이니지"}, {"lv2Name": "TV", "lv2": "TVL", "lv3": "OTLED", "lv3Name": "올레드 TV"}, {"lv2Name": "AV", "lv2": "AUD", "lv3": "APAUD", "lv3Name": "오디오/플레이어"}, {"lv2Name": "냉장고", "lv2": "REF", "lv3": "SISBS", "lv3Name": "양문형"}, {"lv2Name": "안마의자", "lv2": "HMC", "lv3": "MAHMC", "lv3Name": "안마의자"}, {"lv2Name": "로봇", "lv2": "RBT", "lv3": "GURBT", "lv3Name": "안내 로봇"}, {"lv2Name": "실링팬", "lv2": "CLF", "lv3": "SECLF", "lv3Name": "실링팬"}, {"lv2Name": "식물생활가전", "lv2": "PCD", "lv3": "VEPCD", "lv3Name": "식물재배기"}, {"lv2Name": "식기세척기", "lv2": "DWM", "lv3": "DIDWM", "lv3Name": "식기세척기"}, {"lv2Name": "시스템 에어컨", "lv2": "ACE", "lv3": "SYSBL", "lv3Name": "시스템보일러"}, {"lv2Name": "프로젝터", "lv2": "VPJ", "lv3": "MOVPJ", "lv3Name": "시네빔"}, {"lv2Name": "에어컨", "lv2": "AIC", "lv3": "STPAC", "lv3Name": "스탠드형 에어컨"}, {"lv2Name": "김치냉장고", "lv2": "KRE", "lv3": "STKRE", "lv3Name": "스탠드형"}, {"lv2Name": "스타일러", "lv2": "DCS", "lv3": "STDCS", "lv3Name": "스타일러"}, {"lv2Name": "스마트씽큐", "lv2": "IOT", "lv3": "SMIOT", "lv3Name": "스마트씽큐"}, {"lv2Name": "스타일러", "lv2": "DCS", "lv3": "SADCS", "lv3Name": "슈케이스"}, {"lv2Name": "스타일러", "lv2": "DCS", "lv3": "SCDCS", "lv3Name": "슈케어"}, {"lv2Name": "소물액세서리", "lv2": "BUL", "lv3": "ACBUL", "lv3Name": "소물액세서리"}, {"lv2Name": "선풍기", "lv2": "FAN", "lv3": "COFAN", "lv3Name": "선풍기"}, {"lv2Name": "석유식_온풍기", "lv2": "FHO", "lv3": "OIFHO", "lv3Name": "석유식_온풍기"}, {"lv2Name": "로봇", "lv2": "RBT", "lv3": "SERBT", "lv3Name": "서빙로봇"}, {"lv2Name": "시스템 에어컨", "lv2": "ACE", "lv3": "COCRA", "lv3Name": "상업용 천정형"}, {"lv2Name": "시스템 에어컨", "lv2": "ACE", "lv3": "COPAH", "lv3Name": "상업용 스탠드"}, {"lv2Name": "냉장고", "lv2": "REF", "lv3": "ULSBS", "lv3Name": "상냉장/하냉동"}, {"lv2Name": "AV", "lv2": "AUD", "lv3": "SOHTH", "lv3Name": "사운드바"}, {"lv2Name": "사무기기", "lv2": "OFM", "lv3": "OFOFA", "lv3Name": "사무기기"}, {"lv2Name": "냉장고", "lv2": "REF", "lv3": "BUSBS", "lv3Name": "비즈니스"}, {"lv2Name": "AV", "lv2": "AUD", "lv3": "BTEAR", "lv3Name": "블루투스 이어폰"}, {"lv2Name": "보일러", "lv2": "BLR", "lv3": "BOBLR", "lv3Name": "보일러"}, {"lv2Name": "에어컨", "lv2": "AIC", "lv3": "WASRA", "lv3Name": "벽걸이형"}, {"lv2Name": "밥솥", "lv2": "RCK", "lv3": "CORCK", "lv3Name": "밥솥"}, {"lv2Name": "세탁기", "lv2": "DRW", "lv3": "MIDRW", "lv3Name": "미니세탁기"}, {"lv2Name": "청소기", "lv2": "CVC", "lv3": "A9CLN", "lv3Name": "무선청소기"}, {"lv2Name": "의료기기", "lv2": "MDD", "lv3": "HAMHC", "lv3Name": "메디헤어"}, {"lv2Name": "맥주제조기", "lv2": "HBR", "lv3": "BEHBR", "lv3Name": "맥주제조기"}, {"lv2Name": "마인드웰니스", "lv2": "MWD", "lv3": "DHMWD", "lv3Name": "마인드웰니스"}, {"lv2Name": "청소기", "lv2": "CVC", "lv3": "GERBC", "lv3Name": "로봇청소기"}, {"lv2Name": "사무기기", "lv2": "OFM", "lv3": "LALAS", "lv3Name": "레이저젯_프린터"}, {"lv2Name": "TV", "lv2": "TVL", "lv3": "LSLED", "lv3Name": "라이프 스타일 스크린"}, {"lv2Name": "김치냉장고", "lv2": "KRE", "lv3": "COKRE", "lv3Name": "뚜껑식형"}, {"lv2Name": "상업용 디스플레이", "lv2": "CSP", "lv3": "DIDSM", "lv3Name": "디지털 사이니지"}, {"lv2Name": "저장장치", "lv2": "NAS", "lv3": "NENAS", "lv3Name": "넷하드"}, {"lv2Name": "정수기", "lv2": "HWI", "lv3": "HCHWI", "lv3Name": "냉온정수기"}, {"lv2Name": "TV", "lv2": "TVL", "lv3": "NALED", "lv3Name": "나노셀 TV"}, {"lv2Name": "기타제품", "lv2": "OTH", "lv3": "ZZOTH", "lv3Name": "기타제품"}, {"lv2Name": "EV충전기", "lv2": "EVF", "lv3": "HSEVC", "lv3Name": "급속충전기"}, {"lv2Name": "노트북", "lv2": "NTB", "lv3": "GRNTB", "lv3Name": "그램"}, {"lv2Name": "광파오븐/전자레인지", "lv2": "GOR", "lv3": "OVGOR", "lv3Name": "광파오븐레인지"}, {"lv2Name": "공기청정기", "lv2": "ARC", "lv3": "AIARC", "lv3Name": "공기청정기"}, {"lv2Name": "제습/가습기", "lv2": "DEH", "lv3": "DEHMD", "lv3Name": "가습기"}, {"lv2Name": "가스오븐/가스레인지", "lv2": "GRN", "lv3": "GVGRN", "lv3Name": "가스오븐레인지"}, {"lv2Name": "시스템 에어컨", "lv2": "ACE", "lv3": "GAGHP", "lv3Name": "가스식시스템에어컨"}, {"lv2Name": "가스오븐/가스레인지", "lv2": "GRN", "lv3": "GAGRN", "lv3Name": "가스레인지"}, {"lv2Name": "Wearable Band", "lv2": "WEA", "lv3": "BAWEA", "lv3Name": "Wearable Band"}, {"lv2Name": "로봇", "lv2": "RBT", "lv3": "UVRBT", "lv3Name": "UVC 로봇"}, {"lv2Name": "모니터", "lv2": "MNT", "lv3": "TVMNT", "lv3Name": "TV 모니터"}, {"lv2Name": "SMART폰", "lv2": "HSD", "lv3": "SMHSD", "lv3Name": "SMART폰"}, {"lv2Name": "TV", "lv2": "TVL", "lv3": "QNLED", "lv3Name": "QNED TV"}, {"lv2Name": "PLS조명", "lv2": "PLS", "lv3": "PLPLS", "lv3Name": "PLS조명"}, {"lv2Name": "모니터", "lv2": "MNT", "lv3": "PCMNT", "lv3Name": "PC 모니터"}, {"lv2Name": "LED조명", "lv2": "LED", "lv3": "LELED", "lv3Name": "LED조명"}, {"lv2Name": "상업용 디스플레이", "lv2": "CSP", "lv3": "LEDSM", "lv3Name": "LED 사이니지"}, {"lv2Name": "G-Pad", "lv2": "TAB", "lv3": "GPTAB", "lv3Name": "G-Pad"}, {"lv2Name": "저장장치", "lv2": "NAS", "lv3": "CDCDR", "lv3Name": "CD-ROM/RW/콤보"}, {"lv2Name": "CDMA폰", "lv2": "CDM", "lv3": "RPCDM", "lv3Name": "CDMA폰"}, {"lv2Name": "에어컨", "lv2": "AIC", "lv3": "TWPAT", "lv3Name": "2in1"}].filter(i => i.lv2 !== 'PRODUCT_LVL2_CD');
 
         let selectedLv2Codes = new Set();
         let selectedLv3Codes = new Set();
@@ -4798,6 +4913,9 @@ ${contentBody}
 
         function openProductModal() {
             document.getElementById('productModal').style.display = "block";
+            // 모달 열 때 검색 입력창 초기화 (항상 전체 목록부터 볼 수 있도록 처리)
+            const searchInput = document.getElementById('lv2SearchInput');
+            if (searchInput) searchInput.value = '';
             renderLv2List();
             renderLv3List();
         }
@@ -4817,6 +4935,10 @@ ${contentBody}
                 return;
             }
 
+            // 검색창에서 입력된 키워드 추출 (공백 제거 및 대소문자 무시를 위해 소문자 변환)
+            const searchInput = document.getElementById('lv2SearchInput');
+            const keyword = searchInput ? searchInput.value.trim().toLowerCase() : '';
+
             const lv2Map = new Map();
             sourceData.forEach(item => {
                 const code = item.lv2;
@@ -4830,7 +4952,23 @@ ${contentBody}
                 return a[1].localeCompare(b[1], 'ko-KR');
             });
 
-            sortedLv2.forEach(([code, name]) => {
+            // 검색 규칙 적용: 제품명(name) 또는 코드(code)에 검색어가 포함되어 있는지 확인
+            // 검색어가 비어 있으면 전체 목록 표시
+            const filteredLv2 = keyword
+                ? sortedLv2.filter(([code, name]) => {
+                    const codeMatch = String(code).toLowerCase().includes(keyword);
+                    const nameMatch = String(name).toLowerCase().includes(keyword);
+                    return codeMatch || nameMatch;
+                })
+                : sortedLv2;
+
+            // 검색 결과가 없는 경우 안내 문구 표시
+            if (filteredLv2.length === 0) {
+                container.innerHTML = '<div style="color: #999; text-align: center; margin-top: 50px; font-size: 12px;">검색 결과가 없습니다.</div>';
+                return;
+            }
+
+            filteredLv2.forEach(([code, name]) => {
                 const div = document.createElement('div');
                 div.style.padding = "8px 5px";
                 div.style.fontSize = "11px";
