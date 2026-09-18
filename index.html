@@ -4140,6 +4140,7 @@ caption{overflow:hidden;width:1px;height:1px;margin:0;padding:0;font-size:1px;te
 @media screen and (max-width:768px){
 .content-service-view table[style*="width: 600px"] { width: 100% !important; }
 .content-service-view img{max-width:100%!important; height:auto!important;}
+.content-service-view .img-scroll img, .content-service-view .tbl-scroll img{max-width:none!important; width:auto!important;}
 .content-service-view .mobile-txt{display:block}
 .content-service-view [class^=iframe-wrap]{position:relative;overflow:hidden;height:0;padding-top:30px;padding-bottom:56.25%}
 .content-service-view .iframe-wrap-shorts{padding-bottom:120%}
@@ -5362,10 +5363,17 @@ blockquote, body, button, code, dd, div, dl, dt, fieldset, form, h1, h2, h3, h4,
 .content-service-view .sub-tit:before{content:"";overflow:hidden;position:absolute;left:0;top:5px;width:18px;height:18px;border-radius:50%;background:#999 url(https://gscs.lge.com:/gscs/support/fileupload/downloadFile.do?fileId=CYfUaCPKDZkbFewB3OjoAA&portalId=P1) no-repeat 4px 50%;background-size:10px}
 .content-service-view .sub-tit .num{display:block;position:absolute;left:0;top:5px;width:17px;height:17px;text-align:center;border-radius:50%;font-size:11px;color:#fff;background:#999}
 .content-service-view .tbl-scroll{position:relative;overflow-x:auto;margin:0 0 15px}
+.content-service-view .img-scroll{position:relative;overflow-x:auto;-webkit-overflow-scrolling:touch;margin:10px 0;width:100%}
+.content-service-view .img-scroll img{max-width:none!important}
 .content-service-view table{border-collapse:collapse; width: 600px;}
 .content-service-view td,.content-service-view th{padding:7px;border:1px solid #ccc;text-align:center;vertical-align:middle;font-size:14px;line-height:1.6}
 .content-service-view .tbl-scroll td,.content-service-view .tbl-scroll th{white-space:nowrap}
 .content-service-view th{font-size:15px;font-weight:600;background:#ddd}
+@media screen and (max-width:768px){
+.content-service-view table[style*="width: 600px"]{width:100%!important}
+.content-service-view img{max-width:100%!important;height:auto!important}
+.content-service-view .img-scroll img,.content-service-view .tbl-scroll img{max-width:none!important;width:auto!important}
+}
 </style>
 </head>
 <body>
